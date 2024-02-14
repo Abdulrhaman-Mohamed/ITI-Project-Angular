@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard-admin.component.css'
 })
 export class DashboardAdminComponent {
-
+  bars(){
+    const sidebar = document.getElementById("sidebar-bars");
+    console.log(sidebar);
+    sidebar?.classList.toggle("show");
+    sidebar?.classList.toggle("transitsion");
+  }
 }
