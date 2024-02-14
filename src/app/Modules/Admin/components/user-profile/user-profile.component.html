@@ -12,9 +12,9 @@
                 </div>
                 <!-- Profile Text -->
                 <div>
-                    <h2 class="text-lg font-bold">Smith Row</h2>
-                    <p class="text-sm text-gray-600">Front-end Developer</p>
-                    <p class="text-sm text-gray-600">Cairo, Egypt</p>
+                    <h2 class="text-lg font-bold">{{user?.name}}</h2>
+                    <p class="text-sm text-gray-600">{{user?.occupation}}</p>
+                    <p class="text-sm text-gray-600">{{user?.location}}</p>
                 </div>
                 <!-- #endregion -->
             </div>
@@ -22,9 +22,7 @@
             <div class="mb-6">
                 <!-- #region -->
                 <h3 class="text-lg font-semibold">Bio</h3>
-                <p class="text-gray-600">Hi there! 👋 I'm Smith Row, a passionate front-end developer based in Cairo,
-                    Egypt.
-                </p>
+                <p class="text-gray-600">{{user?.bio}}</p>
                 <!-- #endregion -->
             </div>
             <!-- Personal Information -->
@@ -37,22 +35,23 @@
                 <div class="space-y-3">
                     <div>
                         <span class="text-gray-700 mr-2">Username:</span>
-                        <p class="text-gray-800 font-medium">danielk</p>
+                        <p class="text-gray-800 font-medium">{{user?.username}}</p>
                     </div>
                     <div>
                         <span class="text-gray-700 mr-2">Email:</span>
-                        <p class="text-gray-800 font-medium">danielk&#64;gmail.com</p>
+                        <p class="text-gray-800 font-medium">{{user?.email}}</p>
                     </div>
                     <div>
                         <span class="text-gray-700 mr-2">Phone:</span>
-                        <p class="text-gray-800 font-medium">0123456789</p>
+                        <p class="text-gray-800 font-medium">{{user?.phone}}</p>
                     </div>
                     <div>
                         <span class="text-gray-700 mr-2">Age:</span>
-                        <p class="text-gray-800 font-medium">33</p>
+                        <p class="text-gray-800 font-medium">{{user?.age}}</p>
                     </div>
 
-                    <button label="Submit" icon="pi pi-check"
+                    <button routerLink="/users/edit/{{user._id}}" routerLinkActive="text-white"
+                        [routerLinkActiveOptions]="{exact:true}" label="Submit" icon="pi pi-check"
                         class="mx-auto block border-2 border-[var(--primary-color)] text-[var(--primary-color)] px-8 py-2 rounded-full shadow-md hover:bg-[var(--primary-color)] hover:text-white focus:outline-none">
                         Edit <i class="pi pi-user-edit ms-3"></i>
                     </button>
@@ -71,7 +70,6 @@
                         type="text" name="" id="">
                     <i class="pi pi-search text-white bg-[var(--primary-color)] p-2 ml-3 rounded-full"></i>
                 </div>
-
 
                 <button class="text-[var(--text-color-secondary)]">
                     <i class="pi pi-filter-fill me-2"></i> <span

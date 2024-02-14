@@ -7,11 +7,12 @@ import { TableModule, TableService } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { UserProfileComponent } from './Modules/Admin/components/user-profile/user-profile.component';
+import { UsersComponent } from './Modules/Admin/components/users/users.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TableModule, FormsModule, CommonModule, ButtonModule, TagModule, RatingModule,
+  imports: [RouterOutlet, TableModule, FormsModule, CommonModule, ButtonModule, TagModule, RatingModule, UsersComponent,
     UserProfileComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
