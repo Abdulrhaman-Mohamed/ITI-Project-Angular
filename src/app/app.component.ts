@@ -6,11 +6,14 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule, TableService } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
+import { FooterComponent } from './Modules/Shared/footer/footer.component';
+import { HeaderComponent } from './Modules/Shared/header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,TableModule,FormsModule,CommonModule,ButtonModule,TagModule,RatingModule],
+  imports: [RouterOutlet,TableModule,FormsModule,CommonModule,ButtonModule,TagModule,RatingModule
+  ,FooterComponent,HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
