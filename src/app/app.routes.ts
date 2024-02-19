@@ -15,7 +15,8 @@ import { UserProfileComponent } from './Modules/Admin/components/user-profile/us
 
 export const routes: Routes = [
     {
-        path: "", component: AuthLayoutComponent, children:
+        path: "", component: AuthLayoutComponent,
+        children:
             [
                 { path: "login", component: LoginPageComponent, title: "Login" },
                 { path: "", redirectTo: "login", pathMatch: "full" },
@@ -23,10 +24,12 @@ export const routes: Routes = [
             ]
     },
     {
-        path: "dashboard", component: AdminDashMainLayoutComponent, children:
+        path: "dashboard", component: AdminDashMainLayoutComponent,
+        children:
             [
                 {
-                    path: "", component: AdminDashLayoutComponent, children:
+                    path: "", component: AdminDashLayoutComponent,
+                    children:
                         [
                             { path: "home", component: AdminDashHomeComponent, title: "Home" },
                             { path: "", redirectTo: "home", pathMatch: "full" },
@@ -36,9 +39,9 @@ export const routes: Routes = [
                             { path: "users/:id/edit", component: EditUserProfileComponent, title: "Edit profile" },
                         ]
                 },
-                {path:"blogs/:id",component:EditAddBlogComponent,title:"Blog"},
-                {path:"blogs/add",component:EditAddBlogComponent,title:"Blog"}
-                
+                { path: "blogs/:id", component: EditAddBlogComponent, title: "Blog" },
+                { path: "blogs/add", component: EditAddBlogComponent, title: "Blog" }
+
             ]
     },
     { path: "**", component: NotFoundComponent, title: "Not found" }
