@@ -36,7 +36,7 @@ export const routes: Routes = [
                             { path: "users", component: UsersComponent, title: "Users" },
                             { path: "blogs", component: BlogsComponent, title: "Blogs" },
                             { path: "users/:id", component: UserProfileComponent, title: "User profile" },
-                            { path: "users/:id/edit", component: EditUserProfileComponent, title: "Edit profile" },
+                            { path: "users/edit/:id", component: EditUserProfileComponent, title: "Edit profile" },
                         ]
                 },
                 { path: "blogs/:id", component: EditAddBlogComponent, title: "Blog" },
