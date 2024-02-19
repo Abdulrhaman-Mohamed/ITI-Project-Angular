@@ -1,19 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
-import { UserTable2Component } from './Admin/components/user-table2/user-table2.component';
-import { DashboardBodyComponent } from './Admin/components/dashboard-body/dashboard-body.component';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { TableModule, TableService } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
+    TableModule,
     FormsModule,
-    UserTable2Component,
     CommonModule,
-    DashboardBodyComponent,
+    ButtonModule,
+    TagModule,
+    RatingModule,
+    RouterModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

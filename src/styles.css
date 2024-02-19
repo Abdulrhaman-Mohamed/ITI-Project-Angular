@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 .p-rating .p-rating-item.p-rating-item-active .p-rating-icon
 {
