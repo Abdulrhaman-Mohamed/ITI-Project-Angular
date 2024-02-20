@@ -50,8 +50,9 @@
                         <p class="text-gray-800 font-medium">{{user?.age}}</p>
                     </div>
 
-                    <button routerLink="edit" routerLinkActive="text-white"
-                        [routerLinkActiveOptions]="{exact:true}" label="Submit" icon="pi pi-check"
+                    <button [routerLink]="_GoToService.page.DashAdminEditUserProfile + user._id"
+                        routerLinkActive="text-white" [routerLinkActiveOptions]="{exact:true}" label="Submit"
+                        icon="pi pi-check"
                         class="mx-auto block border-2 border-[var(--primary-color)] text-[var(--primary-color)] px-8 py-2 rounded-full shadow-md hover:bg-[var(--primary-color)] hover:text-white focus:outline-none">
                         Edit <i class="pi pi-user-edit ms-3"></i>
                     </button>

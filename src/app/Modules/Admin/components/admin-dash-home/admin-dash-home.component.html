@@ -1,1 +1,16 @@
-<p>admin-dash-home works!</p>
+<div class="grid grid-cols-2 gap-5 text-center px-5 my-5">
+    <div class="alert alert-dark" role="alert">
+        <span class="lead">Users counter</span>
+        <div class="alert alert-light w-fit mx-auto mt-3 px-10 text-3xl">
+            @if (usersCount) {{{usersCount}}}
+            @else { Waiting... }
+        </div>
+    </div>
+    <div class="alert alert-dark" role="alert">
+        <span class="lead">Blogs counter</span>
+        <div class="alert alert-light w-fit mx-auto mt-3 px-10 text-3xl">
+            @if (usersCount) {{{usersCount}}}
+            @else { Waiting... }
+        </div>
+    </div>
+</div>
