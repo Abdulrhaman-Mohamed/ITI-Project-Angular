@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { SearchPipe } from '../../../Shared/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { ShortTextPipe } from '../../../Shared/pipes/short-text.pipe';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     UserProfileComponent,
     CommonModule,
     SearchPipe,
-    FormsModule
+    FormsModule,
+    ShortTextPipe
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'

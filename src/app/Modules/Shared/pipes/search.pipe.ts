@@ -8,7 +8,9 @@ import { User } from '../interfaces/user';
 export class SearchPipe implements PipeTransform {
 
   transform(users: User[], searchTerm: string): User[] {
+
     return users.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()))
+
   }
 
 }
