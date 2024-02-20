@@ -58,6 +58,9 @@ export const routes: Routes = [
       },
       { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Blog' },
       { path: 'blogs/add', component: EditAddBlogComponent, title: 'Blog' },
+      {
+        path:"blogs/blogdetails/:id" ,component: BlogDetailsComponent
+      }
     ],
   },
   { path: 'user', component: BlogDetailsComponent },

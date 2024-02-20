@@ -10,6 +10,13 @@
                 </div>
             </div>
             <div class="w-75 m-auto mt-5 mb-3">
+                @if (coverType === "image") {
+                    <img src="https://firebasestorage.googleapis.com/v0/b/angularcloudfiles.appspot.com/o/yt%2F1701772371966.jpeg?alt=media&token=930859d0-0775-4d5b-b6e8-10f41b2f4ca5" class="img-fluid my-5" alt="">
+                }
+                @else if (coverType === "video") {
+                    <div [innerHTML]="sanitizeVideoUrl()" class=" w-100 "></div>
+                }
+                
                 <hr>
             </div>
             <p>

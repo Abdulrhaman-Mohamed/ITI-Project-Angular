@@ -9,3 +9,8 @@
 {
     color: yellow;
 }
+
+.p-editor-container .p-editor-content .ql-editor
+{
+  min-height: 300px;
+}

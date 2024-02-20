@@ -1,12 +1,15 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component,  OnInit } from '@angular/core';
-import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
-import {  getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
-import {Storage} from "@angular/fire/storage";
+import { getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
+import { Storage } from "@angular/fire/storage";
 import { MessagesModule } from 'primeng/messages';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ContentExtractConverter } from '../../services/content-exracter-embedd.service';
+import { ActivatedRoute } from '@angular/router';
+import { BlogService } from '../../services/blog.service';
 
 
 
@@ -23,18 +26,22 @@ import { ToastModule } from 'primeng/toast';
     MessagesModule,
     ToastModule
   ],
-  providers:[MessageService],
+  providers: [
+    MessageService,
+    ContentExtractConverter,
+    BlogService
+  ],
   templateUrl: './edit-add-blog.component.html',
   styleUrl: './edit-add-blog.component.css'
 })
-export class EditAddBlogComponent implements OnInit  {
-  EditoRCreate:string="Create";
-  buttonPublishOrUpdateBlog:string="Publish";
-  titleBlog:string="";
-  bodyBlog:string="";
-  mode:string="";
-  coverimage:any="";
-  coverimageURL:string="";
+export class EditAddBlogComponent implements OnInit {
+  EditoRCreate: string = "Create";
+  buttonPublishOrUpdateBlog: string = "Publish";
+  titleBlog: string = "";
+  bodyBlog: string = "";
+  coverimage: any = "";
+  coverimageURL: string = "";
+  UpdateORAdd:any;
 
 
   maxLength = 500;
@@ -42,50 +49,66 @@ export class EditAddBlogComponent implements OnInit  {
   htmlTagRegex = /<[^>]+>/g;
   // Regex for can get element tag from content 
   imgRegex = /<img[^>]+src="data:image\/(jpeg|png);base64,([^"]+)">/g;
-  urls:string[]= [];
+  urls: string[] = [];
 
-  
+
   // inject Firestorage for firebase 
-  constructor(private fireStorage:Storage , private messageService: MessageService){}
+  constructor(
+    private fireStorage: Storage,
+    private messageService: MessageService ,
+    private ContentExtractConverter:ContentExtractConverter ,
+    private _myActivatedRoute:ActivatedRoute,
+    private BlogServices:BlogService
+   ) { }
 
-  messages: any;
+  ngOnInit(): void {
+    const param = this._myActivatedRoute.snapshot.params['id'];
+    if(param !== "add")
+    {
+      this.EditoRCreate ="Edit";
+      this.buttonPublishOrUpdateBlog = "Update";
+      this.BlogServices.API_Connection = "URL of Request";
 
-  OnInit() {
+      // Get Blog by id service and and add it in body
 
-}
+      //Method to know what should i will do on submit Button here i will put Update Services
+      this.UpdateORAdd = this.BlogServices.UpdateBlog;
+    }
+    else
+      this.UpdateORAdd = this.BlogServices.addBlog;
+
+    
+  }
+
+
 
   // return count of images 
   countCharacterLength(content: string): number {
-    if(!content)
-    return 0;
+    if (!content)
+      return 0;
 
     return content.replace(this.htmlTagRegex, '').length;
   }
 
   //return count of character of content
-  countImg(content: string):number
-  {
-    if(!content)
-    return 0;
+  countImg(content: string): number {
+    if (!content)
+      return 0;
 
     const regex = /<img/gi;
     return (content.match(regex) || []).length;
   }
 
-  ngOnInit() {
-  }
+
 
   //Validation Function for content that are inserted 
-  validateContent(): boolean
-  {
-    if(this.countImg(this.bodyBlog)>3)
-    {
+  validateContent(): boolean {
+    if (this.countImg(this.bodyBlog) > 3) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Must be lessthan 3 images in Content' });
       return false;
     }
 
-    if(this.countCharacterLength(this.bodyBlog) > 500)
-    {
+    if (this.countCharacterLength(this.bodyBlog) > 500) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Content length exceeds 500 characters. Please shorten your content' });
       return false;
     }
@@ -93,9 +116,8 @@ export class EditAddBlogComponent implements OnInit  {
     return true;
   }
 
-  validateHeaderImage(data:any):boolean
-  {
-    
+  validateHeaderImage(data: any): boolean {
+
     // Check type
     switch (data.type) {
       case "image/jpeg":
@@ -121,37 +143,50 @@ export class EditAddBlogComponent implements OnInit  {
 
   }
 
-
-  //Getting Base64 image from body then convert it to file using base64File
-  exractImage(){
-    const imgRegex = /<img[^>]+src="data:image\/(jpeg|png);base64,([^"]+)">/g;
-    const matches = this.bodyBlog.matchAll(imgRegex);
-    let file: File[] = []; 
-    for (const match of matches) {
-      let base64Data = match[2];
-      const filename = `image${Date.now()}.${match[1]}`; 
-      file.push(this.base64ToFile(base64Data,filename,`image/${match[1]}`));
-    }
-    return file;
-  }
-
-
-  // Convert Base64 to file type to can upload it 
-  base64ToFile(base64Data: string, filename: string, contentType: string): File {
-
-    // Convert base64 data to Blob
-    const byteCharacters = atob(base64Data);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: contentType });
+    //For test that can't upload any thing  validation for can't upload any thing (for cover image or video)
+    changeFile(data: any) {
+      if (this.validateHeaderImage(data.target.files[0])) {
+        this.coverimage = data.target.files[0];
+      } else {
+        data.target.value = null;
   
-    // Construct File object from Blob
-    const file = new File([blob], filename, { type: contentType });
-    return file;
-  }
+      }
+  
+  
+    }
+
+  //#region  content proccess
+  // //Getting Base64 image from body then convert it to file using base64File
+  // exractImage() {
+  //   const matches = this.bodyBlog.matchAll(this.imgRegex);
+  //   let file: File[] = [];
+  //   for (const match of matches) {
+  //     let base64Data = match[2];
+  //     const filename = `image${Date.now()}.${match[1]}`;
+  //     file.push(this.base64ToFile(base64Data, filename, `image/${match[1]}`));
+  //   }
+  //   return file;
+  // }
+
+
+  // // Convert Base64 to file type to can upload it 
+  // base64ToFile(base64Data: string, filename: string, contentType: string): File {
+
+  //   // Convert base64 data to Blob
+  //   const byteCharacters = atob(base64Data);
+  //   const byteNumbers = new Array(byteCharacters.length);
+  //   for (let i = 0; i < byteCharacters.length; i++) {
+  //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //   }
+  //   const byteArray = new Uint8Array(byteNumbers);
+  //   const blob = new Blob([byteArray], { type: contentType });
+
+  //   // Construct File object from Blob
+  //   const file = new File([blob], filename, { type: contentType });
+  //   return file;
+  // }
+
+  //#endregion
 
   // For upload images to firebase 
   //#region
@@ -166,13 +201,13 @@ export class EditAddBlogComponent implements OnInit  {
   //       const storageRef = ref(this.fireStorage, path);
   //       const uploaded = await uploadBytes(storageRef, _file);
   //       const downloadUrl = await getDownloadURL(uploaded.ref);
-        
+
   //       urls.push(downloadUrl);
   //       console.log(downloadUrl);
   //     }
   //   })).then(()=>
   //   {
-      
+
   //     let currentIndex = 0;
   //     this.bodyBlog = this.bodyBlog.replace(this.imgRegex, (match, group1) => {
   //       const url = urls[currentIndex];
@@ -180,20 +215,15 @@ export class EditAddBlogComponent implements OnInit  {
   //       return `<img src="${url}">`;
   //     });
   //   });
-  
-  // }
-  //#endregion
-
-  async onSubmit(){
-
-    if(this.validateContent())
-    {
-      try
-      {
-        let file = this.exractImage();
+  async onSubmit() {
+    // console.log(this.UpdateORAdd());
+    
+    if (this.validateContent()) {
+      try {
+        let file = this.ContentExtractConverter.exractImage(this.bodyBlog);
 
         console.log(file);
-        
+
         for (let i = 0; i < file.length; i++) {
           const _file = file[i];
           if (_file) {
@@ -203,59 +233,47 @@ export class EditAddBlogComponent implements OnInit  {
             const downloadUrl = await getDownloadURL(uploaded.ref);
             this.urls.push(downloadUrl);
             console.log(downloadUrl);
-            
+
             // Replace corresponding URL in bodyBlog
-            
+
           }
         }
-     this.replaceImageInBodyBlog();
+        this.replaceImageInBodyBlog();
 
-     if(this.coverimage)
-     {
-       await this.uploadFiletoFirebase(this.coverimage);
-     }
-     {
-
-     }
+        if (this.coverimage) await this.uploadFiletoFirebase(this.coverimage);
       }
-      catch(err)
-      {
-        throw err;
+      catch (err) {
+        console.error(err);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while submitting the blog. Please try again later.' });
       }
 
     }
 
   }
-  
-  replaceImageInBodyBlog()  {
+  // }
+  //#endregion
+
+
+
+  replaceImageInBodyBlog() {
     let currentIndex = 0;
-        this.bodyBlog = this.bodyBlog.replace(this.imgRegex, (match, group1) => {
-          const url = this.urls[currentIndex];
-          currentIndex++;
-          return `<img src="${url}">`;
-        });
+    this.bodyBlog = this.bodyBlog.replace(this.imgRegex, (match, group1) => {
+      const url = this.urls[currentIndex];
+      currentIndex++;
+      return `<img src="${url}">`;
+    });
   }
 
-// For upload cover image to firebase
-  async uploadFiletoFirebase(data:any){ 
+  // For upload cover image to firebase
+  async uploadFiletoFirebase(data: any) {
     const path = `yt/${data.name}`;
     const storageRef = ref(this.fireStorage, path);
     const uploaded = await uploadBytes(storageRef, data);
     const downloadUrl = await getDownloadURL(uploaded.ref);
     this.coverimageURL = downloadUrl;
   }
-  
-  //For test that can upload any thing 
-  async changeFile(data:any){
-    if (this.validateHeaderImage(data.target.files[0])) {
-      this.coverimage = data.target.files[0];
-    } else {
-      data.target.value = null;
 
-    }
-    
-    
-  }
+
 
 
 
