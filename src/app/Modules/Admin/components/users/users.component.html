@@ -2,6 +2,11 @@
     <div class="container ">
         <div class="row ">
             <div class="col-md-12 pt-2 mx-auto ">
+
+                <div>
+                    <input class="form-control my-4 w-25 mx-auto" placeholder="Search..." type="search" name="search"
+                        id="search" [(ngModel)]="searchTerm">
+                </div>
                 @if (!users) {
                 <i class="pi pi-spin pi-spinner text-5xl"></i>
                 }@else {
@@ -16,7 +21,7 @@
                             <th>Details</th>
                         </tr>
 
-                        @for (user of users.slice(0,10); track $index) {
+                        @for (user of users | search:searchTerm ; track $index) {
                         <tr class="py-5">
                             <td>{{$index +1}}</td>
                             <td>{{user._id}}</td>

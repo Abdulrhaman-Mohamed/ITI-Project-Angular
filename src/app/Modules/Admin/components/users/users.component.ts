@@ -1,10 +1,12 @@
 import { User } from './../../../Shared/interfaces/user';
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { RouterModule } from '@angular/router';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { SearchPipe } from '../../../Shared/pipes/search.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -12,16 +14,21 @@ import { CommonModule } from '@angular/common';
   imports: [
     RouterModule,
     UserProfileComponent,
-    CommonModule
+    CommonModule,
+    SearchPipe,
+    FormsModule
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit, OnDestroy {
 
+  searchTerm: string;
   users!: User[];
   private _observableUsers!: Observable<any>;
-  constructor(private _UserService: UserService) { }
+  constructor(private _UserService: UserService) {
+    this.searchTerm = '';
+  }
 
   ngOnInit(): void {
     // * get users list from user service
