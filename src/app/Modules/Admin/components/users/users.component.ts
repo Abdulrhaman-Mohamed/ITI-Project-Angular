@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { RouterModule } from '@angular/router';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-users',
@@ -11,6 +12,7 @@ import { Observable } from 'rxjs';
   imports: [
     RouterModule,
     UserProfileComponent,
+    CommonModule
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'

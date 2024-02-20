@@ -5,6 +5,7 @@ import { UsersComponent } from '../../Admin/components/users/users.component';
 import { BlogsComponent } from '../../Admin/components/blogs/blogs.component';
 import { EditUserProfileComponent } from '../../Admin/components/edit-user-profile/edit-user-profile.component';
 import { UserProfileComponent } from '../../Admin/components/user-profile/user-profile.component';
+import { DashboardAdminComponent } from '../../Shared/Components/dashboard-admin/dashboard-admin.component';
 
 @Component({
   selector: 'app-admin-dash-layout',
@@ -15,8 +16,9 @@ import { UserProfileComponent } from '../../Admin/components/user-profile/user-p
   UsersComponent,
   BlogsComponent,
   UserProfileComponent,
-  EditUserProfileComponent  
-  ],
+  EditUserProfileComponent,
+    DashboardAdminComponent
+],
   templateUrl: './admin-dash-layout.component.html',
   styleUrl: './admin-dash-layout.component.css'
 })

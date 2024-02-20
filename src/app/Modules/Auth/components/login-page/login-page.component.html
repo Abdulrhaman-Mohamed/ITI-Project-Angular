@@ -1,15 +1,4 @@
-<!-- <p><span class="bg-yellow-300">login</span>-page works!</p>
-don't have? => <a routerLink="/registration">Sign Up</a>
-<br>
-<a routerLink="/dashboard">Submit</a> -->
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div class="login d-flex justify-content-center align-items-center">
+<div class="login d-flex justify-content-center align-items-center container">
     <div class="container ">
         <div class="row  justify-content-center justify-content-md-around">
             <div
@@ -430,7 +419,7 @@ don't have? => <a routerLink="/registration">Sign Up</a>
                 </div>
             </div>
             <div class="col-sm-12 col-md-5 d-flex  flex-column  rounded-3" style="background-color: #9a3333;">
-                <form [formGroup]="myForm">
+                <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
                     <div class="pb-3 text-center" style=" font-weight: bold; padding: 35px 0 0 ;">
                         <h2 style="color: #dedede;font-size: 35px;">Welcome Back,</h2>
                         <h5 style="color: #dedede;font-size: 15px;">Please Login To Continue..</h5>
@@ -438,34 +427,42 @@ don't have? => <a routerLink="/registration">Sign Up</a>
                     <div class="d-flex align-items-center flex-column">
                         <div class="row g-3 align-items-center m-auto w-100">
                             <div class="col-auto pt-2 pb-2 w-75 m-auto">
-                                <input formControlName="email" type="Email" class="form-control w-100"
-                                    placeholder="Email">
-                                @if (EmailValid) {
+                                <!-- * email input -->
+                                <input formControlName={{formControlsNames.email}} type="Email"
+                                    class="form-control w-100" placeholder="Email">
+                                <!-- ~ input feedback -->
+                                @if (loginForm.get(formControlsNames.email)?.errors &&
+                                loginForm.get(formControlsNames.email)?.touched) {
+                                <!-- #region -->
+
                                 <div style="color:#FBFBFB;">
-                                    <p>*Email Required</p>
+                                    @if (loginForm.get(formControlsNames.email)?.getError('required'))
+                                    { <p> *Email is Required</p> }
+                                    @if (loginForm.get(formControlsNames.email)?.getError('pattern'))
+                                    { <p> Please Enter Valid Email </p> }
                                 </div>
-                                }
-                                @if (EmailValidEmail) {
-                                <div style="color: #FBFBFB;">
-                                    <p>Please Enter Valid Email</p>
-                                </div>
+                                <!-- #endregion -->
                                 }
                             </div>
                         </div>
                         <div class="row g-3 align-items-center m-auto w-100">
                             <div class="col-auto pt-2 pb-2 m-auto w-75">
-                                <input formControlName="password" type="password" class="form-control"
-                                    placeholder="password">
-                                @if (PasswordValid) {
+                                <!-- * password input -->
+                                <input formControlName={{formControlsNames.password}} type="password"
+                                    class="form-control" placeholder="password">
+                                <!-- ~ input feedback -->
+                                @if (loginForm.get(formControlsNames.password)?.errors &&
+                                loginForm.get(formControlsNames.password)?.touched) {
+                                <!-- #region -->
+
                                 <div style="color:#FBFBFB;">
-                                    <p>*Password Required</p>
+                                    @if (loginForm.get(formControlsNames.password)?.getError('required'))
+                                    { <p>*Password Required</p> }
+                                    @if (loginForm.get(formControlsNames.password)?.getError('pattern'))
+                                    { <p>Minimum 8 characters, at least one uppercase letter, one lowercase letter and
+                                        one number</p> }
                                 </div>
-                                }
-                                @if (PasswordValidRegex) {
-                                <div style="color: #FBFBFB;">
-                                    <p>Minimum 8 characters, at least one uppercase letter, one lowercase letter and one
-                                        number</p>
-                                </div>
+                                <!-- #endregion -->
                                 }
                             </div>
                         </div>
@@ -478,14 +475,13 @@ don't have? => <a routerLink="/registration">Sign Up</a>
                     </div>
                     <br>
                     <div class=" d-flex align-items-center flex-column">
-                        <button [routerLink]="['/dashboard']" routerLinkActive="router-link-active"
-                            class=" btn w-50 text-center "
-                            style="background-color: #203947; color: white; height: 40px;" type="button"
-                            (click)="onSubmit()">Login</button>
+                        <button class=" btn w-50 text-center "
+                            style="background-color: #203947; color: white; height: 40px;">Login</button>
+                        <p-messages></p-messages>
                         <br>
                         <hr style="height: 5px; background-color: #ffffff; width: 70%; border-radius:5px;">
                         <br>
-                        <button [routerLink]="['/registration']" routerLinkActive="router-link-active"
+                        <button [routerLink]="[_GoToService.page.register]" routerLinkActive="router-link-active"
                             class=" btn w-50 text-center" style="background-color: white; color: 203947; height: 40px;"
                             type="submit">Register</button>
                         <p style="color: #dedede; margin-top: 10px;">Or SignIn With</p>

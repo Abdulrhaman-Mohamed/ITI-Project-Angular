@@ -13,47 +13,42 @@ import { AdminDashMainLayoutComponent } from './Modules/layouts/admin-dash-main-
 import { EditAddBlogComponent } from './Modules/Shared/Components/edit-add-blog/edit-add-blog.component';
 import { UserProfileComponent } from './Modules/Admin/components/user-profile/user-profile.component';
 import { BlogDetailsComponent } from './Modules/User/components/blog-details/blog-details.component';
+import { authGuard } from './Modules/Core/auth.guard';
+import { BlogCardComponent } from './Modules/User/components/blog-card/blog-card.component';
+
+export interface PagesNames {
+    login: '/login',
+    register: '/registration',
+    DashAdminHome: '/dashboard/home',
+    DashAdminUsers: '/dashboard/users',
+    DashAdminBlogs: '/dashboard/blogs',
+    DashAdminUserProfile: '/dashboard/users/',
+    DashAdminEditUserProfile: '/dashboard/users/edit/',
+    DashAdminEditBlog: '/dashboard/blogs/',
+    DashAdminAddBlog: '/dashboard/blogs/add',
+}
 
 export const routes: Routes = [
     {
-        path: '',
-        component: AuthLayoutComponent,
+        path: '', component: AuthLayoutComponent,
         children: [
             { path: 'login', component: LoginPageComponent, title: 'Login' },
             { path: '', redirectTo: 'login', pathMatch: 'full' },
-            {
-                path: 'registration',
-                component: RegisterPageComponent,
-                title: 'Registration',
-            },
+            { path: 'registration', component: RegisterPageComponent, title: 'Registration' },
         ],
     },
     {
-        path: 'dashboard',
-        component: AdminDashMainLayoutComponent,
+        path: 'dashboard', component: AdminDashMainLayoutComponent, canActivate: [authGuard],
         children: [
             {
-                path: '',
-                component: AdminDashLayoutComponent,
+                path: '', component: AdminDashLayoutComponent,
                 children: [
                     { path: 'home', component: AdminDashHomeComponent, title: 'Home' },
                     { path: '', redirectTo: 'home', pathMatch: 'full' },
                     { path: 'users', component: UsersComponent, title: 'Users' },
-                    {
-                        path: 'blogs',
-                        component: BlogsComponent,
-                        title: 'Blogs',
-                    },
-                    {
-                        path: 'users/:id',
-                        component: UserProfileComponent,
-                        title: 'User profile',
-                    },
-                    {
-                        path: 'users/:id/edit',
-                        component: EditUserProfileComponent,
-                        title: 'Edit profile',
-                    },
+                    { path: 'blogs', component: BlogsComponent, title: 'Blogs' },
+                    { path: 'users/:id', component: UserProfileComponent, title: 'User profile' },
+                    { path: 'users/edit/:id', component: EditUserProfileComponent, title: 'Edit profile' },
                 ],
             },
             { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Blog' },
@@ -61,5 +56,6 @@ export const routes: Routes = [
         ],
     },
     { path: 'user', component: BlogDetailsComponent },
+    { path: 'userTEST', component: BlogCardComponent },
     { path: '**', component: NotFoundComponent, title: 'Not found' },
 ];

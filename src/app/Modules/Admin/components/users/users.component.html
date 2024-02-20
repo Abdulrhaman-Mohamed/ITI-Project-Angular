@@ -2,6 +2,9 @@
     <div class="container ">
         <div class="row ">
             <div class="col-md-12 pt-2 mx-auto ">
+                @if (!users) {
+                <i class="pi pi-spin pi-spinner text-5xl"></i>
+                }@else {
                 <table class="table table-bordered text-center table-light table-striped">
                     <thead>
                         <tr>
@@ -12,7 +15,8 @@
                             <th>Country</th>
                             <th>Details</th>
                         </tr>
-                        @for (user of users?.slice(0,10); track $index) {
+
+                        @for (user of users.slice(0,10); track $index) {
                         <tr class="py-5">
                             <td>{{$index +1}}</td>
                             <td>{{user._id}}</td>
@@ -32,6 +36,8 @@
 
                     </thead>
                 </table>
+                }
+
             </div>
         </div>
     </div>
