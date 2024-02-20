@@ -1,4 +1,4 @@
-<div class="registertion d-flex justify-content-center align-items-center">
+<div class="registertion d-flex justify-content-center align-items-center container">
     <div class="container">
         <div class="row justify-content-center justify-content-md-around">
             <div
@@ -697,118 +697,99 @@
                         <h2 style="color: #dedede;font-size: 35px;">Registertion Form</h2>
                         <h5 style="color: #dedede;font-size: 15px;">Please Create Account To Continue..</h5>
                     </div>
-                    <!-- ! ------------------------------------------ -->
-                    <!-- <form [formGroup]="myForm" class="d-flex align-items-center flex-column"> -->
-                    <form (ngSubmit)="onSubmit()" [formGroup]="myForm" class="d-flex align-items-center flex-column">
-                        <!-- ! ------------------------------------------ -->
-
+                    <form (ngSubmit)="onRegister()" [formGroup]="registerForm"
+                        class="d-flex align-items-center flex-column">
                         <div class="row g-3 align-items-center m-auto w-100">
-
-
-
                             <div class="col-auto pt-2 pb-2 m-auto w-75">
-
-
-
-                                <input formControlName={{FormControlsNames.firstName}} type="text" class="form-control"
+                                <!-- * firstName input -->
+                                <input formControlName={{formControlsNames.firstName}} type="text" class="form-control"
                                     placeholder="First Name">
-
-
-                                <!-- @if (NameValid) {
-                <div style="color: #FBFBFB;">
-                  <p>*First Name is Required</p>
-                </div>
-                } 
-              
-              @if (NameValidMin) {
-                <div style="color: #FBFBFB;">
-                  <p>Name Must Be 3 Char</p>
-                </div>
-                }
-              -->
-
-                                <!-- ! --------------------------dirty vs touched---------------- -->
-                                @if (myForm.get(FormControlsNames.firstName)?.errors &&
-                                myForm.get(FormControlsNames.firstName)?.touched) {
-
-                                <div class="alert alert-danger mt-2">
-                                    @if (myForm.get(FormControlsNames.firstName)?.getError('required')) { <p>*First Name
-                                        is Required</p> }
-
-                                    @if (myForm.get(FormControlsNames.firstName)?.getError('minlength')) { <p>Name Must
-                                        Be 3 Char</p> }
-                                </div>
-
-                                }
-                                <!-- ! ------------------------------------------ -->
-
-                            </div>
-                        </div>
-                        <div class="row g-3 align-items-center m-auto w-100">
-                            <div class="col-auto pt-2 pb-2 m-auto w-75">
-                                <input formControlName="lastName" type="text" class="form-control w-100"
-                                    placeholder="Last Name">
-                                @if (lastNameValid) {
-                                <div style="color: #FBFBFB;">
-                                    <p>*Last Name is Required</p>
-                                </div>
-                                }
-                                @if (lastNameValidmin) {
-                                <div style="color: #FBFBFB;">
-                                    <p>Name Must Be 3 Char</p>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        <div class="row g-3 align-items-center m-auto w-100">
-                            <div class="col-auto pt-2 pb-2 m-auto w-75">
-                                <input formControlName="email" type="Email" class="form-control w-100"
-                                    placeholder="Email">
-                                @if (EmailValid) {
+                                <!-- ~ input feedback -->
+                                @if (registerForm.get(formControlsNames.firstName)?.errors &&
+                                registerForm.get(formControlsNames.firstName)?.touched) {
+                                <!-- #region -->
                                 <div style="color:#FBFBFB;">
-                                    <p>*Email Required</p>
+                                    @if (registerForm.get(formControlsNames.firstName)?.getError('required'))
+                                    { <p> *First Name is Required</p> }
+                                    @if (registerForm.get(formControlsNames.firstName)?.getError('minlength'))
+                                    { <p>Name Must Be 3 Char</p> }
                                 </div>
-                                }
-                                @if (EmailValidEmail) {
-                                <div style="color: #FBFBFB;">
-                                    <p>Please Enter Valid Email</p>
-                                </div>
+                                <!-- #endregion -->
                                 }
                             </div>
                         </div>
                         <div class="row g-3 align-items-center m-auto w-100">
                             <div class="col-auto pt-2 pb-2 m-auto w-75">
-                                <input formControlName="password" type="password" class="form-control"
-                                    placeholder="password">
-                                @if (PasswordValid) {
+                                <!-- * lastName input -->
+                                <input formControlName={{formControlsNames.lastName}} type="text"
+                                    class="form-control w-100" placeholder="Last Name">
+                                <!-- ~ input feedback -->
+                                @if (registerForm.get(formControlsNames.lastName)?.errors &&
+                                registerForm.get(formControlsNames.lastName)?.touched) {
+                                <!-- #region -->
+
                                 <div style="color:#FBFBFB;">
-                                    <p>*Password Required</p>
+                                    @if (registerForm.get(formControlsNames.lastName)?.getError('required'))
+                                    { <p> *Last Name is Required</p> }
+                                    @if (registerForm.get(formControlsNames.lastName)?.getError('minlength'))
+                                    { <p>Name Must Be 3 Char</p> }
                                 </div>
+                                <!-- #endregion -->
                                 }
-                                @if (PasswordValidRegex) {
-                                <div style="color: #FBFBFB;">
-                                    <p>Minimum 8 characters, at least one uppercase letter, one lowercase letter and one
-                                        number</p>
+                            </div>
+                        </div>
+                        <div class="row g-3 align-items-center m-auto w-100">
+                            <div class="col-auto pt-2 pb-2 m-auto w-75">
+                                <!-- * email input -->
+                                <input formControlName={{formControlsNames.email}} type="Email"
+                                    class="form-control w-100" placeholder="Email">
+                                <!-- ~ input feedback -->
+                                @if (registerForm.get(formControlsNames.email)?.errors &&
+                                registerForm.get(formControlsNames.email)?.touched) {
+                                <!-- #region -->
+
+                                <div style="color:#FBFBFB;">
+                                    @if (registerForm.get(formControlsNames.email)?.getError('required'))
+                                    { <p> *Email is Required</p> }
+                                    @if (registerForm.get(formControlsNames.email)?.getError('pattern'))
+                                    { <p> Please Enter Valid Email </p> }
                                 </div>
+                                <!-- #endregion -->
+                                }
+                            </div>
+                        </div>
+                        <div class="row g-3 align-items-center m-auto w-100">
+                            <div class="col-auto pt-2 pb-2 m-auto w-75">
+                                <!-- * password input -->
+                                <input formControlName={{formControlsNames.password}} type="password"
+                                    class="form-control" placeholder="password">
+                                <!-- ~ input feedback -->
+                                @if (registerForm.get(formControlsNames.password)?.errors &&
+                                registerForm.get(formControlsNames.password)?.touched) {
+                                <!-- #region -->
+
+                                <div style="color:#FBFBFB;">
+                                    @if (registerForm.get(formControlsNames.password)?.getError('required'))
+                                    { <p>*Password Required</p> }
+                                    @if (registerForm.get(formControlsNames.password)?.getError('pattern'))
+                                    { <p>Minimum 8 characters, at least one uppercase letter, one lowercase letter and
+                                        one number</p> }
+                                </div>
+                                <!-- #endregion -->
                                 }
                             </div>
                         </div>
 
-                        <!-- ! -------------------------نقلته داخل الفورم----------------- -->
-                        <!-- <button class=" btn w-50 text-center " style="background-color: #203947; color: white; height: 40px;"
-                            type="button" (click)="onSubmit()">Create Account</button> -->
-
-                        <button [disabled]="myForm.invalid" class=" btn w-50 text-center "
+                        <button [disabled]="registerForm.invalid" class=" btn w-50 text-center "
                             style="background-color: #203947; color: white; height: 40px;">Create
 
-                            Account <i *ngIf="isLoading">loading...</i> </button>
-
+                            Account <i *ngIf="isLoading" class="pi pi-spin pi-spinner"></i> </button>
+                        <p *ngIf="isExistedUser" class="text-white">{{msgError}} <button class="link font-bold"
+                                [routerLink]="[_GoToService.page.login]" routerLinkActive="router-link-active">Login
+                            </button> </p>
                         <p-toast></p-toast>
-                        <p>Error</p>
 
-                        <!-- @if (msgError) {
-            } -->
-                        <!-- ! ------------------------------------------ -->
+
 
                     </form>
 
@@ -826,7 +807,7 @@
                         <br>
                         <hr style="height: 5px; background-color: #ffffff; width: 70%; border-radius:5px;">
                         <br>
-                        <button [routerLink]="['/login']" routerLinkActive="router-link-active"
+                        <button [routerLink]="[_GoToService.page.register]" routerLinkActive="router-link-active"
                             class=" btn w-50 text-center" style="background-color: white; color: 203947; height: 40px;"
                             type="button">Register With</button>
                         <div class="d-flex mt-3 gap-5 mb-4  text-center">

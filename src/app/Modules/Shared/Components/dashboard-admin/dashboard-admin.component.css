@@ -1,104 +1,123 @@
-.admin-dashborad-header-bg{
+.admin-dashborad-header-bg {
     height: 80px;
     background-color: #DEDEDE;
 }
 
-#stprojname{
+#stprojname {
     color: #9a3333;
-font-weight: bold;
-font-size: 2rem;
+    font-weight: bold;
+    font-size: 2rem;
 }
-#ndprojname{
-    font-size: 30px; 
+
+#ndprojname {
+    font-size: 30px;
     color: black;
 }
 
 
-.admin-dashborad-header_image img{
+.admin-dashborad-header_image img {
     width: 60px;
     height: 60px;
     border-radius: 60px;
 }
-.admin-dashborad-header_image_icon i{
+
+.admin-dashborad-header_image_icon i {
     font-size: 30px;
 }
-.admin-dashborad-header_menu div i{
+
+.admin-dashborad-header_menu div i {
     font-size: 50px;
 }
 
-.sidebar{
+.sidebar {
     background-color: #DEDEDE;
-    height:610px;
-}
-.sidebar-bars{
-    display: none;
-}
-.show{
-    display:block;
+    /* ! < !-- !-------------------------col-------------------- --> */
+    /* height: 610px; */
 }
 
-.transitsion{
+.sidebar-bars {
+    /* ! < !-- !-------------------------col-------------------- --> */
+    /* display: none; */
+}
+
+.show {
+    display: block;
+}
+
+.transitsion {
     transition: all .8s ease-in-out;
 }
+
 .row {
-    --bs-gutter-x: 0; 
+    --bs-gutter-x: 0;
 }
 
-.sidebar_p{
+.sidebar_p {
     font-size: 24px;
     font-weight: 600;
 }
 
-.sidebar-nav:hover{
+.sidebar-nav:hover {
     width: 100%;
     background-color: #FAFAFA;
     color: #9a3333;
 }
-.sidebar-all-icons{
+
+.sidebar-all-icons {
     margin-top: 25vh;
 }
 
-@media (max-width:400px){
+@media (max-width:400px) {
     .sidebar-nav i {
-        font-size:30px;
+        font-size: 30px;
         margin-right: 50px;
     }
-    .sidebar_p{
-        font-size:0px; 
+
+    .sidebar_p {
+        font-size: 0px;
     }
 
-   .sidebar{
+    .sidebar {
         background-color: transparent;
     }
-    #bars i{
-        font-size: 25px; 
-    }
-    .admin-dashborad-header_image_icon i{
+
+    #bars i {
         font-size: 25px;
     }
-    #stprojname{
-    font-size: 25px;
+
+    .admin-dashborad-header_image_icon i {
+        font-size: 25px;
     }
-    #ndprojname{
-        font-size: 25px;     
+
+    #stprojname {
+        font-size: 25px;
+    }
+
+    #ndprojname {
+        font-size: 25px;
+    }
 }
-}
-@media (max-width:300px){
-    #sidebar-bars{
+
+@media (max-width:300px) {
+    #sidebar-bars {
         background-color: transparent;
     }
-    #bars i{
-        font-size: 15px; 
-    }
-    .admin-dashborad-header_image_icon i{
+
+    #bars i {
         font-size: 15px;
     }
-    #stprojname{
-    font-size: 15px;
+
+    .admin-dashborad-header_image_icon i {
+        font-size: 15px;
     }
-    #ndprojname{
-        font-size: 15px;     
-}
+
+    #stprojname {
+        font-size: 15px;
+    }
+
+    #ndprojname {
+        font-size: 15px;
+    }
 }
 
 /* .a-pics {
@@ -125,5 +144,3 @@ font-size: 2rem;
     opacity: 1;
     top: 0
 } */
-
-
