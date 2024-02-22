@@ -30,6 +30,10 @@
           " (change)="changeFile($event)"/>
         </label>
   </div>
+  <div class=" w-75 m-auto d-flex flex-column pt-5 gap-1">
+    <label for="selectedCategory" class=" fw-medium">Select a Category</label>
+    <p-dropdown   [options]="categories" [(ngModel)]="selectedCategory"  [showClear]="true" placeholder="Select a Catergory" class=" w-100 border rounded  rounded-2 "></p-dropdown>
+  </div>
   <div class="pt-5">
       <p-editor [(ngModel)]="bodyBlog">
       </p-editor>
@@ -60,4 +64,5 @@
       </div>
   </div>
   <p-toast></p-toast>
+
 </div>

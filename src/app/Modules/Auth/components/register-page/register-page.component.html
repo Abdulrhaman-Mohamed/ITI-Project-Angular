@@ -701,17 +701,17 @@
                         class="d-flex align-items-center flex-column">
                         <div class="row g-3 align-items-center m-auto w-100">
                             <div class="col-auto pt-2 pb-2 m-auto w-75">
-                                <!-- * firstName input -->
-                                <input formControlName={{formControlsNames.firstName}} type="text" class="form-control"
+                                <!-- * firstname input -->
+                                <input formControlName={{formControlsNames.firstname}} type="text" class="form-control"
                                     placeholder="First Name">
                                 <!-- ~ input feedback -->
-                                @if (registerForm.get(formControlsNames.firstName)?.errors &&
-                                registerForm.get(formControlsNames.firstName)?.touched) {
+                                @if (registerForm.get(formControlsNames.firstname)?.errors &&
+                                registerForm.get(formControlsNames.firstname)?.touched) {
                                 <!-- #region -->
                                 <div style="color:#FBFBFB;">
-                                    @if (registerForm.get(formControlsNames.firstName)?.getError('required'))
+                                    @if (registerForm.get(formControlsNames.firstname)?.getError('required'))
                                     { <p> *First Name is Required</p> }
-                                    @if (registerForm.get(formControlsNames.firstName)?.getError('minlength'))
+                                    @if (registerForm.get(formControlsNames.firstname)?.getError('minlength'))
                                     { <p>Name Must Be 3 Char</p> }
                                 </div>
                                 <!-- #endregion -->
@@ -720,18 +720,18 @@
                         </div>
                         <div class="row g-3 align-items-center m-auto w-100">
                             <div class="col-auto pt-2 pb-2 m-auto w-75">
-                                <!-- * lastName input -->
-                                <input formControlName={{formControlsNames.lastName}} type="text"
+                                <!-- * lastname input -->
+                                <input formControlName={{formControlsNames.lastname}} type="text"
                                     class="form-control w-100" placeholder="Last Name">
                                 <!-- ~ input feedback -->
-                                @if (registerForm.get(formControlsNames.lastName)?.errors &&
-                                registerForm.get(formControlsNames.lastName)?.touched) {
+                                @if (registerForm.get(formControlsNames.lastname)?.errors &&
+                                registerForm.get(formControlsNames.lastname)?.touched) {
                                 <!-- #region -->
 
                                 <div style="color:#FBFBFB;">
-                                    @if (registerForm.get(formControlsNames.lastName)?.getError('required'))
+                                    @if (registerForm.get(formControlsNames.lastname)?.getError('required'))
                                     { <p> *Last Name is Required</p> }
-                                    @if (registerForm.get(formControlsNames.lastName)?.getError('minlength'))
+                                    @if (registerForm.get(formControlsNames.lastname)?.getError('minlength'))
                                     { <p>Name Must Be 3 Char</p> }
                                 </div>
                                 <!-- #endregion -->

@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
 
+
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -64,18 +65,19 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   onLogin() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.valid);
+      console.log(this.loginForm.value );
+      
       //#region valid
       this.isLoading = true;
-      this.loginSubscribe = this._AuthService.setLogin({
-        "email": "ahmedemutti@gmail.com",
-        "password": "Ahmed@123",
-      })
+      this.loginSubscribe = this._AuthService.setLogin(this.loginForm.value)
         .subscribe({
           next: (res) => {
             console.log(res);
             this.isLoading = false;
 
-            if (res.message == 'success') {
+            if (res) {
+              console.log(res);
+              
               this._AuthService.setToken(res.token);
               console.log(this._AuthService.getToken());
               this._Router.navigate([this._GoToService.page.DashAdminHome]);
@@ -90,6 +92,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           },
         })
       //#endregion
+    }
+    else
+    {
+      this._messageService.add({ severity: 'error ', summary: 'Error', detail:"You need to enter your Data For login " });
     }
   }
 }

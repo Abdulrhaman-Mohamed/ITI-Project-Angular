@@ -53,8 +53,8 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.registerForm = this._FormBuilder.group({
       //#region 
-      [this.formControlsNames.firstName]: ['', [Validators.required, Validators.minLength(3)]],
-      [this.formControlsNames.lastName]: ['', [Validators.required, Validators.minLength(3)]],
+      [this.formControlsNames.firstname]: ['', [Validators.required, Validators.minLength(3)]],
+      [this.formControlsNames.lastname]: ['', [Validators.required, Validators.minLength(3)]],
       [this.formControlsNames.email]: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),],],
       [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'),],],
       //#endregion
@@ -68,14 +68,10 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   onRegister() {
     if (this.registerForm.valid) {
       //#region valid
+
+      
       this.isLoading = true;
-      this.registerSubscribe = this._AuthService.setRegister({
-        "name": "Ahmed Abd Al-Muti",
-        "email": "ahmedmutti@gmail.com",
-        "password": "Ahmed@123",
-        "rePassword": "Ahmed@123",
-        "phone": "01010700700"
-      })
+      this.registerSubscribe = this._AuthService.setRegister(this.registerForm.value)
         .subscribe({
           next: (res) => {
             console.log(res);
