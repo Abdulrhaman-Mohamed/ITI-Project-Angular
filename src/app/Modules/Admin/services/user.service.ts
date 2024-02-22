@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
   constructor(private _HttpClient: HttpClient) {}
 
-  private _base_API: string = 'https://devjourney-restfulapi.onrender.com/';
+  private _base_API: string = 'https://devjourney21.onrender.com/';
   // private _base_API: string = "http://localhost:3000/api/";
   private readonly _headers: any = {
     // ! angular interceptor
@@ -31,7 +31,7 @@ export class UserService {
   // Abdalrahman Gomaa additon
 
   getAllUsers(): Observable<any> {
-    return this._HttpClient.get(`${this._base_API}/user`);
+    return this._HttpClient.get(`${this._base_API}users`);
   }
 
   distroyUser(id: number): Observable<any> {
