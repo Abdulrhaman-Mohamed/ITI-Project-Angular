@@ -9,11 +9,12 @@ import {
 import { ServicesService } from '../../services/services.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-body',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, RouterModule],
   providers: [ServicesService],
   templateUrl: './dashboard-body.component.html',
   styleUrl: './dashboard-body.component.css',

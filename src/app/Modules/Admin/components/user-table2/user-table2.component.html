@@ -42,8 +42,8 @@
           <td class="d-flex rounded-start-pill ps-4 py-3">
             <img class="rounded-circle self-center" src="../../../../../assets/images/1.webp" alt="" />
             <div class="user__details">
-              <h5>{{ user.name }}</h5>
-              <p class="m-0">{{ user.detail }}</p>
+              <h5>{{ user.firstname +' '+ user.lastname }}</h5>
+              <p class="m-0">{{ user.role }}</p>
             </div>
           </td>
           <td>{{ user.email }}</td>
@@ -54,7 +54,7 @@
           </td>
           <td>{{ user.state }}</td>
           <td class="rounded-end-pill pe-4 text-center">
-            <a routerLink="user/" class="btn btn-outline-primary mb-2 mb-md-0  mx-2">Edit</a>
+            <a routerLink="user/user.id" class="btn btn-outline-primary mb-2 mb-md-0  mx-2">Edit</a>
             <button type="button" (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
 
           </td>
