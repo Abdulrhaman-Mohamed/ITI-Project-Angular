@@ -40,7 +40,7 @@ export class UserService {
   }
 
   getAllPosts(): Observable<any> {
-    return this._HttpClient.get(`${this._base_API}/story`);
+    return this._HttpClient.get(`${this._base_API}story/getall`);
     // /story
   }
 
