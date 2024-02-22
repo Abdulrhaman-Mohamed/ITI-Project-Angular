@@ -150,23 +150,5 @@ export class UserTable2Component implements OnInit {
         (user: any) => user.role === category
       );
     }
-
-    // ! -----------
-
-    if (category) {
-      console.log('111111111111111');
-
-      this.filteredUsers = this.users.filter(
-        (user: any) => user.role === category
-      );
-      console.log(this.filteredUsers);
-
-    } else {
-      console.log('2222222222222');
-
-      this.filteredUsers = this.users
-      console.log(this.filteredUsers);
-
-    }
   }
 }
