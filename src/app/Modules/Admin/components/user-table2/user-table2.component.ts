@@ -66,7 +66,7 @@ export class UserTable2Component implements OnInit {
     private confirmationService: ConfirmationService,
     private service: UserService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -145,12 +145,28 @@ export class UserTable2Component implements OnInit {
     if (category == 'all') {
       this.filteredUsers = this.users;
       console.log(this.filteredUsers);
-    }
-
-    if (category) {
+    } else if (category) {
       this.filteredUsers = this.users.filter(
         (user: any) => user.role === category
       );
+    }
+
+    // ! -----------
+
+    if (category) {
+      console.log('111111111111111');
+
+      this.filteredUsers = this.users.filter(
+        (user: any) => user.role === category
+      );
+      console.log(this.filteredUsers);
+
+    } else {
+      console.log('2222222222222');
+
+      this.filteredUsers = this.users
+      console.log(this.filteredUsers);
+
     }
   }
 }
