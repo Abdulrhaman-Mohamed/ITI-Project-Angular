@@ -69,8 +69,8 @@ export class DashboardBodyComponent implements OnInit {
     if (this.AngleDoubleIconUser === faAngleDoubleDown) {
       this.AngleDoubleIconUser = faAngleDoubleUp;
       this.users.sort(function (a: any, b: any) {
-        let nameA = a.name.toUpperCase();
-        let nameB = b.name.toUpperCase();
+        let nameA = a.firstname.toUpperCase();
+        let nameB = b.firstname.toUpperCase();
         if (nameA < nameB) {
           return -1;
         }
@@ -84,8 +84,8 @@ export class DashboardBodyComponent implements OnInit {
     } else {
       this.AngleDoubleIconUser = faAngleDoubleDown;
       this.users.sort(function (a: any, b: any) {
-        let nameA = a.name.toUpperCase();
-        let nameB = b.name.toUpperCase();
+        let nameA = a.firstname.toUpperCase();
+        let nameB = b.firstname.toUpperCase();
         if (nameA < nameB) {
           return 1;
         }

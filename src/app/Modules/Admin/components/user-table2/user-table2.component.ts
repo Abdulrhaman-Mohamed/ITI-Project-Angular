@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TagModule } from 'primeng/tag';
 import {
   faEllipsisV,
   faMagnifyingGlass,
   faFilter,
+  faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { FilterPipe } from './../../../Shared/pipes/filter.pipe';
@@ -21,6 +22,7 @@ import { ServicesService } from '../../services/services.service';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-table2',
@@ -35,8 +37,9 @@ import { CommonModule } from '@angular/common';
     NgxPaginationModule,
     HttpClientModule,
     CommonModule,
+    RouterModule,
   ],
-  providers: [MessageService, ConfirmationService, ServicesService],
+  providers: [MessageService, ConfirmationService, UserService],
   templateUrl: './user-table2.component.html',
   styleUrl: './user-table2.component.css',
 })
@@ -61,11 +64,11 @@ export class UserTable2Component implements OnInit {
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private service: ServicesService
+    private service: UserService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.filteredUsers = this.users;
     this.getUsers();
     this.getCategories();
   }
@@ -74,6 +77,7 @@ export class UserTable2Component implements OnInit {
     this.service.getAllUsers().subscribe({
       next: (data) => {
         this.users = data;
+        this.filteredUsers = this.users;
       },
       error: (error) => {
         console.log(error);
@@ -94,11 +98,10 @@ export class UserTable2Component implements OnInit {
 
   getSeverity(role: string) {
     switch (role) {
-      case 'User':
+      case 'user':
         return 'info';
-      case 'Admin':
+      case 'admin':
         return 'success';
-
       default:
         return '';
     }
@@ -136,17 +139,18 @@ export class UserTable2Component implements OnInit {
   }
 
   onSelectCategory(event: any) {
-    const categoryId = event.target.value;
-    if (categoryId) {
-      this.selectedCategoryId = categoryId;
-      this.service.getPostsCategory(categoryId).subscribe({
-        next: (data) => {
-          this.users = data;
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
+    const category = event.target.innerText;
+    console.log(category);
+
+    if (category == 'all') {
+      this.filteredUsers = this.users;
+      console.log(this.filteredUsers);
+    }
+
+    if (category) {
+      this.filteredUsers = this.users.filter(
+        (user: any) => user.role === category
+      );
     }
   }
 }

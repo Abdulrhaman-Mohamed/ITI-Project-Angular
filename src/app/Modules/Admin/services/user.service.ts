@@ -35,7 +35,7 @@ export class UserService {
   }
 
   distroyUser(id: number): Observable<any> {
-    return this._HttpClient.delete(`${this._base_API}/user/${id}`);
+    return this._HttpClient.delete(`${this._base_API}/users/${id}`);
     //  /user/id
   }
 

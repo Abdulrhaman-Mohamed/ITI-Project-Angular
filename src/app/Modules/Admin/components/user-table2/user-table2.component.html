@@ -14,11 +14,27 @@
           </div> -->
     </div>
     <div>
-      <fa-icon [icon]="faFilter" class="fs-5 me-3"></fa-icon>
+
+      <div class="dropdown">
+        <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <fa-icon [icon]="faFilter" class="fs-5 me-3  text-secondary"></fa-icon>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item " (click)="onSelectCategory($event)">all</a></li>
+          <li><a class="dropdown-item " (click)="onSelectCategory($event)">admin</a></li>
+          <li><a class="dropdown-item " (click)="onSelectCategory($event)">user</a></li>
+
+        </ul>
+      </div>
+
+
+      <!-- <fa-icon [icon]="faFilter" class="fs-5 me-3"></fa-icon>
+
       <select (change)="onSelectCategory($event)">
         <option value="">Select Category</option>
         <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-      </select>
+      </select> -->
 
     </div>
   </div>
@@ -36,7 +52,8 @@
       </thead>
       <tbody class="space-y-4">
         <br />
-        @for(user of (users | filter:searchAny | paginate: { itemsPerPage: itemsPerPage, currentPage: p }); track
+        @for(user of (filteredUsers | filter:searchAny | paginate: { itemsPerPage: itemsPerPage, currentPage: p });
+        track
         user.id){
         <tr class="rounded-start-pill">
           <td class="d-flex rounded-start-pill ps-4 py-3">
@@ -52,10 +69,31 @@
               user.role
               }}</p-tag>
           </td>
-          <td>{{ user.state }}</td>
+          <td>{{ user.isActive }}</td>
           <td class="rounded-end-pill pe-4 text-center">
-            <a routerLink="user/user.id" class="btn btn-outline-primary mb-2 mb-md-0  mx-2">Edit</a>
-            <button type="button" (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
+
+
+
+            <!-- Example single danger button -->
+            <div class="btn-group">
+
+              <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <fa-icon class="me-1" [icon]="faEllipsisV"></fa-icon>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a [routerLink]=" '/dashboard' + '/users/edit/' + user._id" class="dropdown-item  btn-primary"
+                    href="#">Edit</a></li>
+                <li><a class="dropdown-item btn btn-danger" (click)="deleteUser(user.id)">Delete</a></li>
+
+              </ul>
+            </div>
+
+
+
+            <!-- 
+            <a [routerLink]=" '/dashboard' + '/users/edit/' + user._id"
+              class="btn btn-outline-primary mb-2 mb-md-0  mx-2">Edit</a>
+            <button type="button" (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button> -->
 
           </td>
         </tr>
