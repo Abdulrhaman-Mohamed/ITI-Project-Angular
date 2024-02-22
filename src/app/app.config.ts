@@ -7,6 +7,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { NgxLoadingModule } from 'ngx-loading';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBtS81n7q_QtyMf-uW6AtMOYOLN_z4HOTc",
@@ -21,8 +23,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
+    NgxSpinnerModule,
     provideHttpClient(withFetch()),
     importProvidersFrom([
+      // NgxLoadingModule.forRoot({}),
+      NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+
       provideFirebaseApp(() => initializeApp(firebaseConfig)),
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),
