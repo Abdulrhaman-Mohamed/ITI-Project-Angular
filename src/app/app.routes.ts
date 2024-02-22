@@ -12,7 +12,6 @@ import { AdminDashMainLayoutComponent } from './Modules/layouts/admin-dash-main-
 import { EditAddBlogComponent } from './Modules/Shared/Components/edit-add-blog/edit-add-blog.component';
 import { UserProfileComponent } from './Modules/Admin/components/user-profile/user-profile.component';
 import { BlogDetailsComponent } from './Modules/User/components/blog-details/blog-details.component';
-
 import { authGuard } from './Modules/Core/auth.guard';
 import { BlogCardComponent } from './Modules/User/components/blog-card/blog-card.component';
 import { DashboardBodyComponent } from './Modules/Admin/components/dashboard-body/dashboard-body.component';
