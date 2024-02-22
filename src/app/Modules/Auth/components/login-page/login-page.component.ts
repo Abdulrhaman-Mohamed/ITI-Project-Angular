@@ -52,7 +52,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.loginForm = this._FormBuilder.group({
       //#region 
       [this.formControlsNames.email]: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-      [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}')]]
+      [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}')]],
+      rememberMe: [false]
       //#endregion
     });
   }
@@ -75,7 +76,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
             console.log(res);
             this.isLoading = false;
             if (res.message == 'success') {
-              this._AuthService.setToken(res.token);
+              if (this.loginForm.value.rememberMe) this._AuthService.setToken(res.token);
               console.log(this._AuthService.getToken());
               this._Router.navigate([this._GoToService.page.DashAdminHome]);
             }
