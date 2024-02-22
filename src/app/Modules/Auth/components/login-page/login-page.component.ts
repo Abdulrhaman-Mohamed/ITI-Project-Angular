@@ -74,12 +74,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           next: (res) => {
             console.log(res);
             this.isLoading = false;
-
             if (res.message == 'success') {
               this._AuthService.setToken(res.token);
               console.log(this._AuthService.getToken());
               this._Router.navigate([this._GoToService.page.DashAdminHome]);
-
             }
           },
           error: (err: HttpErrorResponse) => {

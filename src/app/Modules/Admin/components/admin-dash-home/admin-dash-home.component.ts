@@ -17,8 +17,11 @@ export class AdminDashHomeComponent implements OnInit {
   ngOnInit(): void {
     this._UserService.getUsers()
       .subscribe({
-        next: (res) => this.usersCount = res.count,
+        // next: (res) => this.usersCount = res.length,
+        next: (res) => console.log(res)
+        ,
         error: (err) => console.log(err)
+
       })
   }
 
