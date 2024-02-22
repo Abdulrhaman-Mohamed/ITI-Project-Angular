@@ -9,6 +9,7 @@ import { provideAnimationsAsync } from "@angular/platform-browser/animations/asy
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './Modules/Core/interceptors/token.interceptor';
 import { loadingScreenInterceptor } from './Modules/Core/interceptors/loading-screen.interceptor';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBtS81n7q_QtyMf-uW6AtMOYOLN_z4HOTc",
@@ -24,6 +25,27 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              'clientId'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    },
     provideHttpClient(withInterceptors([tokenInterceptor, loadingScreenInterceptor])),
     importProvidersFrom([
       provideFirebaseApp(() => initializeApp(firebaseConfig)),

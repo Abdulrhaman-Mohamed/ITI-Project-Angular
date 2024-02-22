@@ -15,6 +15,12 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
 
+import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -23,9 +29,13 @@ import { GoToService } from '../../../Shared/services/go-to.service';
     CommonModule,
     RouterModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
+    SocialLoginModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
@@ -42,7 +52,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private _AuthService: AuthService,
     private _Router: Router,
     private _messageService: MessageService,
-    public _GoToService: GoToService
+    public _GoToService: GoToService,
+    private _SocialAuthService: SocialAuthService
   ) {
     this.formControlsNames = this._AuthService.formControlsNames;
     this.isLoading = false;
@@ -90,5 +101,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         })
       //#endregion
     }
+  }
+
+  // * Social Login
+  signInWithFB(): void {
+    this._SocialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this._SocialAuthService.signOut();
   }
 }
