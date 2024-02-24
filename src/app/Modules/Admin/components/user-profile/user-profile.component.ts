@@ -25,10 +25,7 @@ export class UserProfileComponent implements OnInit {
     private _UserService: UserService,
     private _myActivatedRoute: ActivatedRoute,
     public _GoToService: GoToService
-  ) {
-    this._userId = this._myActivatedRoute.snapshot.params['id'];
-
-  }
+  ) { }
 
   ngOnInit(): void {
 

@@ -109,18 +109,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       //#region valid
       this.isLoading = true;
       this.loginSubscribe = this._AuthService.setLogin({
-        "email": "ahmedemutti@gmail.com",
-        "password": "Ahmed@123",
+        email: 'abdo@test4.com',
+        password: 'Abdo@12345'
       })
         .subscribe({
           next: (res) => {
             console.log(res);
             this.isLoading = false;
-            if (res.message == 'success') {
-              if (this.loginForm.value.rememberMe) this._AuthService.setToken(res.token);
-              console.log(this._AuthService.getToken());
-              this._Router.navigate([this._GoToService.page.DashAdminHome]);
-            }
+            // if (res.message == 'success') {
+            this._AuthService.setToken(res.token);
+            console.log(this._AuthService.getToken());
+            this._Router.navigate([this._GoToService.page.DashAdminHome]);
+            // }
           },
           error: (err: HttpErrorResponse) => {
             console.log(err);
