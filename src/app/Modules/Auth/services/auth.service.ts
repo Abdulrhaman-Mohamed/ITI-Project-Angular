@@ -54,7 +54,7 @@ export class AuthService {
 
   // !----------------- User token
   setToken(token: string): void {
-    this._tokenValue = token;
+    this._tokenValue = JSON.stringify(token);
     localStorage.setItem(this._tokenKey, token);
   }
 

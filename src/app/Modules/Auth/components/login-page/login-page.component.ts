@@ -1,3 +1,4 @@
+declare var google: any;
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -15,6 +16,14 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
 
+<<<<<<< HEAD
+=======
+import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
+>>>>>>> AliAhmedM48
 
 @Component({
   selector: 'app-login-page',
@@ -24,9 +33,13 @@ import { GoToService } from '../../../Shared/services/go-to.service';
     CommonModule,
     RouterModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
+    SocialLoginModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
@@ -43,17 +56,48 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private _AuthService: AuthService,
     private _Router: Router,
     private _messageService: MessageService,
-    public _GoToService: GoToService
+    public _GoToService: GoToService,
+    private _SocialAuthService: SocialAuthService
   ) {
     this.formControlsNames = this._AuthService.formControlsNames;
     this.isLoading = false;
   }
 
+  private _decodeToken(token: string) {
+    const [, payloadBase64] = token.split('.');
+    const decodedPayload = atob(payloadBase64);
+    return JSON.parse(decodedPayload);
+  }
   ngOnInit(): void {
+    google.accounts.id.initialize({
+      client_id: '1053535178998-hue748m16ththudl9mm7jpcatbtro3vi.apps.googleusercontent.com',
+      callback: (res: any) => {
+        if (res) {
+          const payLoad = this._decodeToken(res.credential);
+          console.log('res', payLoad);
+
+        }
+
+
+
+      }
+    });
+
+    google.accounts.id.renderButton(document.getElementById('google-btn'), {
+      theme: 'filled_blue',
+      size: 'large',
+      shape: 'rectangle',
+      width: 350,
+      locale: 'en-US'
+    });
+    console.log(google);
+
+
     this.loginForm = this._FormBuilder.group({
       //#region 
       [this.formControlsNames.email]: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-      [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}')]]
+      [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}')]],
+      rememberMe: [false]
       //#endregion
     });
   }
@@ -74,14 +118,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           next: (res) => {
             console.log(res);
             this.isLoading = false;
+<<<<<<< HEAD
 
             if (res) {
               console.log(res);
               
               this._AuthService.setToken(res.token);
+=======
+            if (res.message == 'success') {
+              if (this.loginForm.value.rememberMe) this._AuthService.setToken(res.token);
+>>>>>>> AliAhmedM48
               console.log(this._AuthService.getToken());
               this._Router.navigate([this._GoToService.page.DashAdminHome]);
-
             }
           },
           error: (err: HttpErrorResponse) => {
@@ -97,5 +145,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     {
       this._messageService.add({ severity: 'error ', summary: 'Error', detail:"You need to enter your Data For login " });
     }
+  }
+
+  // * Social Login
+  signInWithFB(): void {
+    this._SocialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this._SocialAuthService.signOut();
   }
 }
