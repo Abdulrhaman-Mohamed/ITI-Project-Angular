@@ -3,8 +3,6 @@ import { MainLayoutComponent } from './Modules/layouts/main-layout/main-layout.c
 import { AdminDashLayoutComponent } from './Modules/layouts/admin-dash-layout/admin-dash-layout.component';
 import { LoginPageComponent } from './Modules/Auth/components/login-page/login-page.component';
 import { RegisterPageComponent } from './Modules/Auth/components/register-page/register-page.component';
-import { UsersComponent } from './Modules/Admin/components/users/users.component';
-import { BlogsComponent } from './Modules/Admin/components/blogs/blogs.component';
 import { NotFoundComponent } from './Modules/Shared/Components/not-found/not-found.component';
 import { EditUserProfileComponent } from './Modules/Admin/components/edit-user-profile/edit-user-profile.component';
 import { AuthLayoutComponent } from './Modules/layouts/auth-layout/auth-layout.component';
@@ -32,50 +30,32 @@ export interface PagesNames {
 
 export const routes: Routes = [
   {
-    path: '',
-    component: AuthLayoutComponent,
-    children: [
-      { path: 'login', component: LoginPageComponent, title: 'Login' },
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      {
-        path: 'registration',
-        component: RegisterPageComponent,
-        title: 'Registration',
-      },
-    ],
+    path: '', component: AuthLayoutComponent,
+    children:
+      [
+        { path: 'login', component: LoginPageComponent, title: 'Login' },
+        { path: '', redirectTo: 'login', pathMatch: 'full' },
+        { path: 'registration', component: RegisterPageComponent, title: 'Registration' },
+      ],
   },
   {
-    path: 'dashboard',
-    component: AdminDashMainLayoutComponent,
-    canActivate: [authGuard],
+    path: 'dashboard', component: AdminDashMainLayoutComponent, canActivate: [authGuard],
     children: [
       {
-        path: '',
-        component: AdminDashLayoutComponent,
-        children: [
-          { path: 'home', component: DashboardBodyComponent, title: 'Home' },
-          { path: '', redirectTo: 'home', pathMatch: 'full' },
-          { path: 'users', component: UserTable2Component, title: 'Users' },
-
-          { path: 'blogs', component: PostsTableComponent, title: 'Blogs' },
-          {
-            path: 'users/:id',
-            component: UserProfileComponent,
-            title: 'User profile',
-          },
-          {
-            path: 'users/edit/:id',
-            component: EditUserProfileComponent,
-            title: 'Edit profile',
-          },
-        ],
+        path: '', component: AdminDashLayoutComponent,
+        children:
+          [
+            { path: 'home', component: DashboardBodyComponent, title: 'Home' },
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'users', component: UserTable2Component, title: 'Users' },
+            { path: 'users/:id', component: UserProfileComponent, title: 'User profile' },
+            { path: 'users/edit/:id', component: EditUserProfileComponent, title: 'Edit profile' },
+            { path: 'blogs', component: PostsTableComponent, title: 'Blogs' },
+          ],
       },
       { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Blog' },
       { path: 'blogs/add', component: EditAddBlogComponent, title: 'Blog' },
-      {
-        path: 'blogs/blogdetails/:id',
-        component: BlogDetailsComponent,
-      },
+      { path: 'blogs/blogdetails/:id', component: BlogDetailsComponent, title: 'aaa' },
     ],
   },
   { path: 'user', component: BlogDetailsComponent },

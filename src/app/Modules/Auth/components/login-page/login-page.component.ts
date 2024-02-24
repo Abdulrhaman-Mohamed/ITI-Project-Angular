@@ -34,7 +34,6 @@ import {
     RouterModule,
     MessagesModule,
     ToastModule,
-    SocialLoginModule
   ],
   providers: [
     MessageService,
@@ -57,7 +56,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private _Router: Router,
     private _messageService: MessageService,
     public _GoToService: GoToService,
-    private _SocialAuthService: SocialAuthService
   ) {
     this.formControlsNames = this._AuthService.formControlsNames;
     this.isLoading = false;
@@ -109,28 +107,23 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   onLogin() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.valid);
-      console.log(this.loginForm.value );
-      
+      console.log(this.loginForm.value);
+
       //#region valid
       this.isLoading = true;
-      this.loginSubscribe = this._AuthService.setLogin(this.loginForm.value)
+      this.loginSubscribe = this._AuthService.setLogin({
+        email: 'abdo@test4.com',
+        password: 'Abdo@12345'
+      })
         .subscribe({
           next: (res) => {
             console.log(res);
             this.isLoading = false;
-<<<<<<< HEAD
-
-            if (res) {
-              console.log(res);
-              
-              this._AuthService.setToken(res.token);
-=======
-            if (res.message == 'success') {
-              if (this.loginForm.value.rememberMe) this._AuthService.setToken(res.token);
->>>>>>> AliAhmedM48
-              console.log(this._AuthService.getToken());
-              this._Router.navigate([this._GoToService.page.DashAdminHome]);
-            }
+            // if (res.message == 'success') {
+            this._AuthService.setToken(res.token);
+            console.log(this._AuthService.getToken());
+            this._Router.navigate([this._GoToService.page.DashAdminHome]);
+            // }
           },
           error: (err: HttpErrorResponse) => {
             console.log(err);
@@ -141,18 +134,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         })
       //#endregion
     }
-    else
-    {
-      this._messageService.add({ severity: 'error ', summary: 'Error', detail:"You need to enter your Data For login " });
+    else {
+      this._messageService.add({ severity: 'error ', summary: 'Error', detail: "You need to enter your Data For login " });
     }
   }
 
-  // * Social Login
-  signInWithFB(): void {
-    this._SocialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
 
-  signOut(): void {
-    this._SocialAuthService.signOut();
-  }
 }

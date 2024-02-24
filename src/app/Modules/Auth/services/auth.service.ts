@@ -20,7 +20,7 @@ export class AuthService {
     this._tokenValue = localStorage.getItem(this._tokenKey);
   }
 
-  private readonly _url = 'https://devjourney-restfulapi.onrender.com/devjourney/';
+  private readonly _url = 'https://devjourney-restfulapi.onrender.com/devjourney';
 
   readonly formControlsNames = {
     //#region 

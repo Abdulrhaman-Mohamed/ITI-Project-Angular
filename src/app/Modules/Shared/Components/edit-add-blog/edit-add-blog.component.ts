@@ -26,7 +26,7 @@ import { PrimeIcons, MenuItem } from 'primeng/api';
     CommonModule,
     MessagesModule,
     ToastModule,
-    DropdownModule,    
+    DropdownModule,
   ],
   providers: [
     MessageService,
@@ -43,9 +43,9 @@ export class EditAddBlogComponent implements OnInit {
   bodyBlog: string = "";
   coverimage: any;
   coverimageURL: string = "";
-  selectedCategory:string="General";
-  categories!:string[];
-  id:string="add";
+  selectedCategory: string = "General";
+  categories!: string[];
+  id: string = "add";
 
   maxLength = 500;
   // Regex for can get element tag from bodyBlog
@@ -58,28 +58,27 @@ export class EditAddBlogComponent implements OnInit {
   // inject Firestorage for firebase 
   constructor(
     private fireStorage: Storage,
-    private messageService: MessageService ,
-    private ContentExtractConverter:ContentExtractConverter ,
-    private _myActivatedRoute:ActivatedRoute,
-    private BlogServices:BlogService,
-   ) { }
+    private messageService: MessageService,
+    private ContentExtractConverter: ContentExtractConverter,
+    private _myActivatedRoute: ActivatedRoute,
+    private BlogServices: BlogService,
+  ) { }
 
   ngOnInit(): void {
-    this.categories =["Historical" , "Technology","Education","Personal","General"];
-    
-    const param = this._myActivatedRoute.snapshot.params['id'];
- 
+    this.categories = ["Historical", "Technology", "Education", "Personal", "General"];
 
-    if(param !== "add")
-    {
-      this.EditoRCreate ="Edit";
+    const param = this._myActivatedRoute.snapshot.params['id'];
+
+
+    if (param !== "add") {
+      this.EditoRCreate = "Edit";
       this.buttonPublishOrUpdateBlog = "Update";
-      this.id=param;
+      this.id = param;
 
       // Get Blog by id service and and add it in body
       this.BlogServices.getBlogById(param).subscribe({
-        next:(res:any)=>{
-          
+        next: (res: any) => {
+
           if (res) { // Type guard to ensure object
 
             this.bodyBlog = res.findById.body;
@@ -87,20 +86,20 @@ export class EditAddBlogComponent implements OnInit {
             this.selectedCategory = res.findById.category;
             this.coverimageURL = res.findById.coverfile;
             this.coverimage = res.findById.covertype;
-            
-          } 
-          
-          
+
+          }
+
+
         },
-        error:(er)=>{
+        error: (er) => {
           console.log(er);
         },
-        complete:()=>{
+        complete: () => {
           //loading condition   
         }
       })
     }
-      
+
 
   }
 
@@ -136,13 +135,13 @@ export class EditAddBlogComponent implements OnInit {
       return false;
     }
 
-    if (this.titleBlog.length<5) {
+    if (this.titleBlog.length < 5) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Title is Required and Should be more than 5 Charaters' });
       return false;
     }
 
-    if(this.selectedCategory === null)
-    this.selectedCategory="General";
+    if (this.selectedCategory === null)
+      this.selectedCategory = "General";
 
 
 
@@ -176,17 +175,17 @@ export class EditAddBlogComponent implements OnInit {
 
   }
 
-    //For test that can't upload any thing  validation for can't upload any thing (for cover image or video)
-    changeFile(data: any) {
-      if (this.validateHeaderImage(data.target.files[0])) {
-        this.coverimage = data.target.files[0];
-      } else {
-        data.target.value = null;
-  
-      }
-  
-  
+  //For test that can't upload any thing  validation for can't upload any thing (for cover image or video)
+  changeFile(data: any) {
+    if (this.validateHeaderImage(data.target.files[0])) {
+      this.coverimage = data.target.files[0];
+    } else {
+      data.target.value = null;
+
     }
+
+
+  }
 
   //#region  content proccess
   // //Getting Base64 image from body then convert it to file using base64File
@@ -250,7 +249,7 @@ export class EditAddBlogComponent implements OnInit {
   //   });
   async onSubmit() {
     // console.log(this.UpdateORAdd());
-    
+
     if (this.validateContent()) {
       try {
         let file = this.ContentExtractConverter.exractImage(this.bodyBlog);
@@ -275,35 +274,35 @@ export class EditAddBlogComponent implements OnInit {
 
         if (this.coverimage) await this.uploadFiletoFirebase(this.coverimage);
 
-        
-        if(this.id === "add")  {
+
+        if (this.id === "add") {
           // console.log(this.coverimage.type.split("/")[0]);
-          
-          this.BlogServices.addBlog({title:this.titleBlog , body:this.bodyBlog , category:this.selectedCategory , coverfile:this.coverimageURL ,covertype:this.coverimage.type? this.coverimage.type:"" }).subscribe({
-            next:(res:any)=>{
-              console.log(res); 
+
+          this.BlogServices.addBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage.type ? this.coverimage.type : "" }).subscribe({
+            next: (res: any) => {
+              console.log(res);
             },
-            error:(er:any)=>{
+            error: (er: any) => {
               console.log(er);
             },
-            complete:()=>{
+            complete: () => {
               console.log("Finished Requested Successfully")
             }
           })
         }
         else {
-          this.BlogServices.UpdateBlog({title:this.titleBlog , body:this.bodyBlog , category:this.selectedCategory , coverfile:this.coverimageURL ,covertype:this.coverimage.type? this.coverimage.type:"" },this.id).subscribe({
-            next:(res:any)=>{
-              console.log(res); 
+          this.BlogServices.UpdateBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage.type ? this.coverimage.type : "" }, this.id).subscribe({
+            next: (res: any) => {
+              console.log(res);
             },
-            error:(er:any)=>{
+            error: (er: any) => {
               console.log(er);
             },
-            complete:()=>{
+            complete: () => {
               console.log("Finished Requested Successfully and updated")
             }
           })
-        } 
+        }
       }
       catch (err) {
         console.error(err);
