@@ -16,15 +16,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
 
-<<<<<<< HEAD
-=======
-import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService } from '@abacritt/angularx-social-login';
-import {
-  GoogleLoginProvider,
-  FacebookLoginProvider
-} from '@abacritt/angularx-social-login';
->>>>>>> AliAhmedM48
-
 @Component({
   selector: 'app-login-page',
   standalone: true,
