@@ -52,36 +52,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  private _decodeToken(token: string) {
-    const [, payloadBase64] = token.split('.');
-    const decodedPayload = atob(payloadBase64);
-    return JSON.parse(decodedPayload);
-  }
+
   ngOnInit(): void {
-    google.accounts.id.initialize({
-      client_id: '1053535178998-hue748m16ththudl9mm7jpcatbtro3vi.apps.googleusercontent.com',
-      callback: (res: any) => {
-        if (res) {
-          const payLoad = this._decodeToken(res.credential);
-          console.log('res', payLoad);
-
-        }
-
-
-
-      }
-    });
-
-    google.accounts.id.renderButton(document.getElementById('google-btn'), {
-      theme: 'filled_blue',
-      size: 'large',
-      shape: 'rectangle',
-      width: 350,
-      locale: 'en-US'
-    });
-    console.log(google);
-
-
     this.loginForm = this._FormBuilder.group({
       //#region 
       [this.formControlsNames.email]: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
@@ -110,11 +82,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           next: (res) => {
             console.log(res);
             this.isLoading = false;
-            // if (res.message == 'success') {
             this._AuthService.setToken(res.token);
             console.log(this._AuthService.getToken());
             this._Router.navigate([this._GoToService.page.DashAdminHome]);
-            // }
           },
           error: (err: HttpErrorResponse) => {
             console.log(err);

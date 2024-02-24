@@ -21,6 +21,7 @@ import { ServicesService } from '../../services/services.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { GoToService } from '../../../Shared/services/go-to.service';
 
 @Component({
   selector: 'app-posts-table',
@@ -62,8 +63,9 @@ export class PostsTableComponent {
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private service: ServicesService
-  ) {}
+    private service: ServicesService,
+    public _GoToService: GoToService
+  ) { }
 
   ngOnInit(): void {
     this.getPosts();

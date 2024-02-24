@@ -29,8 +29,8 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("init");
     this._userId = this._myActivatedRoute.snapshot.params['id'];
+    console.log(this._userId);
 
     this._UserService.getUserById(this._userId)
       .subscribe(

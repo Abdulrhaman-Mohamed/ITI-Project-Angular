@@ -51,11 +51,13 @@ export const routes: Routes = [
             { path: 'users/:id', component: UserProfileComponent, title: 'User profile' },
             { path: 'users/edit/:id', component: EditUserProfileComponent, title: 'Edit profile' },
             { path: 'blogs', component: PostsTableComponent, title: 'Blogs' },
+            { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Blog' },
+            { path: 'blogs/add', component: EditAddBlogComponent, title: 'Blog' },
+            { path: 'blogs/blogdetails/:id', component: BlogDetailsComponent, title: 'aaa' },
           ],
       },
-      { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Blog' },
-      { path: 'blogs/add', component: EditAddBlogComponent, title: 'Blog' },
-      { path: 'blogs/blogdetails/:id', component: BlogDetailsComponent, title: 'aaa' },
+
+
     ],
   },
   { path: 'user', component: BlogDetailsComponent },

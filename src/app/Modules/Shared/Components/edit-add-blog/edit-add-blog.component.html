@@ -45,7 +45,7 @@
           'invalid': countCharacterLength(bodyBlog) > maxLength
         }">
         Characters: {{ countCharacterLength(bodyBlog) }} / {{ maxLength }}
-        <span class="error-message" ngIf="countCharacterLength(bodyBlog) > maxLength">
+        <span class="error-message" *ngIf="countCharacterLength(bodyBlog) > maxLength">
           You must enter less than 500 characters.
         </span>
       </span>
@@ -57,7 +57,7 @@
           'invalid': countImg(bodyBlog) > 3
         }">
         Characters: {{ countImg(bodyBlog) }} / {{ 3 }}
-        <span class="error-message" ngIf="countImg(bodyBlog) > 3">
+        <span class="error-message" *ngIf="countImg(bodyBlog) > 3">
           You can upload only 3 images
         </span>
       </span>
