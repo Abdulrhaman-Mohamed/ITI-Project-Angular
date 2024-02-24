@@ -1,3 +1,4 @@
+declare var google: any;
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -59,7 +60,36 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
+  private _decodeToken(token: string) {
+    const [, payloadBase64] = token.split('.');
+    const decodedPayload = atob(payloadBase64);
+    return JSON.parse(decodedPayload);
+  }
   ngOnInit(): void {
+    google.accounts.id.initialize({
+      client_id: '1053535178998-hue748m16ththudl9mm7jpcatbtro3vi.apps.googleusercontent.com',
+      callback: (res: any) => {
+        if (res) {
+          const payLoad = this._decodeToken(res.credential);
+          console.log('res', payLoad);
+
+        }
+
+
+
+      }
+    });
+
+    google.accounts.id.renderButton(document.getElementById('google-btn'), {
+      theme: 'filled_blue',
+      size: 'large',
+      shape: 'rectangle',
+      width: 350,
+      locale: 'en-US'
+    });
+    console.log(google);
+
+
     this.loginForm = this._FormBuilder.group({
       //#region 
       [this.formControlsNames.email]: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
