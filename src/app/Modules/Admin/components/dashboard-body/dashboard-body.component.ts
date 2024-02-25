@@ -6,16 +6,20 @@ import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { RouterModule } from '@angular/router';
 import { GoToService } from '../../../Shared/services/go-to.service';
 
+
 @Component({
   selector: 'app-dashboard-body',
   standalone: true,
+
   imports: [FontAwesomeModule, CommonModule, RouterModule],
   providers: [UserService],
+
   templateUrl: './dashboard-body.component.html',
   styleUrl: './dashboard-body.component.css',
 })
@@ -28,7 +32,9 @@ export class DashboardBodyComponent implements OnInit {
   posts: any = [];
   users: any = [];
 
+
   constructor(private service: UserService, public _GoToService: GoToService) {}
+
 
   ngOnInit(): void {
     this.getUsers();
@@ -40,6 +46,7 @@ export class DashboardBodyComponent implements OnInit {
       next: (data) => {
         this.users = data.findAll;
         console.log('users', data);
+
       },
       error: (error) => {
         console.log(error);
@@ -52,6 +59,7 @@ export class DashboardBodyComponent implements OnInit {
       next: (data) => {
         this.posts = data.findAll;
         console.log('stories', data);
+
       },
       error: (error) => {
         console.log(error);
@@ -71,8 +79,10 @@ export class DashboardBodyComponent implements OnInit {
     if (this.AngleDoubleIconUser === faAngleDoubleDown) {
       this.AngleDoubleIconUser = faAngleDoubleUp;
       this.users.sort(function (a: any, b: any) {
+
         let nameA = a.firstname.toUpperCase();
         let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return -1;
         }
@@ -86,8 +96,10 @@ export class DashboardBodyComponent implements OnInit {
     } else {
       this.AngleDoubleIconUser = faAngleDoubleDown;
       this.users.sort(function (a: any, b: any) {
+
         let nameA = a.firstname.toUpperCase();
         let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return 1;
         }

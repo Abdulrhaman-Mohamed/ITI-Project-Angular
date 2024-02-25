@@ -22,11 +22,13 @@ export class AuthService {
 
   private readonly _url = 'https://devjourney-restfulapi.onrender.com/devjourney';
 
+
   readonly formControlsNames = {
     //#region 
     _id: '_id',
     firstname: 'firstname',
     lastname: 'lastname',
+
     occupation: 'occupation',
     location: 'location',
     bio: 'bio',
@@ -45,6 +47,7 @@ export class AuthService {
 
   setLogin(userData: object): Observable<any> {
     return this._HttpClient.post(`${[this._url]}/login`, userData)
+
   }
 
   logout(): void {
@@ -55,6 +58,7 @@ export class AuthService {
   // !----------------- User token
   setToken(token: string): void {
     this._tokenValue = JSON.stringify(token);
+
     localStorage.setItem(this._tokenKey, token);
   }
 

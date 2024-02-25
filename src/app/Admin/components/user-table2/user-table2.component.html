@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-10">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <input type="text" class="form-control my-3 rounded-pill me-3" placeholder="Search user" />
+          <div style="background-color: brown; width: 40px; height: 31px"
+            class="d-flex justify-content-around align-items-center rounded-circle text-white">
+            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+          </div>
+        </div>
+        <div>
+          <fa-icon [icon]="faFilter" class="fs-5"></fa-icon>
+          <span class="ms-2">Filter</span>
+        </div>
+      </div>
+      <table class="table table-responsive">
+        <thead class="fixed-header">
+          <tr class="font-medium text-[var(--text-color)] leading-4">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>State</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="space-y-4">
+          <br />
+          @for(user of users; track user.id){
+          <tr class="rounded-start-pill">
+            <td class="d-flex rounded-start-pill ps-4 py-3">
+              <img class="rounded-circle" src="../../../../assets/images/2.jpg" alt="" />
+              <div class="user__details">
+                <h5>{{ user.name }}</h5>
+                <p>{{ user.detail }}</p>
+              </div>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>
+              <p-tag [severity]="getSeverity(user.role)" [rounded]="true">{{
+                user.role
+                }}</p-tag>
+            </td>
+            <td>{{ user.state }}</td>
+            <td class="rounded-end-pill text-right pe-4 text-center">
+              <button class="px-3">
+                <fa-icon [icon]="faEllipsisV"></fa-icon>
+              </button>
+            </td>
+          </tr>
+          <br />
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

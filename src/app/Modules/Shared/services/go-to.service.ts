@@ -5,6 +5,7 @@ import { PagesNames } from '../../../app.routes';
   providedIn: 'root',
 })
 export class GoToService {
+
   page: PagesNames;
 
   constructor() {
@@ -14,10 +15,12 @@ export class GoToService {
       DashAdminHome: '/dashboard/home',
       DashAdminUsers: '/dashboard/users',
       DashAdminBlogs: '/dashboard/blogs/',
+
       DashAdminUserProfile: '/dashboard/users/',
       DashAdminEditUserProfile: '/dashboard/users/edit/',
       DashAdminEditBlog: '/dashboard/blogs/',
       DashAdminAddBlog: '/dashboard/blogs/add',
     } as const;
   }
+
 }

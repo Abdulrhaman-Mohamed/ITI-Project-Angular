@@ -4,6 +4,7 @@
 
 <br>
 
+
 <div class="ms-5">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
@@ -15,6 +16,7 @@
                     </div> -->
         </div>
         <div>
+
 
             <!-- <select class="rounded-2 p-2 border-info-subtle bg-black" (change)="onSelectCategory($event)">
                 <option value=""><fa-icon [icon]="faFilter" class="fs-5 me-3 text-primary"></fa-icon></option>
@@ -35,6 +37,7 @@
                 </ul>
             </div>
 
+
         </div>
     </div>
 
@@ -45,6 +48,8 @@
                     <th>Publisher</th>
                     <th>Title</th>
                     <th>Category</th>
+
+
                     <th></th>
                 </tr>
             </thead>
@@ -55,8 +60,10 @@
                 track
                 post.id){
                 <tr class="rounded-start-pill">
+
                     <td class="d-flex rounded-start-pill ps-4 py-3 post__router"
                         [routerLink]="_GoToService.page.DashAdminBlogs + post._id">
+
                         <img class="rounded-circle self-center" src="../../../../../assets/images/1.webp" alt="" />
                         <div class="post__details">
                             <h5>{{ getUserName(post.userId) }}</h5>
@@ -65,6 +72,7 @@
                     </td>
                     <td class="post__router" [routerLink]="_GoToService.page.DashAdminBlogs + post._id">{{ post.title }}
                     </td>
+
                     <td>
                         <p-tag class="p-2" [severity]="getSeverity(post.category)" [rounded]="true">{{
                             post.category
@@ -76,6 +84,7 @@
                                 [icon]="  faPenToSquare"></fa-icon></a>
                         <button type="button" (click)="deletePost(post.id)" class="btn btn-danger"><fa-icon
                                 [icon]="  faTrashCan"></fa-icon></button>
+
 
                     </td>
                 </tr>

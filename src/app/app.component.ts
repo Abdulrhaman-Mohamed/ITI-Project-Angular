@@ -25,6 +25,7 @@ import { tokenInterceptor } from './Modules/Core/interceptors/token.interceptor'
     RatingModule,
     UserProfileComponent,
     NgxSpinnerModule
+
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -72,4 +73,5 @@ export class AppComponent implements OnInit {
 
   title = 'ITI-Angular-Project';
   products: any;
+
 }
