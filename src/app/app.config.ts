@@ -6,7 +6,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { tokenInterceptor } from './Modules/Core/interceptors/token.interceptor';
+import { loadingScreenInterceptor } from './Modules/Core/interceptors/loading-screen.interceptor';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBtS81n7q_QtyMf-uW6AtMOYOLN_z4HOTc",
@@ -22,6 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptors([tokenInterceptor, loadingScreenInterceptor])),
     importProvidersFrom([
       provideFirebaseApp(() => initializeApp(firebaseConfig)),
       provideAuth(() => getAuth()),

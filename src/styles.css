@@ -15,3 +15,17 @@
 {
   min-height: 300px;
 }
+
+.p-dropdown.p-component.p-inputwrapper.p-dropdown-clearable
+{
+  width: 100% !important;
+}
+.p-dropdown:not(.p-disabled).p-focus
+{
+  box-shadow: 0 0 0 0.2rem #9a3333;
+}
+
+.p-toast-message-content.ng-tns-c3020094734-3.ng-star-inserted
+{
+  width: 100%;
+}

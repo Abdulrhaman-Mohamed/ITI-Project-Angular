@@ -1,6 +1,6 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditorModule } from 'primeng/editor';
 import { getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
 import { Storage } from "@angular/fire/storage";
@@ -10,7 +10,8 @@ import { ToastModule } from 'primeng/toast';
 import { ContentExtractConverter } from '../../services/content-exracter-embedd.service';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
-
+import { DropdownModule } from 'primeng/dropdown';
+import { PrimeIcons, MenuItem } from 'primeng/api';
 
 
 
@@ -24,7 +25,8 @@ import { BlogService } from '../../services/blog.service';
     NgClass,
     CommonModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
+    DropdownModule,
   ],
   providers: [
     MessageService,
@@ -39,10 +41,11 @@ export class EditAddBlogComponent implements OnInit {
   buttonPublishOrUpdateBlog: string = "Publish";
   titleBlog: string = "";
   bodyBlog: string = "";
-  coverimage: any = "";
+  coverimage: any;
   coverimageURL: string = "";
-  UpdateORAdd:any;
-
+  selectedCategory: string = "General";
+  categories!: string[];
+  id: string = "add";
 
   maxLength = 500;
   // Regex for can get element tag from bodyBlog
@@ -55,31 +58,50 @@ export class EditAddBlogComponent implements OnInit {
   // inject Firestorage for firebase 
   constructor(
     private fireStorage: Storage,
-    private messageService: MessageService ,
-    private ContentExtractConverter:ContentExtractConverter ,
-    private _myActivatedRoute:ActivatedRoute,
-    private BlogServices:BlogService
-   ) { }
+    private messageService: MessageService,
+    private ContentExtractConverter: ContentExtractConverter,
+    private _myActivatedRoute: ActivatedRoute,
+    private BlogServices: BlogService,
+  ) { }
 
   ngOnInit(): void {
+    this.categories = ["Historical", "Technology", "Education", "Personal", "General"];
+
     const param = this._myActivatedRoute.snapshot.params['id'];
-    if(param !== "add")
-    {
-      this.EditoRCreate ="Edit";
+
+
+    if (param !== "add") {
+      this.EditoRCreate = "Edit";
       this.buttonPublishOrUpdateBlog = "Update";
-      this.BlogServices.API_Connection = "URL of Request";
+      this.id = param;
 
       // Get Blog by id service and and add it in body
+      this.BlogServices.getBlogById(param).subscribe({
+        next: (res: any) => {
 
-      //Method to know what should i will do on submit Button here i will put Update Services
-      this.UpdateORAdd = this.BlogServices.UpdateBlog;
+          if (res) { // Type guard to ensure object
+
+            this.bodyBlog = res.findById.body;
+            this.titleBlog = res.findById.title;
+            this.selectedCategory = res.findById.category;
+            this.coverimageURL = res.findById.coverfile;
+            this.coverimage = res.findById.covertype;
+
+          }
+
+
+        },
+        error: (er) => {
+          console.log(er);
+        },
+        complete: () => {
+          //loading condition   
+        }
+      })
     }
-    else
-      this.UpdateORAdd = this.BlogServices.addBlog;
 
-    
+
   }
-
 
 
   // return count of images 
@@ -108,10 +130,20 @@ export class EditAddBlogComponent implements OnInit {
       return false;
     }
 
-    if (this.countCharacterLength(this.bodyBlog) > 500) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Content length exceeds 500 characters. Please shorten your content' });
+    if (this.countCharacterLength(this.bodyBlog) > 500 || this.countCharacterLength(this.bodyBlog) < 10) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Content length Should Be between 500 and 10 Characters. Please shorten your content' });
       return false;
     }
+
+    if (this.titleBlog.length < 5) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Title is Required and Should be more than 5 Charaters' });
+      return false;
+    }
+
+    if (this.selectedCategory === null)
+      this.selectedCategory = "General";
+
+
 
     return true;
   }
@@ -143,17 +175,17 @@ export class EditAddBlogComponent implements OnInit {
 
   }
 
-    //For test that can't upload any thing  validation for can't upload any thing (for cover image or video)
-    changeFile(data: any) {
-      if (this.validateHeaderImage(data.target.files[0])) {
-        this.coverimage = data.target.files[0];
-      } else {
-        data.target.value = null;
-  
-      }
-  
-  
+  //For test that can't upload any thing  validation for can't upload any thing (for cover image or video)
+  changeFile(data: any) {
+    if (this.validateHeaderImage(data.target.files[0])) {
+      this.coverimage = data.target.files[0];
+    } else {
+      data.target.value = null;
+
     }
+
+
+  }
 
   //#region  content proccess
   // //Getting Base64 image from body then convert it to file using base64File
@@ -217,7 +249,7 @@ export class EditAddBlogComponent implements OnInit {
   //   });
   async onSubmit() {
     // console.log(this.UpdateORAdd());
-    
+
     if (this.validateContent()) {
       try {
         let file = this.ContentExtractConverter.exractImage(this.bodyBlog);
@@ -241,6 +273,36 @@ export class EditAddBlogComponent implements OnInit {
         this.replaceImageInBodyBlog();
 
         if (this.coverimage) await this.uploadFiletoFirebase(this.coverimage);
+
+
+        if (this.id === "add") {
+          // console.log(this.coverimage.type.split("/")[0]);
+
+          this.BlogServices.addBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage.type ? this.coverimage.type : "" }).subscribe({
+            next: (res: any) => {
+              console.log(res);
+            },
+            error: (er: any) => {
+              console.log(er);
+            },
+            complete: () => {
+              console.log("Finished Requested Successfully")
+            }
+          })
+        }
+        else {
+          this.BlogServices.UpdateBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage.type ? this.coverimage.type : "" }, this.id).subscribe({
+            next: (res: any) => {
+              console.log(res);
+            },
+            error: (er: any) => {
+              console.log(er);
+            },
+            complete: () => {
+              console.log("Finished Requested Successfully and updated")
+            }
+          })
+        }
       }
       catch (err) {
         console.error(err);
@@ -272,6 +334,7 @@ export class EditAddBlogComponent implements OnInit {
     const downloadUrl = await getDownloadURL(uploaded.ref);
     this.coverimageURL = downloadUrl;
   }
+
 
 
 

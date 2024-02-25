@@ -7,15 +7,27 @@ import { TableModule, TableService } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { UserProfileComponent } from './Modules/Admin/components/user-profile/user-profile.component';
-import { UsersComponent } from './Modules/Admin/components/users/users.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { loadingScreenInterceptor } from './Modules/Core/interceptors/loading-screen.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { tokenInterceptor } from './Modules/Core/interceptors/token.interceptor';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TableModule, FormsModule, CommonModule, ButtonModule, TagModule, RatingModule, UsersComponent,
-    UserProfileComponent],
+  imports: [
+    RouterOutlet,
+    TableModule,
+    FormsModule,
+    CommonModule,
+    ButtonModule,
+    TagModule,
+    RatingModule,
+    UserProfileComponent,
+    NgxSpinnerModule
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   getSeverity(status: string) {

@@ -1,3 +1,4 @@
+declare var google: any;
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -23,9 +24,12 @@ import { GoToService } from '../../../Shared/services/go-to.service';
     CommonModule,
     RouterModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
@@ -42,17 +46,19 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private _AuthService: AuthService,
     private _Router: Router,
     private _messageService: MessageService,
-    public _GoToService: GoToService
+    public _GoToService: GoToService,
   ) {
     this.formControlsNames = this._AuthService.formControlsNames;
     this.isLoading = false;
   }
 
+
   ngOnInit(): void {
     this.loginForm = this._FormBuilder.group({
       //#region 
       [this.formControlsNames.email]: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-      [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}')]]
+      [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}')]],
+      rememberMe: [false]
       //#endregion
     });
   }
@@ -64,23 +70,21 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   onLogin() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.valid);
+      console.log(this.loginForm.value);
+
       //#region valid
       this.isLoading = true;
       this.loginSubscribe = this._AuthService.setLogin({
-        "email": "ahmedemutti@gmail.com",
-        "password": "Ahmed@123",
+        email: 'abdo@test4.com',
+        password: 'Abdo@12345'
       })
         .subscribe({
           next: (res) => {
             console.log(res);
             this.isLoading = false;
-
-            if (res.message == 'success') {
-              this._AuthService.setToken(res.token);
-              console.log(this._AuthService.getToken());
-              this._Router.navigate([this._GoToService.page.DashAdminHome]);
-
-            }
+            this._AuthService.setToken(res.token);
+            console.log(this._AuthService.getToken());
+            this._Router.navigate([this._GoToService.page.DashAdminHome]);
           },
           error: (err: HttpErrorResponse) => {
             console.log(err);
@@ -91,5 +95,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         })
       //#endregion
     }
+    else {
+      this._messageService.add({ severity: 'error ', summary: 'Error', detail: "You need to enter your Data For login " });
+    }
   }
+
+
 }

@@ -34,6 +34,7 @@ export class EditUserProfileComponent {
   ngOnInit(): void {
     console.log('init');
     this._userId = this._myActivatedRoute.snapshot.params['id'];
+    console.log(this._userId);
 
     this._UserService.getUserById(this._userId).subscribe((user) => {
       // * You can initialize the user object if you have existing data

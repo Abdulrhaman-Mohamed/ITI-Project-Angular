@@ -38,8 +38,9 @@
 
             <div style="max-height: 300px; overflow-y: auto;" class="bg-white px-4 pb-4 pt-2 mt-2 rounded-bottom-4">
                 @for(user of users ; track user._id){
-                <a [routerLink]=" '/dashboard' + '/users/' + user._id"
-                    class=" bg-secondary-subtle rounded-4 my-2 py-3 px-2 d-flex justify-content-around">
+                <!-- <a [routerLink]=" '/dashboard' + '/users/' + user._id" -->
+                <a [routerLink]="_GoToService.page.DashAdminUserProfile + user._id"
+                    class="bg-secondary-subtle rounded-4 my-2 py-3 px-2 d-flex justify-content-around">
                     <div>{{user.firstname +' '+ user.lastname}}</div>
                     <div>{{user.role}}</div>
                 </a>

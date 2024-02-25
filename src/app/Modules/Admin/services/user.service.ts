@@ -6,29 +6,19 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private _HttpClient: HttpClient) {}
+  constructor(private _HttpClient: HttpClient) { }
 
-  private _base_API: string = 'https://devjourney21.onrender.com/';
-  // private _base_API: string = "http://localhost:3000/api/";
-  private readonly _headers: any = {
-    // ! angular interceptor
-    accept: 'application/json',
-    Authorization: 'Bearer aadssadsfsa',
-  };
-
-  // _HttpClient = inject(HttpClient);
-
-  getUsers(): Observable<any> {
-    return this._HttpClient.get(this._base_API + 'users', {
-      headers: this._headers,
-    });
+  private _base_API: string = "https://devjourney21.onrender.com/";
+  private readonly _headers: any = { // ! angular interceptor
+    accept: "application/json",
+    // Authorization: "Bearer aadssadsfsa",
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ1YTRkN2JlN2VmMjFjZDU1MmNlODEiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImVzbGFkbUAxMjM0YjEyZDE4OTlubmdnYnkxeW5tMSIsImZpcnN0bmFtZSI6ImVzbGFtZWVlZWVlZWVlZWVlZWVlMTIzIiwibGFzdG5hbWUiOiJlc2xhbTEyMjExIiwiaWF0IjoxNzA4ODAwMzM3fQ.hGmqFnxJ1BG-ltGx7HeySgUAud19VstdiIG6skeb1EQ'
   }
 
   getUserById(id: number): Observable<any> {
-    return this._HttpClient.get(this._base_API + 'users/' + id);
+    return this._HttpClient.get(this._base_API + 'user/' + id, { headers: this._headers });
   }
 
-  // Abdalrahman Gomaa additon
 
   getAllUsers(): Observable<any> {
     return this._HttpClient.get(`${this._base_API}users`);
