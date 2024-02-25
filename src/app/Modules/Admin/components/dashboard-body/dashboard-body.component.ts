@@ -6,15 +6,20 @@ import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { ServicesService } from '../../services/services.service';
+
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
+import { RouterModule } from '@angular/router';
+import { GoToService } from '../../../Shared/services/go-to.service';
+
 
 @Component({
   selector: 'app-dashboard-body',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule],
-  providers: [ServicesService],
+
+  imports: [FontAwesomeModule, CommonModule, RouterModule],
+  providers: [UserService],
+
   templateUrl: './dashboard-body.component.html',
   styleUrl: './dashboard-body.component.css',
 })
@@ -27,7 +32,9 @@ export class DashboardBodyComponent implements OnInit {
   posts: any = [];
   users: any = [];
 
-  constructor(private service: UserService) {}
+
+  constructor(private service: UserService, public _GoToService: GoToService) {}
+
 
   ngOnInit(): void {
     this.getUsers();
@@ -37,7 +44,9 @@ export class DashboardBodyComponent implements OnInit {
   getUsers() {
     this.service.getAllUsers().subscribe({
       next: (data) => {
-        this.users = data;
+        this.users = data.findAll;
+        console.log('users', data);
+
       },
       error: (error) => {
         console.log(error);
@@ -48,7 +57,9 @@ export class DashboardBodyComponent implements OnInit {
   getPosts() {
     this.service.getAllPosts().subscribe({
       next: (data) => {
-        this.posts = data;
+        this.posts = data.findAll;
+        console.log('stories', data);
+
       },
       error: (error) => {
         console.log(error);
@@ -68,8 +79,10 @@ export class DashboardBodyComponent implements OnInit {
     if (this.AngleDoubleIconUser === faAngleDoubleDown) {
       this.AngleDoubleIconUser = faAngleDoubleUp;
       this.users.sort(function (a: any, b: any) {
-        let nameA = a.name.toUpperCase();
-        let nameB = b.name.toUpperCase();
+
+        let nameA = a.firstname.toUpperCase();
+        let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return -1;
         }
@@ -83,8 +96,10 @@ export class DashboardBodyComponent implements OnInit {
     } else {
       this.AngleDoubleIconUser = faAngleDoubleDown;
       this.users.sort(function (a: any, b: any) {
-        let nameA = a.name.toUpperCase();
-        let nameB = b.name.toUpperCase();
+
+        let nameA = a.firstname.toUpperCase();
+        let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return 1;
         }

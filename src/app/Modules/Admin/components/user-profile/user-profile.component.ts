@@ -2,6 +2,7 @@ import { User } from './../../../Shared/interfaces/user';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { GoToService } from '../../../Shared/services/go-to.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,15 +24,13 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private _UserService: UserService,
     private _myActivatedRoute: ActivatedRoute,
-  ) {
-    this._userId = this._myActivatedRoute.snapshot.params['id'];
-
-  }
+    public _GoToService: GoToService
+  ) { }
 
   ngOnInit(): void {
 
-    console.log("init");
     this._userId = this._myActivatedRoute.snapshot.params['id'];
+    console.log(this._userId);
 
     this._UserService.getUserById(this._userId)
       .subscribe(
