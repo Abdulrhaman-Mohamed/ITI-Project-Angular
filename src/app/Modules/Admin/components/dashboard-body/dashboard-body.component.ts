@@ -6,18 +6,16 @@ import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { ServicesService } from '../../services/services.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { RouterModule } from '@angular/router';
-import { GoToService } from '../../../Shared/services/go-to.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
 
 @Component({
   selector: 'app-dashboard-body',
   standalone: true,
   imports: [FontAwesomeModule, CommonModule, RouterModule],
-  providers: [ServicesService],
+  providers: [UserService],
   templateUrl: './dashboard-body.component.html',
   styleUrl: './dashboard-body.component.css',
 })
@@ -40,7 +38,8 @@ export class DashboardBodyComponent implements OnInit {
   getUsers() {
     this.service.getAllUsers().subscribe({
       next: (data) => {
-        this.users = data;
+        this.users = data.findAll;
+        console.log('users', data);
       },
       error: (error) => {
         console.log(error);
@@ -51,7 +50,8 @@ export class DashboardBodyComponent implements OnInit {
   getPosts() {
     this.service.getAllPosts().subscribe({
       next: (data) => {
-        this.posts = data;
+        this.posts = data.findAll;
+        console.log('stories', data);
       },
       error: (error) => {
         console.log(error);

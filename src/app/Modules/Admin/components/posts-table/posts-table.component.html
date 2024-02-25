@@ -15,11 +15,25 @@
                     </div> -->
         </div>
         <div>
-            <fa-icon [icon]="faFilter" class="fs-5 me-3"></fa-icon>
-            <select class="rounded-2 p-2 border-info-subtle" (change)="onSelectCategory($event)">
-                <option value="">Select Category</option>
-                <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-            </select>
+
+            <!-- <select class="rounded-2 p-2 border-info-subtle bg-black" (change)="onSelectCategory($event)">
+                <option value=""><fa-icon [icon]="faFilter" class="fs-5 me-3 text-primary"></fa-icon></option>
+                <option *ngFor="let category of categories" [value]="category.name">{{ category.name}}</option>
+            </select> -->
+
+
+            <div class="dropdown">
+                <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <fa-icon [icon]="faFilter" class="fs-5 me-3  text-secondary"></fa-icon>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item " (click)="onSelectCategory($event)"><fa-icon [icon]="faFilter"
+                                class="fs-5 me-3 text-primary"></fa-icon></a></li>
+                    <li *ngFor="let category of categories"><a class="dropdown-item "
+                            (click)="onSelectCategory($event)">{{ category.name}}</a></li>
+                </ul>
+            </div>
 
         </div>
     </div>
@@ -31,7 +45,6 @@
                     <th>Publisher</th>
                     <th>Title</th>
                     <th>Category</th>
-                    <th>State</th>
                     <th></th>
                 </tr>
             </thead>
@@ -42,23 +55,27 @@
                 track
                 post.id){
                 <tr class="rounded-start-pill">
-                    <td class="d-flex rounded-start-pill ps-4 py-3">
+                    <td class="d-flex rounded-start-pill ps-4 py-3 post__router"
+                        [routerLink]="_GoToService.page.DashAdminBlogs + post._id">
                         <img class="rounded-circle self-center" src="../../../../../assets/images/1.webp" alt="" />
                         <div class="post__details">
                             <h5>{{ getUserName(post.userId) }}</h5>
                             <p class="m-0">{{ getUserDetail(post.userId) }}</p>
                         </div>
                     </td>
-                    <td class="post__router" routerLink="blogdetails/{{post.id}}">{{ post.title }}</td>
+                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminBlogs + post._id">{{ post.title }}
+                    </td>
                     <td>
                         <p-tag class="p-2" [severity]="getSeverity(post.category)" [rounded]="true">{{
                             post.category
                             }}</p-tag>
                     </td>
-                    <td>{{ post.state }}</td>
                     <td class="rounded-end-pill pe-4 text-center">
-                        <a routerLink="{{post.id}}" class="btn btn-outline-primary mb-2 mb-md-0  mx-2">Edit</a>
-                        <button type="button" (click)="deletePost(post.id)" class="btn btn-danger">Delete</button>
+                        <a [routerLink]="_GoToService.page.DashAdminAddBlog + post._id"
+                            class="btn btn-outline-primary mb-2 mb-md-0  mx-2"><fa-icon
+                                [icon]="  faPenToSquare"></fa-icon></a>
+                        <button type="button" (click)="deletePost(post.id)" class="btn btn-danger"><fa-icon
+                                [icon]="  faTrashCan"></fa-icon></button>
 
                     </td>
                 </tr>

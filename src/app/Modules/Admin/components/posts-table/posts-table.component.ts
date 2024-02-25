@@ -5,6 +5,8 @@ import {
   faEllipsisV,
   faMagnifyingGlass,
   faFilter,
+  faTrashCan,
+  faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { FilterPipe } from './../../../Shared/pipes/filter.pipe';
@@ -17,11 +19,11 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { ServicesService } from '../../services/services.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { GoToService } from '../../../Shared/services/go-to.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-posts-table',
@@ -38,46 +40,56 @@ import { GoToService } from '../../../Shared/services/go-to.service';
     CommonModule,
     RouterModule,
   ],
-  providers: [MessageService, ConfirmationService, ServicesService],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './posts-table.component.html',
   styleUrl: './posts-table.component.css',
 })
 export class PostsTableComponent {
   searchAny: any;
 
+  // pagination
   p: number = 1;
   itemsPerPage: number = 10;
   totalProducts: any;
 
+  // fontawesome
   faEllipsisV = faEllipsisV;
   faMagnifyingGlass = faMagnifyingGlass;
   faFilter = faFilter;
+  faTrashCan = faTrashCan;
+  faPenToSquare = faPenToSquare;
 
+  //data arrays
   filteredPosts: any[] = [];
   posts: any = [];
   users: any = [];
-  categories: any = [];
-
-  selectedCategoryId: any;
+  categories: any = [
+    { name: 'Historical' },
+    { name: 'Technology' },
+    { name: 'Education' },
+    { name: 'Personal' },
+    { name: 'General' },
+  ];
 
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private service: ServicesService,
+    private service: UserService,
     public _GoToService: GoToService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPosts();
-    this.getCategories();
+    // this.getCategories();
     this.getUsers();
   }
 
   getPosts() {
     this.service.getAllPosts().subscribe({
       next: (data) => {
-        this.posts = data;
+        this.posts = data.findAll;
         this.filteredPosts = this.posts;
+        console.log('stories', this.posts);
       },
       error: (error) => {
         console.log(error);
@@ -88,7 +100,7 @@ export class PostsTableComponent {
   getUsers() {
     this.service.getAllUsers().subscribe({
       next: (data) => {
-        this.users = data;
+        this.users = data.findAll;
       },
       error: (error) => {
         console.log(error);
@@ -109,16 +121,16 @@ export class PostsTableComponent {
     }
   }
 
-  getCategories() {
-    this.service.getCategories().subscribe({
-      next: (data) => {
-        this.categories = data;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
+  // getCategories() {
+  //   this.service.getCategories().subscribe({
+  //     next: (data) => {
+  //       this.categories = data;
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     },
+  //   });
+  // }
 
   getSeverity(category: string) {
     switch (category) {
@@ -159,8 +171,9 @@ export class PostsTableComponent {
   }
 
   onSelectCategory(event: any) {
-    const categoryName = event.target.value;
+    const categoryName = event.target.innerText;
     console.log(categoryName);
+
     if (categoryName) {
       this.filteredPosts = this.posts.filter((post: any) => {
         console.log(post.category);

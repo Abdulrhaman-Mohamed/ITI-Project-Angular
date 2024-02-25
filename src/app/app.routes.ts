@@ -21,7 +21,7 @@ export interface PagesNames {
   register: '/registration';
   DashAdminHome: '/dashboard/home';
   DashAdminUsers: '/dashboard/users';
-  DashAdminBlogs: '/dashboard/blogs';
+  DashAdminBlogs: '/dashboard/blogs/';
   DashAdminUserProfile: '/dashboard/users/';
   DashAdminEditUserProfile: '/dashboard/users/edit/';
   DashAdminEditBlog: '/dashboard/blogs/';
@@ -30,34 +30,50 @@ export interface PagesNames {
 
 export const routes: Routes = [
   {
-    path: '', component: AuthLayoutComponent,
-    children:
-      [
-        { path: 'login', component: LoginPageComponent, title: 'Login' },
-        { path: '', redirectTo: 'login', pathMatch: 'full' },
-        { path: 'registration', component: RegisterPageComponent, title: 'Registration' },
-      ],
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      { path: 'login', component: LoginPageComponent, title: 'Login' },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      {
+        path: 'registration',
+        component: RegisterPageComponent,
+        title: 'Registration',
+      },
+    ],
   },
   {
-    path: 'dashboard', component: AdminDashMainLayoutComponent, canActivate: [authGuard],
+    path: 'dashboard',
+    component: AdminDashMainLayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
-        path: '', component: AdminDashLayoutComponent,
-        children:
-          [
-            { path: 'home', component: DashboardBodyComponent, title: 'Home' },
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'users', component: UserTable2Component, title: 'Users' },
-            { path: 'users/:id', component: UserProfileComponent, title: 'User profile' },
-            { path: 'users/edit/:id', component: EditUserProfileComponent, title: 'Edit profile' },
-            { path: 'blogs', component: PostsTableComponent, title: 'Blogs' },
-            { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Blog' },
-            { path: 'blogs/add', component: EditAddBlogComponent, title: 'Blog' },
-            { path: 'blogs/blogdetails/:id', component: BlogDetailsComponent, title: 'aaa' },
-          ],
+        path: '',
+        component: AdminDashLayoutComponent,
+        children: [
+          { path: 'home', component: DashboardBodyComponent, title: 'Home' },
+          { path: '', redirectTo: 'home', pathMatch: 'full' },
+          { path: 'users', component: UserTable2Component, title: 'Users' },
+          {
+            path: 'users/:id',
+            component: UserProfileComponent,
+            title: 'User profile',
+          },
+          {
+            path: 'users/edit/:id',
+            component: EditUserProfileComponent,
+            title: 'Edit profile',
+          },
+          { path: 'blogs', component: PostsTableComponent, title: 'Blogs' },
+          { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Blog' },
+          { path: 'blogs/add', component: EditAddBlogComponent, title: 'Blog' },
+          {
+            path: 'blogs/blogdetails/:id',
+            component: BlogDetailsComponent,
+            title: 'aaa',
+          },
+        ],
       },
-
-
     ],
   },
   { path: 'user', component: BlogDetailsComponent },

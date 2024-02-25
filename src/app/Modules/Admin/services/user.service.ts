@@ -6,39 +6,45 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private _HttpClient: HttpClient) { }
+  constructor(private _HttpClient: HttpClient) {}
 
-  private _base_API: string = "https://devjourney21.onrender.com/";
-  private readonly _headers: any = { // ! angular interceptor
-    accept: "application/json",
+  private _base_API: string = 'https://devjourney21.onrender.com/';
+  private readonly _headers: any = {
+    // ! angular interceptor
+    accept: 'application/json',
     // Authorization: "Bearer aadssadsfsa",
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ1YTRkN2JlN2VmMjFjZDU1MmNlODEiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImVzbGFkbUAxMjM0YjEyZDE4OTlubmdnYnkxeW5tMSIsImZpcnN0bmFtZSI6ImVzbGFtZWVlZWVlZWVlZWVlZWVlMTIzIiwibGFzdG5hbWUiOiJlc2xhbTEyMjExIiwiaWF0IjoxNzA4ODAwMzM3fQ.hGmqFnxJ1BG-ltGx7HeySgUAud19VstdiIG6skeb1EQ'
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRhMDgwY2RhNDM2NWM2MzE5MTUwNWEiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImdvbWFhQGdvbWFhLmVzbGFtIiwiZmlyc3RuYW1lIjoiQWJkbyIsImxhc3RuYW1lIjoiR29tYWEiLCJpYXQiOjE3MDg4NjA1ODZ9.xl1gF2EoYRl4OsiPRn3itKFETBZcLu7cgvRWSXpKLqE',
+  };
+
+  // users
+  getAllUsers(): Observable<any> {
+    return this._HttpClient.get(`${this._base_API}user/getall`);
   }
 
   getUserById(id: number): Observable<any> {
-    return this._HttpClient.get(this._base_API + 'user/' + id, { headers: this._headers });
-  }
-
-
-  getAllUsers(): Observable<any> {
-    return this._HttpClient.get(`${this._base_API}users`);
+    return this._HttpClient.get(this._base_API + 'user/' + id, {
+      headers: this._headers,
+    });
   }
 
   distroyUser(id: number): Observable<any> {
-    return this._HttpClient.delete(`${this._base_API}/users/${id}`);
+    return this._HttpClient.delete(`${this._base_API}user/${id}`);
     //  /user/id
   }
 
+  // posts
   getAllPosts(): Observable<any> {
     return this._HttpClient.get(`${this._base_API}story/getall`);
     // /story
   }
 
   distroyPost(id: number): Observable<any> {
-    return this._HttpClient.delete(`${this._base_API}/story/${id}`);
+    return this._HttpClient.delete(`${this._base_API}story/${id}`);
     // /story/id
   }
 
+  // categories
   getCategories(): Observable<any> {
     return this._HttpClient.get(`${this._base_API}/categories`);
   }

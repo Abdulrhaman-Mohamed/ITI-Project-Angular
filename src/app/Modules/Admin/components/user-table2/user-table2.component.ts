@@ -18,11 +18,11 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { ServicesService } from '../../services/services.service';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
+import { GoToService } from '../../../Shared/services/go-to.service';
 
 @Component({
   selector: 'app-user-table2',
@@ -65,8 +65,9 @@ export class UserTable2Component implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private service: UserService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+    public _GoToService: GoToService
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -76,7 +77,7 @@ export class UserTable2Component implements OnInit {
   getUsers() {
     this.service.getAllUsers().subscribe({
       next: (data) => {
-        this.users = data;
+        this.users = data.findAll;
         this.filteredUsers = this.users;
       },
       error: (error) => {
