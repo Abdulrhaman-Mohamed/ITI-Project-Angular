@@ -10,6 +10,7 @@ import { ServicesService } from '../../services/services.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { RouterModule } from '@angular/router';
+import { GoToService } from '../../../Shared/services/go-to.service';
 
 @Component({
   selector: 'app-dashboard-body',
@@ -28,7 +29,7 @@ export class DashboardBodyComponent implements OnInit {
   posts: any = [];
   users: any = [];
 
-  constructor(private service: UserService) {}
+  constructor(private service: UserService, public goto: GoToService) {}
 
   ngOnInit(): void {
     this.getUsers();
