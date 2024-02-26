@@ -1,32 +1,55 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class UserService {
-  constructor(private _HttpClient: HttpClient) { }
+  constructor(
+    //#region dependency injection
+    private _HttpClient: HttpClient,
+    //#endregion
+  ) { }
 
-  private _base_API: string = "https://devjourney-restfulapi.onrender.com/api/";
-  // private _base_API: string = "http://localhost:3000/api/";
-  private readonly _headers: any = { // ! angular interceptor
-    accept: "application/json",
-    Authorization: "Bearer aadssadsfsa"
+  private readonly _apiBaseUrl: string = 'https://devjourney21.onrender.com';
+  private readonly _base_API: string = 'https://devjourney21.onrender.com';
+
+  // * handle [USERS] requests [getAll - getOne - update - delete]
+  //#region 
+  private readonly _UserEndpoints = {
+    getAll: `${this._apiBaseUrl}/user/getall`,
+    getOneById: `${this._apiBaseUrl}/user/`,
+    upadteOneById: `${this._apiBaseUrl}/user/`, // ! using PATCH method
+    deleteOneById: `${this._apiBaseUrl}/user/`,
+  } as const;
+
+  getAllUsers(): Observable<any> { return this._HttpClient.get(this._UserEndpoints.getAll) }
+  getUserById(id: number): Observable<any> { return this._HttpClient.get(this._UserEndpoints.getOneById + id) }
+  distroyUser(id: number): Observable<any> { return this._HttpClient.delete(this._UserEndpoints.deleteOneById + id) }
+  updateUser(id: number, data: any): Observable<any> { return this._HttpClient.patch(this._UserEndpoints.upadteOneById + id, data) }
+  //#endregion
+
+  // * handle [BLOGS] requests [create - getAll - getOne - update - delete]
+  //#region 
+  private readonly _BlogEndpoints = {
+    create: `${this._apiBaseUrl}/story/create`,
+    getAll: `${this._apiBaseUrl}/story/getall`,
+    getOneById: `${this._apiBaseUrl}/story/`,
+    upadteOneById: `${this._apiBaseUrl}/story/`, // ! using PATCH method
+    deleteOneById: `${this._apiBaseUrl}/story/`,
+  } as const;
+
+  getAllPosts(): Observable<any> { return this._HttpClient.get(this._BlogEndpoints.getAll) }
+  distroyPost(id: number): Observable<any> { return this._HttpClient.delete(this._BlogEndpoints.deleteOneById + id) }
+  //#endregion
+
+  // categories
+  getCategories(): Observable<any> {
+    return this._HttpClient.get(`${this._base_API}/categories`);
   }
 
-  // _HttpClient = inject(HttpClient);
-
-  getUsers(): Observable<any> {
-    return this._HttpClient.get(this._base_API + "users", {
-      headers: this._headers
-    });
+  getPostsCategory(categoryId: Number): Observable<any> {
+    return this._HttpClient.get(`${this._base_API}/categoryID=${categoryId}`);
   }
-
-  getUserById(id: number): Observable<any> {
-    return this._HttpClient.get(this._base_API + "users/" + id);
-  }
-
 }

@@ -1,11 +1,11 @@
 export interface User {
-    _id: string;
-    name: string;
-    occupation: string;
-    location: string;
-    bio: string;
-    username: string;
-    email: string;
-    phone: string;
-    age: number;
+    _id: string
+    firstname: string
+    lastname: string
+    email: string
+    password: string
+    role: string
+    isActive: boolean
+    createdAt: string
+    updatedAt: string
 }
