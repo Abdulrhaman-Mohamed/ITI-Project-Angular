@@ -1,18 +1,3 @@
-<header class="bg-white">
-  <div class="container flex  justify-between py-3">
-    <h1 class="text-3xl font-semibold"><span class="text-[#9A3333]">Dev</span>Journey <span
-        class=" text-sm font-medium">{{EditoRCreate}} blog</span></h1>
-    <button (click)="onSubmit()" class="
-      py-1 px-4 md:px-5 lg:px-5
-      rounded-full border-0
-      text-sm font-meduim
-      bg-[#9A3333]
-      hover:text-[#9A3333]
-      hover:bg-transparent
-      hover:cursor-pointer
-    ">{{buttonPublishOrUpdateBlog}}</button>
-  </div>
-</header>
 <div class="container py-20">
   <div class=" position-relative h-auto">
     <input type="text" name="title" placeholder="Please Type Your Title here"
@@ -64,5 +49,14 @@
     </div>
   </div>
   <p-toast></p-toast>
-
+  <button (click)="onSubmit()" class="
+  btn btn-danger
+      py-1 px-4 md:px-5 lg:px-5
+      rounded-full border-0
+      text-sm font-meduim
+      bg-[#9A3333]
+      hover:text-[#9A3333]
+      hover:bg-transparent
+      hover:cursor-pointer
+    ">{{buttonPublishOrUpdateBlog}}</button>
 </div>

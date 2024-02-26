@@ -781,9 +781,7 @@
                         </div>
 
                         <button [disabled]="registerForm.invalid" class=" btn w-50 text-center "
-                            style="background-color: #203947; color: white; height: 40px;">Create
-
-                            Account <i *ngIf="isLoading" class="pi pi-spin pi-spinner"></i> </button>
+                            style="background-color: #203947; color: white; height: 40px;">Create Account</button>
                         <p *ngIf="isExistedUser" class="text-white">{{msgError}} <button class="link font-bold"
                                 [routerLink]="[_GoToService.page.login]" routerLinkActive="router-link-active">Login
                             </button> </p>

@@ -34,7 +34,6 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   formControlsNames;
   msgError?: string;
-  isLoading: boolean;
   isExistedUser: boolean;
   registerSubscribe!: Subscription;
 
@@ -46,7 +45,6 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     public _GoToService: GoToService
   ) {
     this.formControlsNames = this._AuthService.formControlsNames;
-    this.isLoading = false;
     this.isExistedUser = false;
   }
 
@@ -69,18 +67,17 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     if (this.registerForm.valid) {
       //#region valid
 
-      
-      this.isLoading = true;
+
       this.registerSubscribe = this._AuthService.setRegister(this.registerForm.value)
         .subscribe({
           next: (res) => {
             console.log(res);
-            this.isLoading = false;
-            res.message == 'success' ? this._Router.navigate([this._GoToService.page.login]) : null;
+            localStorage.setItem('email', this.registerForm.value.email)
+            this._Router.navigate([this._GoToService.page.login]);
+
           },
           error: (err: HttpErrorResponse) => {
             console.log(err);
-            this.isLoading = false;
             this.isExistedUser = true;
             this.msgError = err.error.message;
             this._messageService.add({ severity: 'error ', summary: 'Error', detail: this.msgError });

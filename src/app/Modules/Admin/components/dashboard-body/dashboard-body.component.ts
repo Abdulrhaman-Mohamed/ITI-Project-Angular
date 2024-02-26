@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { RouterModule } from '@angular/router';
 import { GoToService } from '../../../Shared/services/go-to.service';
+import { AuthService } from '../../../Auth/services/auth.service';
+import { User } from '../../../Shared/interfaces/user';
 
 @Component({
   selector: 'app-dashboard-body',
@@ -24,15 +26,23 @@ export class DashboardBodyComponent implements OnInit {
   AngleDoubleIconUser = faAngleDoubleDown;
   AngleDoubleIconPost = faAngleDoubleDown;
   faNewspaper = faNewspaper;
-
+  loggedUser!: any;
   posts: any = [];
   users: any = [];
 
-  constructor(private service: UserService, public _GoToService: GoToService) {}
+  constructor(private service: UserService,
+    public _AuthService: AuthService,
+    public _GoToService: GoToService
+  ) {
+  }
 
   ngOnInit(): void {
     this.getUsers();
     this.getPosts();
+
+    this.loggedUser = this._AuthService.loggedUser;
+    console.log(this.loggedUser.firstname);
+
   }
 
   getUsers() {

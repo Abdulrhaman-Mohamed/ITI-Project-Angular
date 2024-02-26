@@ -1,8 +1,11 @@
-<p>main-layout works!</p>
-<router-outlet></router-outlet>
+<div class="d-flex flex-column justify-content-between   vh-100 ">
 
-<div class="bg-red-200">
+    <div class="container mx-auto text-center pt-5">
+        <h1 class="mb-5">DevJourney Home Page</h1>
+        <button [routerLink]="_GoToService.page.register" class="btn btn-danger me-2">Sign Up</button>
+        <button [routerLink]="_GoToService.page.login" class="btn btn-warning">Login</button>
+    </div>
 
-    <app-footer ></app-footer>
+    <app-footer></app-footer>
+
 </div>
-<app-footer></app-footer>

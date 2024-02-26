@@ -51,10 +51,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log('LOGIN_PAGE | ', 'ngOnInit');
 
+
     // * create login form using [form builder service] - contains email & password
     this.loginForm = this._FormBuilder.group({
       //#region 
-      [this.formControlsNames.email]: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
+      [this.formControlsNames.email]: [localStorage.getItem('email') ?? '', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
       [this.formControlsNames.password]: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}')]],
       //#endregion
     });
@@ -69,6 +70,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   onLogin() {
+    localStorage.clear()
+
     console.log('LOGIN_PAGE | ', 'onLogin', 'loginData:', this.loginForm.value);
     console.log('LOGIN_PAGE | ', 'form validation:', this.loginForm.valid);
 

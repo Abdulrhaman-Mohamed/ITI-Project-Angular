@@ -35,7 +35,8 @@ export class UserProfileComponent implements OnInit {
     this._UserService.getUserById(this._userId)
       .subscribe(
         user => {
-          this.user = user;
+          this.user = user.findById;
+          console.log({ user });
 
           console.log("constructor profile", this.user);
         }
