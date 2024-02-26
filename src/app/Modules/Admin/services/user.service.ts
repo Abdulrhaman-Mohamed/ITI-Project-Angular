@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../Auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private _HttpClient: HttpClient) {}
+  
+  constructor(private _HttpClient: HttpClient,private _AuthService:AuthService ) {}
   /* https://devjourney21.onrender.com/test new URL  */
   private _base_API: string = 'https://devjourney21.onrender.com/';
   private readonly _headers: any = {
@@ -14,12 +16,14 @@ export class UserService {
     accept: 'application/json',
     // Authorization: "Bearer aadssadsfsa",
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRhMDgwY2RhNDM2NWM2MzE5MTUwNWEiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImdvbWFhQGdvbWFhLmVzbGFtIiwiZmlyc3RuYW1lIjoiQWJkbyIsImxhc3RuYW1lIjoiR29tYWEiLCJpYXQiOjE3MDg4NjA1ODZ9.xl1gF2EoYRl4OsiPRn3itKFETBZcLu7cgvRWSXpKLqE',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRiYjczNzVjODg0MzMyZWQ3ODc0NGYiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImFiZG9AdGVzdDcuY29tIiwiZmlyc3RuYW1lIjoiYWJkbyIsImxhc3RuYW1lIjoidGVtbyIsImlhdCI6MTcwODk3NzEzNn0.XSeuqCA5pvPYpGc2dQMnB_fLHIlcBTlukrTZgmnucxQ',
   };
 
   // users
   getAllUsers(): Observable<any> {
-    return this._HttpClient.get(`${this._base_API}user/getall`);
+    return this._HttpClient.get(`${this._base_API}user/getall`,{
+      headers:{Authorization:`Bearer ${this._AuthService.getToken()}`}
+    });
   }
 
   getUserById(id: number): Observable<any> {
@@ -39,14 +43,14 @@ export class UserService {
     // /story
   }
 
-  distroyPost(id: number): Observable<any> {
+  distroyPost(id:string): Observable<any> {
     return this._HttpClient.delete(`${this._base_API}story/${id}`);
     // /story/id
   }
 
   // categories
   getCategories(): Observable<any> {
-    return this._HttpClient.get(`${this._base_API}/categories`);
+    return this._HttpClient.get(`${this._base_API}categories`);
   }
 
   getPostsCategory(categoryId: Number): Observable<any> {

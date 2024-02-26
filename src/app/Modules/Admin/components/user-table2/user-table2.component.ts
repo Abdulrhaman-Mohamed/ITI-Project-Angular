@@ -71,12 +71,14 @@ export class UserTable2Component implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.getCategories();
+    // this.getCategories();
   }
 
   getUsers() {
     this.service.getAllUsers().subscribe({
       next: (data) => {
+        console.log(data);
+        
         this.users = data.findAll;
         this.filteredUsers = this.users;
       },
@@ -86,16 +88,16 @@ export class UserTable2Component implements OnInit {
     });
   }
 
-  getCategories() {
-    this.service.getCategories().subscribe({
-      next: (data) => {
-        this.categories = data;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
+  // getCategories() {
+  //   this.service.getCategories().subscribe({
+  //     next: (data) => {
+  //       this.categories = data;
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     },
+  //   });
+  // }
 
   getSeverity(role: string) {
     switch (role) {

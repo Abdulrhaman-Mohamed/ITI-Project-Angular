@@ -80,7 +80,8 @@ export class EditAddBlogComponent implements OnInit {
         next: (res: any) => {
 
           if (res) { // Type guard to ensure object
-
+            console.log(res);
+            
             this.bodyBlog = res.findById.body;
             this.titleBlog = res.findById.title;
             this.selectedCategory = res.findById.category;

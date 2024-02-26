@@ -108,15 +108,15 @@ export class PostsTableComponent {
     });
   }
 
-  getUserName(userId: number) {
+  getUserName(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => +u.id == userId);
+      const user = this.users.find((u: any) => u.id == userId);
       return user.name;
     }
   }
-  getUserDetail(userId: number) {
+  getUserDetail(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => +u.id == userId);
+      const user = this.users.find((u: any) => u.id == userId);
       return user.detail;
     }
   }
@@ -139,7 +139,9 @@ export class PostsTableComponent {
     }
   }
 
-  deletePost(postId: number) {
+  deletePost(postId: string) {
+    console.log(postId);
+    
     this.confirmationService.confirm({
       message: 'Do you want to delete this post?',
       header: 'Delete Confirmation',
@@ -150,8 +152,14 @@ export class PostsTableComponent {
       rejectIcon: 'none',
 
       accept: () => {
-        this.service.distroyPost(postId).subscribe((res: any) => {
-          this.getPosts();
+        this.service.distroyPost(postId).subscribe({
+          next:(res)=>{
+            console.log(res);
+            
+          },
+          complete:()=>{
+            this.getPosts();
+          }
         });
 
         this.messageService.add({
