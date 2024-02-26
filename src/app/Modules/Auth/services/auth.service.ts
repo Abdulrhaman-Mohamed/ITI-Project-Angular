@@ -3,12 +3,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GoToService } from '../../Shared/services/go-to.service';
+import { User } from '../../Shared/interfaces/user';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  loggedUser!: any;
   constructor(
     //#region dependency injection
     private _HttpClient: HttpClient,
@@ -55,6 +58,16 @@ export class AuthService {
   setToken(access_token: string): void { localStorage.setItem(this._tokenKey, access_token) }
   getToken(): string | null { return localStorage.getItem(this._tokenKey) }
   clearToken(): void { localStorage.removeItem(this._tokenKey) }
+  getLoggedUser() {
+    const token = this.getToken();
+    if (token) {
+      // ! Schema
+      let decodedToken = jwtDecode(token);
+      this.loggedUser = decodedToken;
+      console.log('AUTH_SERVICE | ', 'loggedUser: ', this.loggedUser);
+      return this.loggedUser;
+    }
+  }
   //#endregion
 
 }

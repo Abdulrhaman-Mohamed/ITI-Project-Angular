@@ -14,7 +14,6 @@ import { DashboardAdminComponent } from '../../Shared/Components/dashboard-admin
     DashboardAdminComponent
   ],
   templateUrl: './auth-layout.component.html',
-  styleUrl: './auth-layout.component.css'
 })
 export class AuthLayoutComponent {
 

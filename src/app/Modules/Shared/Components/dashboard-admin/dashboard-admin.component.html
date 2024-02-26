@@ -49,7 +49,7 @@
               <div class="sidebar-all-icons">
                 <div class="sidebar-nav mt-2 ">
                   <!-- !--------------------------------------------- -->
-                  <a [routerLink]="[_GoToService.page.DashAdminHome]" routerLinkActive="router-link-active">
+                  <a [routerLink]="[_GoToService.page.DashAdminHome]" routerLinkActive="router-link-active text-danger">
                     <div class="sidebar-nav-text d-flex p-2 align-items-center">
                       <i class=" mx-lg-3 mx-md-3 mx-sm-3 mx-auto fa-solid fa-house"></i>
                       <p class="sidebar_p">DashBoard</p>
@@ -58,7 +58,8 @@
                 </div>
                 <div class="sidebar-nav mt-5">
                   <!-- !--------------------------------------------- -->
-                  <a [routerLink]="[_GoToService.page.DashAdminUsers]" routerLinkActive="router-link-active">
+                  <a [routerLink]="[_GoToService.page.DashAdminUsers]"
+                    routerLinkActive="router-link-active text-danger">
                     <div class="sidebar-nav-text d-flex p-2 align-items-center">
                       <i class=" mx-lg-3 mx-md-3 mx-sm-3 mx-auto fa-solid fa-users"></i>
                       <p class="sidebar_p">Users</p>
@@ -67,7 +68,8 @@
                 </div>
                 <div class="sidebar-nav mt-5">
                   <!-- !--------------------------------------------- -->
-                  <a [routerLink]="[_GoToService.page.DashAdminBlogs]" routerLinkActive="router-link-active">
+                  <a [routerLink]="[_GoToService.page.DashAdminBlogs]"
+                    routerLinkActive="router-link-active text-danger">
                     <div class="sidebar-nav-text d-flex p-2 align-items-center">
                       <i class=" mx-lg-3 mx-md-3 mx-sm-3 mx-auto fa-regular fa-hard-drive"></i>
                       <p class="sidebar_p">Stories</p>
@@ -84,21 +86,4 @@
       <div class="col-md-9"> <router-outlet></router-outlet> </div>
     </div>
   </div>
-
-
-
-  <!-- <p-sidebar [(visible)]="sidebarVisible">
-      <ng-template pTemplate="header">Header Content</ng-template>
-      <ng-template pTemplate="content">Body Content</ng-template>
-      <ng-template pTemplate="footer">Footer Content</ng-template>
-  </p-sidebar>
-  <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button> -->
-
-  <!-- <a href="" class="a-pics position-relative">
-      <img src="assets\images\1.webp" alt="" />
-      <div class="bg-danger position-absolute proj-text">
-        <h4 class="text-light p-5">PIXEL ARTMARKER</h4>
-       class="min-vh-100"  <span class="text-light">Using: HTML,CSS, JavaScript</span>
-      </div>
-    </a> -->
 </div>

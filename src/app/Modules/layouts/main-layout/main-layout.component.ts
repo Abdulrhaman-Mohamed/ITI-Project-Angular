@@ -12,7 +12,6 @@ import { FooterComponent } from '../../Shared/Components/footer/footer.component
     FooterComponent
   ],
   templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.css'
 })
 export class MainLayoutComponent {
 

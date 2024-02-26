@@ -10,7 +10,6 @@ import { AdminDashLayoutComponent } from '../admin-dash-layout/admin-dash-layout
     AdminDashLayoutComponent
   ],
   templateUrl: './admin-dash-main-layout.component.html',
-  styleUrl: './admin-dash-main-layout.component.css'
 })
 export class AdminDashMainLayoutComponent {
 

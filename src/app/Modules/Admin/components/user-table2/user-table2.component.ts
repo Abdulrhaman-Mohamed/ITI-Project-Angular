@@ -23,7 +23,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
-import { User } from '../../interfaces/user';
+import { User } from '../../../Shared/interfaces/user';
 
 @Component({
   selector: 'app-user-table2',
@@ -89,17 +89,6 @@ export class UserTable2Component implements OnInit {
         console.log(error);
       },
     });
-  }
-
-  imgRandon() {
-    // this._HttpClient.get('https://xsgames.co/randomusers/avatar.php?g=male')
-    //   .subscribe({
-    //     next: (res) => {
-    //       console.log(res);
-
-    //     }
-    //   })
-
   }
 
   getCategories() {

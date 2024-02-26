@@ -18,6 +18,7 @@ export class GoToService {
       DashAdminEditUserProfile: '/dashboard/users/edit/',
       DashAdminEditBlog: '/dashboard/blogs/',
       DashAdminAddBlog: '/dashboard/blogs/add',
+      errorPage: '/notfound'
     } as const;
   }
 }

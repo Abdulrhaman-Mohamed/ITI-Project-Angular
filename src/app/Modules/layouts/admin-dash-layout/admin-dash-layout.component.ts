@@ -18,6 +18,5 @@ import { DashboardBodyComponent } from '../../Admin/components/dashboard-body/da
     DashboardBodyComponent,
   ],
   templateUrl: './admin-dash-layout.component.html',
-  styleUrl: './admin-dash-layout.component.css',
 })
 export class AdminDashLayoutComponent { }
