@@ -36,6 +36,7 @@
         <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
       </select> -->
 
+
     </div>
   </div>
 
@@ -65,6 +66,7 @@
           </td>
           <td [routerLink]="_GoToService.page.DashAdminUserProfile + user._id" class="user__router">{{ user.email }}
           </td>
+
           <td>
             <p-tag class="p-2" [severity]="getSeverity(user.role)" [rounded]="true">{{ user.role }}</p-tag>
           </td>
@@ -111,7 +113,9 @@
 
   </div>
 </div>
+
 <!-- } -->
+
 
 
 

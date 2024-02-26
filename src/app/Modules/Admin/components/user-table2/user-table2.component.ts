@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TagModule } from 'primeng/tag';
 import {
@@ -6,6 +7,7 @@ import {
   faMagnifyingGlass,
   faFilter,
   faEllipsisVertical,
+
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { FilterPipe } from './../../../Shared/pipes/filter.pipe';
@@ -25,6 +27,7 @@ import { UserService } from '../../services/user.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
 import { User } from '../../../Shared/interfaces/user';
 
+
 @Component({
   selector: 'app-user-table2',
   standalone: true,
@@ -41,6 +44,7 @@ import { User } from '../../../Shared/interfaces/user';
     RouterModule,
   ],
   providers: [MessageService, ConfirmationService, UserService],
+
   templateUrl: './user-table2.component.html',
   styleUrl: './user-table2.component.css',
 })
@@ -75,6 +79,7 @@ export class UserTable2Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.getUsers();
     this.getCategories();
   }
@@ -84,6 +89,7 @@ export class UserTable2Component implements OnInit {
       next: (data) => {
         this.users = data.findAll;
         this.filteredUsers = this.users;
+
       },
       error: (error) => {
         console.log(error);
@@ -108,6 +114,7 @@ export class UserTable2Component implements OnInit {
         return 'info';
       case 'admin':
         return 'success';
+
       default:
         return '';
     }
@@ -157,6 +164,7 @@ export class UserTable2Component implements OnInit {
       this.filteredUsers = this.users.filter(
         (user: any) => user.role === category
       );
+
     }
   }
 }

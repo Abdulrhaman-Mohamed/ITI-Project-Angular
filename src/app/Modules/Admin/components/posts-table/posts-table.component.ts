@@ -7,6 +7,7 @@ import {
   faFilter,
   faTrashCan,
   faPenToSquare,
+
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { FilterPipe } from './../../../Shared/pipes/filter.pipe';
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GoToService } from '../../../Shared/services/go-to.service';
 import { UserService } from '../../services/user.service';
 
+
 @Component({
   selector: 'app-posts-table',
   standalone: true,
@@ -41,6 +43,7 @@ import { UserService } from '../../services/user.service';
     RouterModule,
   ],
   providers: [MessageService, ConfirmationService],
+
   templateUrl: './posts-table.component.html',
   styleUrl: './posts-table.component.css',
 })
@@ -48,6 +51,7 @@ export class PostsTableComponent {
   searchAny: any;
 
   // pagination
+
   p: number = 1;
   itemsPerPage: number = 10;
   totalProducts: any;
@@ -76,11 +80,13 @@ export class PostsTableComponent {
     private confirmationService: ConfirmationService,
     private service: UserService,
     public _GoToService: GoToService
+
   ) {}
 
   ngOnInit(): void {
     this.getPosts();
     // this.getCategories();
+
     this.getUsers();
   }
 
@@ -90,6 +96,7 @@ export class PostsTableComponent {
         this.posts = data.findAll;
         this.filteredPosts = this.posts;
         console.log('stories', this.posts);
+
       },
       error: (error) => {
         console.log(error);
@@ -101,6 +108,7 @@ export class PostsTableComponent {
     this.service.getAllUsers().subscribe({
       next: (data) => {
         this.users = data.findAll;
+
       },
       error: (error) => {
         console.log(error);
@@ -131,6 +139,7 @@ export class PostsTableComponent {
   //     },
   //   });
   // }
+
 
   getSeverity(category: string) {
     switch (category) {
@@ -173,6 +182,7 @@ export class PostsTableComponent {
   onSelectCategory(event: any) {
     const categoryName = event.target.innerText;
     console.log(categoryName);
+
 
     if (categoryName) {
       this.filteredPosts = this.posts.filter((post: any) => {

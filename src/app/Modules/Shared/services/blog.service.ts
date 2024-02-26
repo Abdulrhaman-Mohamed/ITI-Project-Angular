@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +13,7 @@ export class BlogService {
   constructor(private _HttpClient: HttpClient) { }
 
   getURL() {
+
     return this.API_Connection;
   }
 
@@ -32,3 +34,4 @@ export class BlogService {
     return this._HttpClient.post(`${[this._url]}/create`, blogData);
   }
 }
+

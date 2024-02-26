@@ -6,6 +6,7 @@ import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { RouterModule } from '@angular/router';
@@ -16,8 +17,10 @@ import { User } from '../../../Shared/interfaces/user';
 @Component({
   selector: 'app-dashboard-body',
   standalone: true,
+
   imports: [FontAwesomeModule, CommonModule, RouterModule],
   providers: [UserService],
+
   templateUrl: './dashboard-body.component.html',
   styleUrl: './dashboard-body.component.css',
 })
@@ -30,11 +33,11 @@ export class DashboardBodyComponent implements OnInit {
   posts: any = [];
   users: any = [];
 
-  constructor(private service: UserService,
+  constructor(
+    private service: UserService,
     public _AuthService: AuthService,
     public _GoToService: GoToService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -42,7 +45,6 @@ export class DashboardBodyComponent implements OnInit {
 
     this.loggedUser = this._AuthService.loggedUser;
     console.log(this.loggedUser.firstname);
-
   }
 
   getUsers() {
@@ -83,6 +85,7 @@ export class DashboardBodyComponent implements OnInit {
       this.users.sort(function (a: any, b: any) {
         let nameA = a.firstname.toUpperCase();
         let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return -1;
         }
@@ -98,6 +101,7 @@ export class DashboardBodyComponent implements OnInit {
       this.users.sort(function (a: any, b: any) {
         let nameA = a.firstname.toUpperCase();
         let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return 1;
         }
