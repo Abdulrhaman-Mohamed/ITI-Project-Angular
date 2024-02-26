@@ -22,6 +22,7 @@ export interface PagesNames {
   DashAdminHome: '/dashboard/home';
   DashAdminUsers: '/dashboard/users';
   DashAdminBlogs: '/dashboard/blogs/';
+  DashAdminBlogsDetails:'/dashboard/blogs/blogdetails/';
   DashAdminUserProfile: '/dashboard/users/';
   DashAdminEditUserProfile: '/dashboard/users/edit/';
   DashAdminEditBlog: '/dashboard/blogs/';

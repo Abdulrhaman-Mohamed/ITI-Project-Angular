@@ -277,8 +277,7 @@ export class EditAddBlogComponent implements OnInit {
 
         if (this.id === "add") {
           // console.log(this.coverimage.type.split("/")[0]);
-          
-          this.BlogServices.addBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage.type ? this.coverimage.type : "" }).subscribe({
+          this.BlogServices.addBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage? this.coverimage.type : "" }).subscribe({
             next: (res: any) => {
               console.log(res);
             },
@@ -291,7 +290,7 @@ export class EditAddBlogComponent implements OnInit {
           })
         }
         else {
-          this.BlogServices.UpdateBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage.type ? this.coverimage.type : "" }, this.id).subscribe({
+          this.BlogServices.UpdateBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage ? this.coverimage.type : "" }, this.id).subscribe({
             next: (res: any) => {
               console.log(res);
             },

@@ -25,3 +25,24 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.ql-align-center
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.ql-align-right
+{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+img
+{
+  width: 100%;
+}
+

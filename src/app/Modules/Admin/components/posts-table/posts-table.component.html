@@ -63,7 +63,7 @@
                             <p class="m-0">{{ getUserDetail(post.userId) }}</p>
                         </div>
                     </td>
-                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminBlogs + post._id">{{ post.title }}
+                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminBlogsDetails + post._id">{{ post.title }}
                     </td>
                     <td>
                         <p-tag class="p-2" [severity]="getSeverity(post.category)" [rounded]="true">{{
