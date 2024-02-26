@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class BlogService {
   API_Connection!: string;
-  private readonly _url = 'https://devjourney-restfulapi.onrender.com/story';
+  
+  private readonly _url = 'https://devjourney21.onrender.com/story';
 
   constructor(private _HttpClient: HttpClient) { }
 
@@ -24,11 +25,15 @@ export class BlogService {
 
 
   getBlogById(id: string) {
+    console.log(id);
+    
     return this._HttpClient.get(`${this._url}/${id}`)
   }
 
 
   addBlog(blogData: any): Observable<any> {
+    console.log(blogData);
+    
     return this._HttpClient.post(`${[this._url]}/create`, blogData);
   }
 }

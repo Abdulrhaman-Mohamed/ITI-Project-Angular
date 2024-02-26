@@ -35,6 +35,7 @@ export class BlogDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const param = this._myActivatedRoute.snapshot.params['id'];
+    
     this.blogDetailsService.getBlogById(param).subscribe({
       next:(res:any)=>{
         
