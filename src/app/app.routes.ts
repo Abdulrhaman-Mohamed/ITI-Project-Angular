@@ -15,6 +15,7 @@ import { BlogCardComponent } from './Modules/User/components/blog-card/blog-card
 import { DashboardBodyComponent } from './Modules/Admin/components/dashboard-body/dashboard-body.component';
 import { UserTable2Component } from './Modules/Admin/components/user-table2/user-table2.component';
 import { PostsTableComponent } from './Modules/Admin/components/posts-table/posts-table.component';
+import { guestGuard } from './Modules/Core/guards/guest.guard';
 
 export interface PagesNames {
   login: '/login';
@@ -32,6 +33,7 @@ export const routes: Routes = [
   {
     path: '',
     component: AuthLayoutComponent,
+    canActivate: [guestGuard],
     children: [
       { path: 'login', component: LoginPageComponent, title: 'Login' },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -76,7 +78,7 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'user', component: BlogDetailsComponent },
-  { path: 'userTEST', component: BlogCardComponent },
+  { path: 'user', component: BlogDetailsComponent, canActivate: [authGuard] },
+  { path: 'userTEST', component: BlogCardComponent, canActivate: [authGuard] },
   { path: '**', component: NotFoundComponent, title: 'Not found' },
 ];

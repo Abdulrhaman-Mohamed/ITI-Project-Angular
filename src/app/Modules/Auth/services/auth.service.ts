@@ -9,18 +9,13 @@ import { GoToService } from '../../Shared/services/go-to.service';
 })
 export class AuthService {
 
-  private _tokenValue!: string | null;
-  private readonly _tokenKey: string = 'token';
-
   constructor(
+    //#region dependency injection
     private _HttpClient: HttpClient,
     private _Router: Router,
     private _GoToService: GoToService
-  ) {
-    this._tokenValue = localStorage.getItem(this._tokenKey);
-  }
-
-  private readonly _url = 'https://devjourney-restfulapi.onrender.com/devjourney';
+    //#endregion
+  ) { }
 
   readonly formControlsNames = {
     //#region 
@@ -38,33 +33,28 @@ export class AuthService {
     //#endregion
   } as const;
 
-  // !----------------- User register & login
-  setRegister(userData: object): Observable<any> {
-    return this._HttpClient.post(`${[this._url]}/signup`, userData)
-  }
+  // * ----------------- handle authentication requets [ sign up - login - logout ]
+  //#region 
+  private readonly _apiBaseUrl = 'https://devjourney21.onrender.com';
+  private readonly _AuthEndpoints = {
+    signup: `${this._apiBaseUrl}/DevJourney/signup`,
+    login: `${this._apiBaseUrl}/DevJourney/login`,
+  } as const;
 
-  setLogin(userData: object): Observable<any> {
-    return this._HttpClient.post(`${[this._url]}/login`, userData)
-  }
-
+  setRegister(userData: object): Observable<any> { return this._HttpClient.post(this._AuthEndpoints.signup, userData) }
+  setLogin(userData: object): Observable<any> { return this._HttpClient.post(this._AuthEndpoints.login, userData) }
   logout(): void {
     this.clearToken();
-    this._Router.navigate([this._GoToService.page.login]);
+    this._Router.navigateByUrl(this._GoToService.page.login);
   }
+  //#endregion
 
-  // !----------------- User token
-  setToken(token: string): void {
-    this._tokenValue = JSON.stringify(token);
-    localStorage.setItem(this._tokenKey, token);
-  }
-
-  getToken(): string | null {
-    return this._tokenValue;
-  }
-
-  clearToken(): void {
-    this._tokenValue = null;
-    localStorage.removeItem(this._tokenKey);
-  }
+  // * ----------------- handle token [ set - get - clear ] via local storage
+  //#region 
+  private readonly _tokenKey: string = 'access_token';
+  setToken(access_token: string): void { localStorage.setItem(this._tokenKey, access_token) }
+  getToken(): string | null { return localStorage.getItem(this._tokenKey) }
+  clearToken(): void { localStorage.removeItem(this._tokenKey) }
+  //#endregion
 
 }

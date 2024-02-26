@@ -19,10 +19,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-user-table2',
@@ -44,8 +45,9 @@ import { GoToService } from '../../../Shared/services/go-to.service';
   styleUrl: './user-table2.component.css',
 })
 export class UserTable2Component implements OnInit {
+
   searchAny: any;
-  filteredUsers: any[] = [];
+  filteredUsers: User[] = [];
 
   p: number = 1;
   itemsPerPage: number = 10;
@@ -55,19 +57,22 @@ export class UserTable2Component implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
   faFilter = faFilter;
 
-  users: any = [];
+  users: User[] = [];
 
   categories: any = [];
 
   selectedCategoryId: any;
 
   constructor(
+    //#region dependency injection
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private service: UserService,
     private cdr: ChangeDetectorRef,
-    public _GoToService: GoToService
-  ) {}
+    public _GoToService: GoToService,
+    private _HttpClient: HttpClient
+    //#endregion
+  ) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -84,6 +89,17 @@ export class UserTable2Component implements OnInit {
         console.log(error);
       },
     });
+  }
+
+  imgRandon() {
+    // this._HttpClient.get('https://xsgames.co/randomusers/avatar.php?g=male')
+    //   .subscribe({
+    //     next: (res) => {
+    //       console.log(res);
+
+    //     }
+    //   })
+
   }
 
   getCategories() {
@@ -109,6 +125,8 @@ export class UserTable2Component implements OnInit {
   }
 
   deleteUser(userID: number) {
+    console.log({ userID });
+
     this.confirmationService.confirm({
       message: 'Do you want to delete this user?',
       header: 'Delete Confirmation',
