@@ -7,7 +7,7 @@ import { TableModule, TableService } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { UserProfileComponent } from './Modules/Admin/components/user-profile/user-profile.component';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { loadingScreenInterceptor } from './Modules/Core/interceptors/loading-screen.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { tokenInterceptor } from './Modules/Core/interceptors/token.interceptor';
@@ -23,20 +23,13 @@ import { tokenInterceptor } from './Modules/Core/interceptors/token.interceptor'
     ButtonModule,
     TagModule,
     RatingModule,
-<<<<<<< HEAD
-    RouterModule,
-=======
     UserProfileComponent,
-    NgxSpinnerModule
->>>>>>> AliAhmedM48
+    NgxSpinnerModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-<<<<<<< HEAD
-  ngOnInit(): void {}
-=======
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
@@ -50,34 +43,34 @@ export class AppComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.products = [{
-      id: '1000',
-      code: 'f230fh0g3',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      price: 65,
-      category: 'Accessories',
-      quantity: 24,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
-    },
-    {
-      id: '1000',
-      code: 'f230fh0g3',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      price: 65,
-      category: 'Accessories',
-      quantity: 24,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
-    },
-    ]
+    this.products = [
+      {
+        id: '1000',
+        code: 'f230fh0g3',
+        name: 'Bamboo Watch',
+        description: 'Product Description',
+        image: 'bamboo-watch.jpg',
+        price: 65,
+        category: 'Accessories',
+        quantity: 24,
+        inventoryStatus: 'INSTOCK',
+        rating: 5,
+      },
+      {
+        id: '1000',
+        code: 'f230fh0g3',
+        name: 'Bamboo Watch',
+        description: 'Product Description',
+        image: 'bamboo-watch.jpg',
+        price: 65,
+        category: 'Accessories',
+        quantity: 24,
+        inventoryStatus: 'INSTOCK',
+        rating: 5,
+      },
+    ];
   }
 
   title = 'ITI-Angular-Project';
   products: any;
->>>>>>> AliAhmedM48
 }
