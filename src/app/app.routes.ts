@@ -9,15 +9,15 @@ import { UserProfileComponent } from './Modules/Admin/components/user-profile/us
 import { BlogDetailsComponent } from './Modules/User/components/blog-details/blog-details.component';
 import { authGuard } from './Modules/Core/guards/auth.guard';
 import { DashboardBodyComponent } from './Modules/Admin/components/dashboard-body/dashboard-body.component';
-import { UserTable2Component } from './Modules/Admin/components/user-table2/user-table2.component';
+// import { UserTable2Component } from './Modules/Admin/components/user-table2/user-table2.component';
 import { PostsTableComponent } from './Modules/Admin/components/posts-table/posts-table.component';
 import { guestGuard } from './Modules/Core/guards/guest.guard';
 import { BlankLayoutComponent } from './Modules/layouts/blank-layout/blank-layout.component';
 import { DashboardLayoutComponent } from './Modules/layouts/dashboard-layout/dashboard-layout.component';
 import { dashboardGuard } from './Modules/Core/guards/dashboard.guard';
+import { UserTableComponent } from './Modules/Admin/components/user-table/user-table.component';
 
 export interface PagesNames {
-
   login: '/login';
   register: '/registration';
 
@@ -41,28 +41,50 @@ export const routes: Routes = [
 
   // * Blank Layout
   {
-    path: '', component: BlankLayoutComponent, canActivate: [guestGuard],
+    path: '',
+    component: BlankLayoutComponent,
+    canActivate: [guestGuard],
     children: [
       { path: 'login', component: LoginPageComponent, title: 'Login' },
-      { path: 'registration', component: RegisterPageComponent, title: 'Registration' },
+      {
+        path: 'registration',
+        component: RegisterPageComponent,
+        title: 'Registration',
+      },
     ],
   },
   // * Dashboard Layout
   {
-    path: 'dashboard', component: DashboardLayoutComponent, canActivate: [dashboardGuard],
+    path: 'dashboard',
+    component: DashboardLayoutComponent,
+    canActivate: [dashboardGuard],
     children: [
-
       { path: '', component: DashboardBodyComponent, title: 'Home' },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-
-      { path: 'users', component: UserTable2Component, title: 'Users' },
-      { path: 'users/:id', component: UserProfileComponent, title: 'User profile' },
-      { path: 'users/edit/:id', component: EditUserProfileComponent, title: 'Edit profile' },
+      { path: 'users', component: UserTableComponent, title: 'Users' },
+      {
+        path: 'users/:id',
+        component: UserProfileComponent,
+        title: 'User profile',
+      },
+      {
+        path: 'users/edit/:id',
+        component: EditUserProfileComponent,
+        title: 'Edit profile',
+      },
 
       { path: 'blogs', component: PostsTableComponent, title: 'Blogs' },
-      { path: 'blogs/:id', component: EditAddBlogComponent, title: 'Edit Blog' },
+      {
+        path: 'blogs/:id',
+        component: EditAddBlogComponent,
+        title: 'Edit Blog',
+      },
       { path: 'blogs/add', component: EditAddBlogComponent, title: 'Add Blog' },
-      { path: 'blogs/blogdetails/:id', component: BlogDetailsComponent, title: 'Blog Details' }
+      {
+        path: 'blogs/blogdetails/:id',
+        component: BlogDetailsComponent,
+        title: 'Blog Details',
+      },
     ],
   },
   { path: '**', component: NotFoundComponent, title: 'Not found' },

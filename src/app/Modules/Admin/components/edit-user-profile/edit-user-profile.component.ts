@@ -27,7 +27,7 @@ export class EditUserProfileComponent {
 
   // * Variables
   private _user!: User;
-  private _userId!: number;
+  private _userId!: string;
   imagePrefix: String = '';
   userForm!: FormGroup;
 
@@ -75,10 +75,7 @@ export class EditUserProfileComponent {
         Validators.required,
         // Validators.minLength(3),
       ],
-      [this.FormControlsNames.occupation]: [
-        '',
-        Validators.required,
-      ],
+      [this.FormControlsNames.occupation]: ['', Validators.required],
       [this.FormControlsNames.location]: [
         // this._user?.location,
         Validators.required,

@@ -58,7 +58,7 @@
                 @for(post of (filteredPosts | filter:searchAny | paginate: { itemsPerPage: itemsPerPage,
                 currentPage: p });
                 track
-                post.id){
+                post._id){
                 <tr class="rounded-start-pill">
 
                     <td class="d-flex rounded-start-pill ps-4 py-3 post__router"
@@ -70,7 +70,8 @@
                             <p class="m-0">{{ getUserDetail(post.userId) }}</p>
                         </div>
                     </td>
-                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminBlogs + post._id">{{ post.title }}
+                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminEditBlog + post._id">{{ post.title
+                        }}
                     </td>
 
                     <td>
@@ -82,7 +83,7 @@
                         <a [routerLink]="_GoToService.page.DashAdminAddBlog + post._id"
                             class="btn btn-outline-primary mb-2 mb-md-0  mx-2"><fa-icon
                                 [icon]="  faPenToSquare"></fa-icon></a>
-                        <button type="button" (click)="deletePost(post.id)" class="btn btn-danger"><fa-icon
+                        <button type="button" (click)="deletePost(post._id)" class="btn btn-danger"><fa-icon
                                 [icon]="  faTrashCan"></fa-icon></button>
 
 

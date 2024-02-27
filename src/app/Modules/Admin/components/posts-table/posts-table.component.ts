@@ -7,15 +7,10 @@ import {
   faFilter,
   faTrashCan,
   faPenToSquare,
-
 } from '@fortawesome/free-solid-svg-icons';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 import { FilterPipe } from './../../../Shared/pipes/filter.pipe';
-import {
-  MessageService,
-  ConfirmationService,
-  ConfirmEventType,
-} from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -25,7 +20,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { GoToService } from '../../../Shared/services/go-to.service';
 import { UserService } from '../../services/user.service';
-
 
 @Component({
   selector: 'app-posts-table',
@@ -47,7 +41,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './posts-table.component.html',
   styleUrl: './posts-table.component.css',
 })
-export class PostsTableComponent {
+export class PostsTableComponent implements OnInit {
   searchAny: any;
 
   // pagination
@@ -80,13 +74,10 @@ export class PostsTableComponent {
     private confirmationService: ConfirmationService,
     private service: UserService,
     public _GoToService: GoToService
-
   ) {}
 
   ngOnInit(): void {
     this.getPosts();
-    // this.getCategories();
-
     this.getUsers();
   }
 
@@ -96,7 +87,6 @@ export class PostsTableComponent {
         this.posts = data.findAll;
         this.filteredPosts = this.posts;
         console.log('stories', this.posts);
-
       },
       error: (error) => {
         console.log(error);
@@ -108,7 +98,6 @@ export class PostsTableComponent {
     this.service.getAllUsers().subscribe({
       next: (data) => {
         this.users = data.findAll;
-
       },
       error: (error) => {
         console.log(error);
@@ -116,15 +105,15 @@ export class PostsTableComponent {
     });
   }
 
-  getUserName(userId: number) {
+  getUserName(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => +u.id == userId);
+      const user = this.users.find((u: any) => u.id == userId);
       return user.name;
     }
   }
-  getUserDetail(userId: number) {
+  getUserDetail(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => +u.id == userId);
+      const user = this.users.find((u: any) => u.id == userId);
       return user.detail;
     }
   }
@@ -140,7 +129,6 @@ export class PostsTableComponent {
   //   });
   // }
 
-
   getSeverity(category: string) {
     switch (category) {
       default:
@@ -148,7 +136,7 @@ export class PostsTableComponent {
     }
   }
 
-  deletePost(postId: number) {
+  deletePost(postId: string) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this post?',
       header: 'Delete Confirmation',
@@ -159,8 +147,13 @@ export class PostsTableComponent {
       rejectIcon: 'none',
 
       accept: () => {
-        this.service.distroyPost(postId).subscribe((res: any) => {
-          this.getPosts();
+        this.service.distroyPost(postId).subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          complete: () => {
+            this.getPosts();
+          },
         });
 
         this.messageService.add({
@@ -182,7 +175,6 @@ export class PostsTableComponent {
   onSelectCategory(event: any) {
     const categoryName = event.target.innerText;
     console.log(categoryName);
-
 
     if (categoryName) {
       this.filteredPosts = this.posts.filter((post: any) => {

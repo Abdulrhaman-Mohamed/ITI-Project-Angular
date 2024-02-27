@@ -1,35 +1,28 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TagModule } from 'primeng/tag';
 import {
   faEllipsisV,
   faMagnifyingGlass,
   faFilter,
-  faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 import { FilterPipe } from './../../../Shared/pipes/filter.pipe';
-import {
-  MessageService,
-  ConfirmationService,
-  ConfirmEventType,
-} from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { RouterModule } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 import { GoToService } from '../../../Shared/services/go-to.service';
-import { User } from '../../../Shared/interfaces/user';
+import { UserService } from '../../services/user.service';
+import { User } from '@angular/fire/auth';
 import { AuthService } from '../../../Auth/services/auth.service';
-import { tokenInterceptor } from '../../../Core/interceptors/token.interceptor';
 
 @Component({
-  selector: 'app-user-table2',
+  selector: 'app-user-table',
   standalone: true,
   imports: [
     TagModule,
@@ -44,35 +37,35 @@ import { tokenInterceptor } from '../../../Core/interceptors/token.interceptor';
     RouterModule,
   ],
   providers: [MessageService, ConfirmationService, UserService],
-
-  templateUrl: './user-table2.component.html',
-  styleUrl: './user-table2.component.css',
+  templateUrl: './user-table.component.html',
+  styleUrl: './user-table.component.css',
 })
-export class UserTable2Component implements OnInit {
+export class UserTableComponent implements OnInit {
   searchAny: any;
-  filteredUsers: User[] = [];
+
+  // pagination
 
   p: number = 1;
   itemsPerPage: number = 10;
   totalProducts: any;
 
+  // fontawesome
+
   faEllipsisV = faEllipsisV;
   faMagnifyingGlass = faMagnifyingGlass;
   faFilter = faFilter;
 
+  //data arrays
+  filteredUsers: User[] = [];
   users: User[] = [];
   loggedUser!: any;
-  categories: any = [];
-
-  selectedCategoryId: any;
 
   constructor(
-    //#region dependency injection
+    public _AuthService: AuthService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private service: UserService,
-    public _GoToService: GoToService,
-    public _AuthService: AuthService
+    public _GoToService: GoToService
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +80,7 @@ export class UserTable2Component implements OnInit {
       next: (data) => {
         this.users = data.findAll;
         this.filteredUsers = this.users;
-        console.log('users', data);
+        console.log('users', this.users);
       },
       error: (error) => {
         console.log(error);

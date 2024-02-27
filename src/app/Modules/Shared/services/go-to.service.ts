@@ -5,7 +5,6 @@ import { PagesNames } from '../../../app.routes';
   providedIn: 'root',
 })
 export class GoToService {
-
   page: PagesNames;
 
   constructor() {
@@ -20,8 +19,7 @@ export class GoToService {
       DashAdminEditUserProfile: '/dashboard/users/edit/',
       DashAdminEditBlog: '/dashboard/blogs/',
       DashAdminAddBlog: '/dashboard/blogs/add',
-      errorPage: '/notfound'
+      errorPage: '/notfound',
     } as const;
   }
-
 }
