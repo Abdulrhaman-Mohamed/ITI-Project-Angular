@@ -8,9 +8,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class UserService {
   constructor(
     //#region dependency injection
-    private _HttpClient: HttpClient
-  ) //#endregion
-  {}
+    private _HttpClient: HttpClient //#endregion
+  ) {}
 
   private readonly _apiBaseUrl: string = 'https://devjourney21.onrender.com';
   private readonly _base_API: string = 'https://devjourney21.onrender.com';
@@ -54,6 +53,10 @@ export class UserService {
   distroyPost(id: string): Observable<any> {
     return this._HttpClient.delete(this._BlogEndpoints.deleteOneById + id);
   }
+  getPostById(id: string): Observable<any> {
+    return this._HttpClient.get(this._BlogEndpoints.getOneById + id);
+  }
+
   //#endregion
 
   // categories

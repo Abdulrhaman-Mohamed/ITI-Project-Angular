@@ -6,11 +6,16 @@ button {
   border-radius: 32.5px;
 }
 
-
 .character-count.valid {
   color: black;
 }
 
 .character-count.invalid {
   color: red;
+}
+#story .p-editor-container .p-editor-content .ql-editor {
+  min-height: 200px;
+}
+.maxHeight {
+  max-height: 100vh;
 }

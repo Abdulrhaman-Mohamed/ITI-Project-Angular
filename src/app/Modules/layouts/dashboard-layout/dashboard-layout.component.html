@@ -1,8 +1,8 @@
 <div class="container-fluid p-0 main-color">
     <div class="row rounded-curve">
         <!-- side bar section -->
-        <div class="col-md-3 col-2">
-            <div class="sidebar d-flex justify-content-evenly align-items-center flex-column  vh-100">
+        <div class="col-md-3 col-2 higher">
+            <div class=" sidebar d-flex justify-content-evenly align-items-center flex-column  vh-100">
 
                 <div class="admin-dashborad-header_menu">
                     <h2 id="stprojname" class=" d-block d-sm-none">D<span id="ndprojname">J</span></h2>
@@ -56,8 +56,8 @@
 
         <!-- nav bar and content section -->
         <div class="main-body col-10 col-md-9 position-relative bg-white">
-            <div>
-                <div class="nav seconder-color p-2 align-items-center d-flex nav-section">
+            <div class="">
+                <div class="higher nav seconder-color p-2 align-items-center d-flex nav-section">
                     <h2 id="stprojname" class="ps-4 d-none d-sm-block  d-lg-none">Dev<span
                             id="ndprojname">Journey</span></h2>
                     <h2 class="ps-4 d-none d-lg-block">Dashboard</h2>
@@ -66,7 +66,9 @@
                         <img class="" src="assets\images\1.webp" alt="admin-image" />
                     </div>
                 </div>
-                <router-outlet></router-outlet>
+                <div class="content EditedScroll">
+                    <router-outlet></router-outlet>
+                </div>
             </div>
 
         </div>
