@@ -1,83 +1,74 @@
-<div class="vh-100">
-    <div class="admin-dashborad-header-bg d-flex algin-items-center">
-        <!-- <div class="container h-75 m-auto "> -->
-        <div class="container">
-            <div class="row">
+<div class="container-fluid p-0 main-color">
+    <div class="row rounded-curve">
+        <!-- side bar section -->
+        <div class="col-md-3 col-2">
+            <div class="sidebar d-flex justify-content-evenly align-items-center flex-column  vh-100">
 
-                <div class="admin-dashborad-header d-flex justify-content-between align-items-center">
-
-                    <div class="admin-dashborad-header_menu d-flex align-items-center gap-4">
-
-
-
-                        <p id="stprojname">Dev<span id="ndprojname">Journey</span></p>
-                    </div>
-
-                    <div class="admin-dashborad-header_image d-flex align-items-center">
-                        <div class="admin-dashborad-header_image_icon mx-4">
-                            <i class="fa-solid fa-bell"></i>
-                        </div>
-                        <div>
-                            <img src="assets\images\1.webp" alt="admin-image" />
-                        </div>
-                        <div>
-                            <button (click)="onLogout()" class="btn btn-danger">Logout</button>
-                        </div>
-                    </div>
+                <div class="admin-dashborad-header_menu">
+                    <h2 id="stprojname" class=" d-block d-sm-none">D<span id="ndprojname">J</span></h2>
+                    <p id="stprojname" class="d-none d-lg-block">Dev<span id="ndprojname">Journey</span></p>
                 </div>
 
-            </div>
-        </div>
-    </div>
+                <div class="w-100 d-flex flex-column align-items-center ps-2">
 
-    <div class="container-fluid">
-        <div class="row ">
-            <div class="col-md-3 ">
-                <div id="sidebar-bars" class="sidebar-bars mt-2 ">
-                    <div class="row">
-                        <!-- <div class="sidebar col-lg-3 col-md-4 col-sm-5 col-8 rounded-3 "> -->
-                        <!-- !-------------------------col-------------------- -->
-
-                        <div class="sidebar rounded-3">
-                            <div class="sidebar-all-icons">
-                                <div class="sidebar-nav mt-2 ">
-                                    <!-- !--------------------------------------------- -->
-                                    <a [routerLink]="[_GoToService.page.DashAdminHome]"
-                                        routerLinkActive="router-link-active text-danger">
-                                        <div class="sidebar-nav-text d-flex p-2 align-items-center">
-                                            <i class=" mx-lg-3 mx-md-3 mx-sm-3 mx-auto fa-solid fa-house"></i>
-                                            <p class="sidebar_p">DashBoard</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="sidebar-nav mt-5">
-                                    <!-- !--------------------------------------------- -->
-                                    <a [routerLink]="[_GoToService.page.DashAdminUsers]"
-                                        routerLinkActive="router-link-active text-danger">
-                                        <div class="sidebar-nav-text d-flex p-2 align-items-center">
-                                            <i class=" mx-lg-3 mx-md-3 mx-sm-3 mx-auto fa-solid fa-users"></i>
-                                            <p class="sidebar_p">Users</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="sidebar-nav mt-5">
-                                    <!-- !--------------------------------------------- -->
-                                    <a [routerLink]="[_GoToService.page.DashAdminBlogs]"
-                                        routerLinkActive="router-link-active text-danger">
-                                        <div class="sidebar-nav-text d-flex p-2 align-items-center">
-                                            <i class=" mx-lg-3 mx-md-3 mx-sm-3 mx-auto fa-regular fa-hard-drive"></i>
-                                            <p class="sidebar_p">Stories</p>
-                                        </div>
-                                    </a>
-                                </div>
+                    <div class="sidebar-nav mt-2 " [ngClass]="{'active': activeLink === 'link1'}"
+                        (click)="setActiveLink('link1')">
+                        <a [routerLink]="[_GoToService.page.DashAdminHome]"
+                            routerLinkActive="router-link-active text-danger">
+                            <div class=" d-flex p-3 align-items-center justify-content-center">
+                                <i class=" mx-sm-3 fs-3 fa-solid fa-house"></i>
+                                <p class="sidebar_p m-0 d-none d-lg-block">DashBoard</p>
                             </div>
-                        </div>
-                        <!-- <div class="container col-lg-9 col-md-8 col-sm-7 col-4 bg-danger"> -->
-                        <!-- !-------------------------col-------------------- -->
+                        </a>
+                    </div>
+                    <div class="sidebar-nav mt-5" [ngClass]="{'active': activeLink === 'link2'}"
+                        (click)="setActiveLink('link2')">
+                        <!-- !--------------------------------------------- -->
+                        <a [routerLink]="[_GoToService.page.DashAdminUsers]"
+                            routerLinkActive="router-link-active text-danger">
+                            <div class=" d-flex p-3 align-items-center justify-content-center">
+                                <i class=" mx-sm-3 fs-3 fa-solid fa-users"></i>
+                                <p class="sidebar_p m-0 d-none d-lg-block">Users</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="sidebar-nav mt-5" [ngClass]="{'active': activeLink === 'link3'}"
+                        (click)="setActiveLink('link3')">
+                        <!-- !--------------------------------------------- -->
+                        <a [routerLink]="[_GoToService.page.DashAdminBlogs]"
+                            routerLinkActive="router-link-active text-danger">
+                            <div class=" d-flex p-3 align-items-center justify-content-center">
+                                <i class=" mx-sm-3 fs-3 fa-regular fa-hard-drive"></i>
+                                <p class="sidebar_p m-0 d-none d-lg-block">Stories</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
+
+                <div>
+                    <button (click)="onLogout()" class="btn btn-danger"><i
+                            class="fa-solid fa-right-from-bracket d-sm-none"></i><span class="d-none d-sm-block">
+                            Logout</span></button>
+                </div>
             </div>
-            <div class="col-md-9"> <router-outlet></router-outlet> </div>
+            <!-- </div> -->
+        </div>
+
+        <!-- nav bar and content section -->
+        <div class="main-body col-10 col-md-9 position-relative bg-white">
+            <div>
+                <div class="nav seconder-color p-2 align-items-center d-flex nav-section">
+                    <h2 id="stprojname" class="ps-4 d-none d-sm-block  d-lg-none">Dev<span
+                            id="ndprojname">Journey</span></h2>
+                    <h2 class="ps-4 d-none d-lg-block">Dashboard</h2>
+                    <div class="admin-dashborad-header_image px-3 ms-auto d-flex align-items-center">
+                        <p class="pe-3 m-0">welcome <span class="fw-bolder">{{loggedUser.firstname}}</span></p>
+                        <img class="" src="assets\images\1.webp" alt="admin-image" />
+                    </div>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+
         </div>
     </div>
 </div>

@@ -86,7 +86,7 @@ export class PostsTableComponent implements OnInit {
       next: (data) => {
         this.posts = data.findAll;
         this.filteredPosts = this.posts;
-        console.log('stories', this.posts);
+        // console.log('stories', this.posts);
       },
       error: (error) => {
         console.log(error);
@@ -105,34 +105,40 @@ export class PostsTableComponent implements OnInit {
     });
   }
 
+  // uncomment the next 2 methods when users is is in every story createdBy
   getUserName(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => u.id == userId);
-      return user.name;
+      const user = this.users.find((u: any) => u._id == userId);
+      // return user.firstname;
     }
   }
   getUserDetail(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => u.id == userId);
-      return user.detail;
+      // const user = this.users.find((u: any) => u._id == userId);
+      // return user.role;
     }
   }
 
-  // getCategories() {
-  //   this.service.getCategories().subscribe({
-  //     next: (data) => {
-  //       this.categories = data;
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     },
-  //   });
-  // }
-
   getSeverity(category: string) {
     switch (category) {
-      default:
+      case 'Historical':
+        return 'warning';
+        break;
+      case 'Technology':
         return 'success';
+        break;
+      case 'Education':
+        return 'info';
+        break;
+      case 'Personal':
+        return 'danger';
+        break;
+      case 'General':
+        return 'secondary';
+        break;
+
+      default:
+        return '';
     }
   }
 

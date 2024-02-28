@@ -5,6 +5,8 @@ import {
   faNewspaper,
   faAngleDoubleDown,
   faAngleDoubleUp,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { CommonModule } from '@angular/common';
@@ -27,7 +29,7 @@ import { User } from '../../../Shared/interfaces/user';
 export class DashboardBodyComponent implements OnInit {
   faUsers = faUsers;
   AngleDoubleIconUser = faAngleDoubleDown;
-  AngleDoubleIconPost = faAngleDoubleDown;
+  AngleDoubleIconPost = faAngleDoubleLeft;
   faNewspaper = faNewspaper;
   loggedUser!: any;
   posts: any = [];
@@ -44,7 +46,6 @@ export class DashboardBodyComponent implements OnInit {
     this.getPosts();
 
     this.loggedUser = this._AuthService.loggedUser;
-    console.log(this.loggedUser.firstname);
   }
 
   getUsers() {
@@ -116,8 +117,8 @@ export class DashboardBodyComponent implements OnInit {
   }
 
   changingOrderPost() {
-    if (this.AngleDoubleIconPost === faAngleDoubleDown) {
-      this.AngleDoubleIconPost = faAngleDoubleUp;
+    if (this.AngleDoubleIconPost === faAngleDoubleLeft) {
+      this.AngleDoubleIconPost = faAngleDoubleRight;
       this.posts.sort(function (a: any, b: any) {
         let titleA = a.title.toUpperCase();
         let titleB = b.title.toUpperCase();
@@ -132,7 +133,7 @@ export class DashboardBodyComponent implements OnInit {
         return 0;
       });
     } else {
-      this.AngleDoubleIconPost = faAngleDoubleDown;
+      this.AngleDoubleIconPost = faAngleDoubleLeft;
       this.posts.sort(function (a: any, b: any) {
         let titleA = a.title.toUpperCase();
         let titleB = b.title.toUpperCase();

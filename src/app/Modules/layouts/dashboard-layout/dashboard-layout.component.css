@@ -1,19 +1,32 @@
-.admin-dashborad-header-bg {
-  height: 80px;
-  background-color: #DEDEDE;
-}
-
 #stprojname {
   color: #9a3333;
   font-weight: bold;
   font-size: 2rem;
 }
 
+.nav-section {
+  border-radius: 40px 0 0 0;
+  position: sticky;
+  top: 0;
+}
+
+.main-body {
+  border-radius: 40px 0 0 0;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+}
+
+.active {
+  border-radius: 50vh 0 0 50vh;
+  background-color: white;
+}
+
 #ndprojname {
   font-size: 30px;
   color: black;
 }
-
 
 .admin-dashborad-header_image img {
   width: 60px;
@@ -29,23 +42,12 @@
   font-size: 50px;
 }
 
-.sidebar {
-  background-color: #DEDEDE;
-  /* ! < !-- !-------------------------col-------------------- --> */
-  /* height: 610px; */
-}
-
-.sidebar-bars {
-  /* ! < !-- !-------------------------col-------------------- --> */
-  /* display: none; */
-}
-
 .show {
   display: block;
 }
 
 .transitsion {
-  transition: all .8s ease-in-out;
+  transition: all 0.8s ease-in-out;
 }
 
 .row {
@@ -57,17 +59,17 @@
   font-weight: 600;
 }
 
+.sidebar-nav {
+  width: 100%;
+}
 .sidebar-nav:hover {
   width: 100%;
-  background-color: #FAFAFA;
+  background-color: white;
   color: #9a3333;
+  border-radius: 50vh 0 0 50vh;
 }
 
-.sidebar-all-icons {
-  margin-top: 25vh;
-}
-
-@media (max-width:400px) {
+/* @media (max-width: 400px) {
   .sidebar-nav i {
     font-size: 30px;
     margin-right: 50px;
@@ -96,9 +98,9 @@
   #ndprojname {
     font-size: 25px;
   }
-}
+} */
 
-@media (max-width:300px) {
+/* @media (max-width: 300px) {
   #sidebar-bars {
     background-color: transparent;
   }
@@ -118,7 +120,7 @@
   #ndprojname {
     font-size: 15px;
   }
-}
+} */
 
 /* .a-pics {
     overflow: hidden;
