@@ -1,28 +1,27 @@
-<div class="ms-5">
+<div class="ms-5 me-4 fixed-hight">
+    <!-- filter and search section -->
     <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <input type="text" [(ngModel)]="searchAny" class="form-control my-3 rounded-pill me-3"
-                placeholder="Search user" />
-        </div>
-        <div>
 
-            <div class="dropdown">
-                <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <fa-icon [icon]="faFilter" class="fs-5 me-3  text-secondary"></fa-icon>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item " (click)="onSelectCategory($event)">all</a></li>
-                    <li><a class="dropdown-item " (click)="onSelectCategory($event)">admin</a></li>
-                    <li><a class="dropdown-item " (click)="onSelectCategory($event)">user</a></li>
+        <!-- search part -->
+        <input type="text" [(ngModel)]="searchAny" class="form-control my-3 rounded-pill me-3 w-25"
+            placeholder="Search user" />
 
-                </ul>
-            </div>
-
+        <!-- filtering part -->
+        <div class="dropdown">
+            <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <fa-icon [icon]="faFilter" class="fs-5 me-3  text-secondary"></fa-icon>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item " (click)="onSelectCategory($event)">all</a></li>
+                <li><a class="dropdown-item " (click)="onSelectCategory($event)">admin</a></li>
+                <li><a class="dropdown-item " (click)="onSelectCategory($event)">user</a></li>
+            </ul>
         </div>
     </div>
 
-    <div class=" table-responsive">
+    <!-- users table section -->
+    <div class=" table-responsive table-container">
         <table class="table">
             <thead class="fixed-header">
                 <tr class="font-medium text-[var(--text-color)] leading-4">
@@ -38,40 +37,37 @@
                 @for(user of (filteredUsers | filter:searchAny | paginate: { itemsPerPage: itemsPerPage, currentPage: p
                 });
                 track user._id){
-                <tr class="rounded-start-pill">
-                    <td class="d-flex rounded-start-pill ps-4 py-3 user__router"
+                <tr>
+                    <td class="rounded-start-pill ps-4 py-3 user__router"
                         [routerLink]="_GoToService.page.DashAdminUserProfile + user._id">
-                        <img class="rounded-circle self-center" src="./assets/images/1.webp" alt="" />
-                        <div class="user__details">
-                            <h5>{{ user.firstname +' '+ user.lastname }}</h5>
-                            <p class="m-0">{{ user.role }}</p>
+
+                        <div class="d-flex">
+                            <img class="rounded-circle self-center" src={{user.userimage}} alt="" />
+                            <div class="user__details">
+                                <h5>{{ user.firstname +' '+ user.lastname }}</h5>
+                                <p class="m-0">{{ user.occupation }}</p>
+                            </div>
                         </div>
                     </td>
-                    <td [routerLink]="_GoToService.page.DashAdminUserProfile + user._id" class="user__router">{{
+                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminUserProfile + user._id"
+                        class="user__router">{{
                         user.email }}
                     </td>
 
-                    <td>
+                    <td class="text-center">
                         <p-tag class="p-2" [severity]="getSeverity(user.role)" [rounded]="true">{{ user.role }}</p-tag>
                     </td>
                     <td>{{ user.isActive?'Active':'inactive' }}</td>
                     <td class="rounded-end-pill pe-4 text-center">
 
-                        <div class="btn-group">
+                        <div class="d-flex justify-content-center">
 
-                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <fa-icon class="me-1" [icon]="faEllipsisV"></fa-icon>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a [routerLink]="_GoToService.page.DashAdminEditUserProfile + user._id"
-                                        class="dropdown-item  btn-primary">Edit</a></li>
-                                <li><a class="dropdown-item btn btn-danger" (click)="deleteUser(user._id)">Delete</a>
-                                </li>
+                            <a [routerLink]="_GoToService.page.DashAdminEditUserProfile + user._id"
+                                class="btn btn-outline-primary mb-0 mx-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <button type="button" (click)="deleteUser(user._id)" class="btn btn-danger"><i
+                                    class="fa-solid fa-trash-can"></i></button>
 
-                            </ul>
                         </div>
-
                     </td>
                 </tr>
                 <br />
@@ -80,18 +76,14 @@
         </table>
     </div>
 
-
-
-    <div class="d-flex justify-content-center align-items-center mt-3">
-
+    <!-- pagination -->
+    <div class="d-flex justify-content-center align-items-center mt-4">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
-
-
     </div>
 </div>
 
-<div class="card flex justify-content-center gap-2">
+
+<div class="d-flex justify-content-center gap-2">
     <p-toast></p-toast>
     <p-confirmDialog></p-confirmDialog>
 </div>

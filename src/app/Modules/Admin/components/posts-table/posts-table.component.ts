@@ -109,7 +109,11 @@ export class PostsTableComponent implements OnInit {
   // uncomment the next 2 methods when users is is in every story createdBy
   getUserName(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => u._id == userId);
+      console.log(userId);
+
+      let user = this.users.find((u: any) => u._id == userId);
+      console.log(user);
+
       // return user.firstname;
     }
   }

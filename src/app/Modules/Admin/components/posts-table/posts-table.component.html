@@ -1,17 +1,10 @@
-<!-- <button [routerLink]="_GoToService.page.DashAdminAddBlog" class="btn btn-warning">Add Blog</button>
-<button routerLink="5" class="btn btn-danger">Edit Blog</button>
-<button routerLink="blogdetails/3" class="btn btn-dark ">Blog Details</button>
-
-<br> -->
-
-
 <div class="ms-5 me-4 fixed-hight">
     <!-- fiter and search section -->
     <div class="d-flex justify-content-between align-items-center">
 
         <!-- search part  -->
         <input type="text" [(ngModel)]="searchAny" class="form-control my-3 rounded-pill me-3 w-25"
-            placeholder="Search Users" />
+            placeholder="Search Stories" />
 
         <!-- filtering part -->
         <div class="dropdown">
@@ -36,8 +29,6 @@
                     <th>Publisher</th>
                     <th>Title</th>
                     <th class="text-center">Category</th>
-
-
                     <th></th>
                 </tr>
             </thead>
@@ -47,8 +38,7 @@
                 currentPage: p });
                 track
                 post._id){
-                <tr class="">
-
+                <tr>
                     <td class=" rounded-start-pill ps-4 py-3 post__router"
                         [routerLink]="_GoToService.page.DashAdminBlogsDetails + post._id">
 
@@ -77,8 +67,6 @@
                                     [icon]="  faPenToSquare"></fa-icon></a>
                             <button type="button" (click)="deletePost(post._id)" class="btn btn-danger"><fa-icon
                                     [icon]="  faTrashCan"></fa-icon></button>
-
-
                         </div>
                     </td>
                 </tr>
@@ -93,7 +81,6 @@
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>
-
 
 
 <div class="flex justify-content-center gap-2">
