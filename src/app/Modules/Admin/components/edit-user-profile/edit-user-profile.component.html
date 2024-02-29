@@ -1,47 +1,46 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-8 bg-[#fafafa] rounded-xl p-4 shadow-2xl hover:shadow-lg transtion-">
+        <div class=" bg-[#fafafa] rounded-xl p-4 shadow-2xl hover:shadow-lg transtion-">
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 <!-- 1th row -->
-                <div class="row">
+                <div class="row gap-3 gap-lg-0 gap-xl-0  ">
                     <div class="col-lg-6 col-sm-12 flex flex-col items-center gap-3 space-x-4 m-auto ">
                         <!-- Profile Image -->
-                        <div
-                            class="w-24 h-24 bg-white rounded-full overflow-hidden border-4 border-[var(--primary-color)]">
-                            <img class="w-full h-full object-cover"
-                                src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                        <div class=" w-50  m-auto ">
+                            <img class="w-100  m-auto   "
+                                [src]="this.imageUser"
                                 alt="Your Image">
                         </div>
 
                     </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control border-[#203947]" id="firstName"
-                                formControlName="firstName">
-                            @if (userForm.get(FormControlsNames.firstName)?.errors &&
-                            userForm.get(FormControlsNames.firstName)?.touched) {
+                    <div class="col-lg-6 align-items-center m-auto ">
+                        <div class="mb-4">
+                            <label for="firstname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstname"
+                                formControlName="firstname">
+                            @if (userForm.get(FormControlsNames.firstname)?.errors &&
+                            userForm.get(FormControlsNames.firstname)?.touched) {
 
                             <div class="text-red-700">
-                                @if (userForm.get(FormControlsNames.firstName)?.getError('required')) { <p>*First Name
+                                @if (userForm.get(FormControlsNames.firstname)?.getError('required')) { <p>*First Name
                                     is Required</p> }
 
-                                @if (userForm.get(FormControlsNames.firstName)?.getError('minlength')) { <p>Name Must
+                                @if (userForm.get(FormControlsNames.firstname)?.getError('minlength')) { <p>Name Must
                                     Be 3 Char</p> }
                             </div>
 
                             }
                         </div>
                         <div class="mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control border-[#203947]" id="lastName"
-                                formControlName="lastName">
-                            @if (userForm.get(FormControlsNames.lastName)?.errors &&
-                            userForm.get(FormControlsNames.lastName)?.touched) {
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control border-[#203947]" id="lastname"
+                                formControlName="lastname">
+                            @if (userForm.get(FormControlsNames.lastname)?.errors &&
+                            userForm.get(FormControlsNames.lastname)?.touched) {
                             <div class="text-red-700">
-                                @if (userForm.get(FormControlsNames.lastName)?.getError('required')) { <p>*Last Name
+                                @if (userForm.get(FormControlsNames.lastname)?.getError('required')) { <p>*Last Name
                                     is Required</p> }
-                                @if (userForm.get(FormControlsNames.lastName)?.getError('minlength')) { <p>Name Must
+                                @if (userForm.get(FormControlsNames.lastname)?.getError('minlength')) { <p>Name Must
                                     Be 3 Char</p> }
                             </div>
                             }
@@ -49,15 +48,15 @@
                     </div>
                 </div>
                 <!-- 2th row -->
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-lg-6 col-sm-12 mb-3">
-                        <label for="occupation" class="form-label">Occupation</label>
+                        <label for="occupation" class="form-label">occupation</label>
                         <input type="text" class="form-control border-[#203947]" id="occupation"
                             formControlName="occupation">
                         @if (userForm.get(FormControlsNames.occupation)?.errors &&
                         userForm.get(FormControlsNames.occupation)?.touched) {
                         <div class="text-red-700">
-                            @if (userForm.get(FormControlsNames.occupation)?.getError('required')) { <p>*Occupation
+                            @if (userForm.get(FormControlsNames.occupation)?.getError('required')) { <p>*occupation
                                 is Required</p> }
                         </div>
                         }
@@ -116,27 +115,7 @@
                         }
                     </div>
                 </div>
-                <!-- 5th row -->
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" class="form-control border-[#203947]" id="password"
-                            formControlName="password">
-                        @if (userForm.get(FormControlsNames.password)?.errors &&
-                        userForm.get(FormControlsNames.password)?.touched) {
-                        <div class="text-red-700">
-                            @if (userForm.get(FormControlsNames.password)?.getError('required')) { <p>*Password
-                                is Required</p> }
-                        </div>
-                        }
-                    </div>
-                    <div class="col-lg-6 col-sm-12 mb-3">
-                        <label for="password" class="form-label">New Password</label>
-                        <input type="text" class="form-control border-[#203947]" id="password"
-                            formControlName="password">
-                    </div>
-
-                </div>
+ 
                 <!-- 6th row -->
                 <div class="row">
                     <div class="col-lg-7 col-sm-12 mb-3">
@@ -163,23 +142,19 @@
                     </div>
                 </div>
                 <!-- 7th row -->
-                <div class="row mt-3 flex justify-center items-center gap-2">
-                    <div class="col-lg-4 col-sm-12 text-center">
-                        <button label="Save" icon="pi pi-check"
-                            class="border-2 border-[var(--primary-color)] text-[var(--primary-color)] px-8 py-2 rounded-full shadow-md hover:bg-[var(--primary-color)] hover:text-white focus:outline-none">
-                            Save <i class="pi pi-save ms-3"></i>
+                <div class=" w-50 m-auto  d-flex justify-content-center  gap-3 ">
+
+                        <button class=" btn btn-primary px-5 py-2 d-flex align-items-center justify-content-center  m-auto w-50 ">
+                            <span class="fw-bold d-inline-block fs-5"><span class=" d-none d-lg-inline-block ">Save</span><i class="fa-solid fa-check mx-2 "></i></span>
                         </button>
-                    </div>
-                    <div class="col-lg-4 col-sm-12 text-center">
-                        <button label="Cancel" icon="pi pi-check"
-                            class="border-2 border-[var(--primary-color)] text-[var(--primary-color)] px-8 py-2 rounded-full shadow-md hover:bg-[var(--primary-color)] hover:text-white focus:outline-none">
-                            Cancel
-                            <i class="pi pi-ban ms-3"></i>
+                        <button type="button" (click)="goToUsers()" class=" btn btn-outline-danger  px-5 py-2 d-flex align-items-center justify-content-center m-auto w-50 ">
+                            <span class="fw-bold d-inline-block fs-5"><span class=" d-none d-lg-inline-block ">Canel</span><i class="fa-solid fa-ban mx-2"></i></span>
                         </button>
-                    </div>
+
 
                 </div>
             </form>
         </div>
     </div>
 </div>
+<p-toast></p-toast>

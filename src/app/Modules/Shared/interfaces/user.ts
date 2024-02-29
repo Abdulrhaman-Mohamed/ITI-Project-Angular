@@ -8,4 +8,11 @@ export interface User {
     isActive: boolean
     createdAt: string
     updatedAt: string
+    occupation:string
+    bio:string
+    username:string
+    location:string
+    age:number
+    phone:number
+    userimage:string
 }
