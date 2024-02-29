@@ -16,7 +16,7 @@ export class UserService {
     accept: 'application/json',
     // Authorization: "Bearer aadssadsfsa",
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRiYjczNzVjODg0MzMyZWQ3ODc0NGYiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImFiZG9AdGVzdDcuY29tIiwiZmlyc3RuYW1lIjoiYWJkbyIsImxhc3RuYW1lIjoidGVtbyIsImlhdCI6MTcwODk3NzEzNn0.XSeuqCA5pvPYpGc2dQMnB_fLHIlcBTlukrTZgmnucxQ',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRmNGFkNGFkN2ZjM2NmOTg2NTgwM2MiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImFiZG9AdGVzdDQuY29tIiwiZmlyc3RuYW1lIjoiQWJkdWxyaGFtYW4iLCJsYXN0bmFtZSI6Ik1vaGFtZWQiLCJpYXQiOjE3MDkxMzI4MTl9.QDCfRbvtLgnBDWz7vSCLfhlaItZi6n2ZgaUHmX1uegA',
   };
 
   // users
