@@ -1,7 +1,7 @@
 import { User } from './../../../Shared/interfaces/user';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -9,22 +9,32 @@ import {
   Validators,
 } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user-profile',
   standalone: true,
-  imports: [ReactiveFormsModule,ButtonModule],
+  imports: [ReactiveFormsModule
+    ,ButtonModule
+    ,ToastModule],
+    providers: [MessageService],
   templateUrl: './edit-user-profile.component.html',
   styleUrl: './edit-user-profile.component.css',
 })
-export class EditUserProfileComponent {
+export class EditUserProfileComponent implements OnDestroy {
+  getUser$: any;
   constructor(
     private _UserService: UserService,
     private _myActivatedRoute: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private messageService: MessageService,
+    private router:Router
   ) {
     this.initializeForm();
   }
+
 
   // * Variables
   private _user!: User;
@@ -32,13 +42,13 @@ export class EditUserProfileComponent {
   imagePrefix: String = '';
   userForm!: FormGroup;
   imageUser!:string;
-
+  
   ngOnInit(): void {
     console.log('init');
     this._userId = this._myActivatedRoute.snapshot.params['id'];
     console.log(this._userId);
 
-    this._UserService.getUserById(this._userId).subscribe((user) => {
+    const subscription = this._UserService.getUserById(this._userId).subscribe((user) => {
       // * You can initialize the user object if you have existing data
       this._user = user.findById;
       this.imageUser = user.findById.userimage
@@ -47,6 +57,8 @@ export class EditUserProfileComponent {
 
       console.log(this._user);
     });
+
+    this.getUser$ = subscription;
   }
 
   FormControlsNames = {
@@ -107,8 +119,30 @@ export class EditUserProfileComponent {
       const formData = this.userForm.value;
       // You can perform any additional processing here
       console.log(formData);
+      //Api request
+      
+      this._UserService.updateUser(this._userId,formData).subscribe({
+        complete:()=>{
+          // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Check all inputs are required' });
+          this.router.navigate(["/dashboard/users/"])
+
+        }
+      })
+      
     } else {
       // Handle form validation errors
+      console.log(this.userForm);
+      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Check all inputs are required' });
     }
+  }
+
+  goToUsers()
+  {
+    this.router.navigate(["/dashboard/users/"])
+  }
+
+  ngOnDestroy(): void {
+    this.getUser$.unsubscribe();
   }
 }

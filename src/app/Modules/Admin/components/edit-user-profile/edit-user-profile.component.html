@@ -7,7 +7,7 @@
                     <div class="col-lg-6 col-sm-12 flex flex-col items-center gap-3 space-x-4 m-auto ">
                         <!-- Profile Image -->
                         <div class=" w-50  m-auto ">
-                            <img class="w-100 rounded rounded-5 m-auto  "
+                            <img class="w-100  m-auto   "
                                 [src]="this.imageUser"
                                 alt="Your Image">
                         </div>
@@ -147,7 +147,7 @@
                         <button class=" btn btn-primary px-5 py-2 d-flex align-items-center justify-content-center  m-auto w-50 ">
                             <span class="fw-bold d-inline-block fs-5"><span class=" d-none d-lg-inline-block ">Save</span><i class="fa-solid fa-check mx-2 "></i></span>
                         </button>
-                        <button class=" btn btn-outline-danger  px-5 py-2 d-flex align-items-center justify-content-center m-auto w-50 ">
+                        <button type="button" (click)="goToUsers()" class=" btn btn-outline-danger  px-5 py-2 d-flex align-items-center justify-content-center m-auto w-50 ">
                             <span class="fw-bold d-inline-block fs-5"><span class=" d-none d-lg-inline-block ">Canel</span><i class="fa-solid fa-ban mx-2"></i></span>
                         </button>
 
@@ -157,3 +157,4 @@
         </div>
     </div>
 </div>
+<p-toast></p-toast>

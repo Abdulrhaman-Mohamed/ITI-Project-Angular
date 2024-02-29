@@ -24,7 +24,6 @@ export class BlogService {
     console.log(id);
 
     return this._HttpClient.get(`${this._url}/${id}`);
-    return this._HttpClient.get(`${this._url}/${id}`);
   }
 
   addBlog(blogData: any): Observable<any> {
