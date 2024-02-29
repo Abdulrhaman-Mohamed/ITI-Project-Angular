@@ -1,38 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ShortTextPipe } from './../../../Shared/pipes/short-text.pipe';
+import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user.service';
+import { RouterModule } from '@angular/router';
+import { GoToService } from '../../../Shared/services/go-to.service';
+import { AuthService } from '../../../Auth/services/auth.service';
+import { User } from '../../../Shared/interfaces/user';
+
 import {
   faUsers,
   faNewspaper,
   faAngleDoubleDown,
   faAngleDoubleUp,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
-import { RouterModule } from '@angular/router';
-import { GoToService } from '../../../Shared/services/go-to.service';
 
 @Component({
   selector: 'app-dashboard-body',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule, RouterModule],
+
+  imports: [FontAwesomeModule, CommonModule, RouterModule, ShortTextPipe],
   providers: [UserService],
+
   templateUrl: './dashboard-body.component.html',
   styleUrl: './dashboard-body.component.css',
 })
 export class DashboardBodyComponent implements OnInit {
   faUsers = faUsers;
   AngleDoubleIconUser = faAngleDoubleDown;
-  AngleDoubleIconPost = faAngleDoubleDown;
+  AngleDoubleIconPost = faAngleDoubleLeft;
   faNewspaper = faNewspaper;
-
+  loggedUser!: any;
   posts: any = [];
   users: any = [];
 
-  constructor(private service: UserService, public _GoToService: GoToService) {}
+  constructor(
+    private service: UserService,
+    public _AuthService: AuthService,
+    public _GoToService: GoToService
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
     this.getPosts();
+
+    this.loggedUser = this._AuthService.loggedUser;
   }
 
   getUsers() {
@@ -73,6 +87,7 @@ export class DashboardBodyComponent implements OnInit {
       this.users.sort(function (a: any, b: any) {
         let nameA = a.firstname.toUpperCase();
         let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return -1;
         }
@@ -88,6 +103,7 @@ export class DashboardBodyComponent implements OnInit {
       this.users.sort(function (a: any, b: any) {
         let nameA = a.firstname.toUpperCase();
         let nameB = b.firstname.toUpperCase();
+
         if (nameA < nameB) {
           return 1;
         }
@@ -102,8 +118,8 @@ export class DashboardBodyComponent implements OnInit {
   }
 
   changingOrderPost() {
-    if (this.AngleDoubleIconPost === faAngleDoubleDown) {
-      this.AngleDoubleIconPost = faAngleDoubleUp;
+    if (this.AngleDoubleIconPost === faAngleDoubleLeft) {
+      this.AngleDoubleIconPost = faAngleDoubleRight;
       this.posts.sort(function (a: any, b: any) {
         let titleA = a.title.toUpperCase();
         let titleB = b.title.toUpperCase();
@@ -118,7 +134,7 @@ export class DashboardBodyComponent implements OnInit {
         return 0;
       });
     } else {
-      this.AngleDoubleIconPost = faAngleDoubleDown;
+      this.AngleDoubleIconPost = faAngleDoubleLeft;
       this.posts.sort(function (a: any, b: any) {
         let titleA = a.title.toUpperCase();
         let titleB = b.title.toUpperCase();

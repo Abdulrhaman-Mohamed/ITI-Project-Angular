@@ -8,13 +8,9 @@ import {
   faTrashCan,
   faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 import { FilterPipe } from './../../../Shared/pipes/filter.pipe';
-import {
-  MessageService,
-  ConfirmationService,
-  ConfirmEventType,
-} from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -41,13 +37,15 @@ import { UserService } from '../../services/user.service';
     RouterModule,
   ],
   providers: [MessageService, ConfirmationService],
+
   templateUrl: './posts-table.component.html',
   styleUrl: './posts-table.component.css',
 })
-export class PostsTableComponent {
+export class PostsTableComponent implements OnInit {
   searchAny: any;
 
   // pagination
+
   p: number = 1;
   itemsPerPage: number = 10;
   totalProducts: any;
@@ -80,8 +78,8 @@ export class PostsTableComponent {
 
   ngOnInit(): void {
     this.getPosts();
-    // this.getCategories();
     this.getUsers();
+    (window as any).userService2 = this.service;
   }
 
   getPosts() {
@@ -89,7 +87,7 @@ export class PostsTableComponent {
       next: (data) => {
         this.posts = data.findAll;
         this.filteredPosts = this.posts;
-        console.log('stories', this.posts);
+        // console.log('stories', this.posts);
       },
       error: (error) => {
         console.log(error);
@@ -108,40 +106,44 @@ export class PostsTableComponent {
     });
   }
 
+  // uncomment the next 2 methods when users is is in every story createdBy
   getUserName(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => u.id == userId);
-      return user.name;
+      const user = this.users.find((u: any) => u._id == userId);
+      // return user.firstname;
     }
   }
   getUserDetail(userId: string) {
     if (userId) {
-      const user = this.users.find((u: any) => u.id == userId);
-      return user.detail;
+      // const user = this.users.find((u: any) => u._id == userId);
+      // return user.role;
     }
   }
 
-  // getCategories() {
-  //   this.service.getCategories().subscribe({
-  //     next: (data) => {
-  //       this.categories = data;
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     },
-  //   });
-  // }
-
   getSeverity(category: string) {
     switch (category) {
-      default:
+      case 'Historical':
+        return 'warning';
+        break;
+      case 'Technology':
         return 'success';
+        break;
+      case 'Education':
+        return 'info';
+        break;
+      case 'Personal':
+        return 'danger';
+        break;
+      case 'General':
+        return 'secondary';
+        break;
+
+      default:
+        return '';
     }
   }
 
   deletePost(postId: string) {
-    console.log(postId);
-    
     this.confirmationService.confirm({
       message: 'Do you want to delete this post?',
       header: 'Delete Confirmation',
@@ -153,13 +155,12 @@ export class PostsTableComponent {
 
       accept: () => {
         this.service.distroyPost(postId).subscribe({
-          next:(res)=>{
+          next: (res) => {
             console.log(res);
-            
           },
-          complete:()=>{
+          complete: () => {
             this.getPosts();
-          }
+          },
         });
 
         this.messageService.add({

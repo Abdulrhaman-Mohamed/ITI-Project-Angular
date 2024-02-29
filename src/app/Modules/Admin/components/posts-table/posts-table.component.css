@@ -11,10 +11,6 @@ th {
   color: red;
 }
 
-/* tr {
-  background-color: #dedede;
-} */
-
 img {
   width: 50px;
   height: 50px;
@@ -23,8 +19,34 @@ img {
 }
 td {
   vertical-align: middle;
-  background-color: #dedede;
+  background-color: rgba(237, 219, 194, 0.61);
 }
+.fixed-hight {
+  max-height: 100%;
+}
+
+.table-container {
+  height: calc(
+    100vh - 240px
+  ); /* Adjust the height as needed, subtracting the height of other elements */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+/* Custom scrollbar style */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* pagination customize */
+
 ::ng-deep .ngx-pagination {
   display: flex;
   justify-content: center;
@@ -56,6 +78,7 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(255, 183, 0) !important;
 }
 
 ::ng-deep .ngx-pagination a {
@@ -75,7 +98,7 @@ td {
   display: flex !important;
   justify-content: center;
   align-items: center;
-  color: #2199e8;
+  color: rgb(255, 183, 0);
   left: 0;
   pointer-events: none;
 }

@@ -14,11 +14,12 @@ export class GoToService {
       DashAdminHome: '/dashboard/home',
       DashAdminUsers: '/dashboard/users',
       DashAdminBlogs: '/dashboard/blogs/',
-      DashAdminBlogsDetails:'/dashboard/blogs/blogdetails/',
+      DashAdminBlogsDetails: '/dashboard/blogs/blogdetails/',
       DashAdminUserProfile: '/dashboard/users/',
       DashAdminEditUserProfile: '/dashboard/users/edit/',
       DashAdminEditBlog: '/dashboard/blogs/',
       DashAdminAddBlog: '/dashboard/blogs/add',
+      errorPage: '/notfound',
     } as const;
   }
 }

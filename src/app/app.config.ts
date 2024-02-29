@@ -25,12 +25,14 @@ const firebaseConfig = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // * Routing
     provideRouter(routes),
+    // * Animations
     provideAnimationsAsync(),
+    // * Http requests
     provideHttpClient(withFetch()),
-    provideHttpClient(
-      withInterceptors([tokenInterceptor, loadingScreenInterceptor])
-    ),
+    // * Interceptors
+    provideHttpClient(withInterceptors([tokenInterceptor, loadingScreenInterceptor])),
     importProvidersFrom([
       provideFirebaseApp(() => initializeApp(firebaseConfig)),
       provideAuth(() => getAuth()),
