@@ -3,12 +3,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BlogdetailsService } from '../../services/blogdetails.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../Admin/services/user.service';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-blog-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   providers: [BlogdetailsService, DatePipe],
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.css',
@@ -33,14 +33,16 @@ export class BlogDetailsComponent implements OnInit {
   createdAt!: any;
 
   ngOnInit(): void {
-    const param = this._myActivatedRoute.snapshot.params['id'];
-    console.log(this.bodyBlog);
+    let param = this._myActivatedRoute.snapshot.params['id'];
+    console.log('this is param 🐱‍🚀', param);
 
     this.service.getPostById(param).subscribe({
       next: (res: any) => {
         if (res) {
-          // Type guard to ensure object
           console.log(res);
+
+          // Type guard to ensure object
+          console.log('this is the response ', res.findById);
 
           this.bodyBlog = res.findById.body;
           this.titleBlog = res.findById.title;
@@ -60,6 +62,7 @@ export class BlogDetailsComponent implements OnInit {
       },
     });
   }
+
   sanitizeVideoUrl() {
     return this.sanitizer.bypassSecurityTrustHtml(this.video);
   }
@@ -68,8 +71,13 @@ export class BlogDetailsComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(this.bodyBlog);
   }
 
-  formatDate(dateString: string) {
+  formatDate(dateString: any) {
+    console.log(dateString);
+
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return 'Invalid date';
+    }
     return this.datePipe.transform(date, 'dd MMM yyyy');
   }
 

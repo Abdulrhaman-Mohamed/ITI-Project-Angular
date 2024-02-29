@@ -3,6 +3,11 @@ th {
   border: 0;
 }
 
+.adding-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
 .post__router {
   cursor: pointer;
   transition: all 0.3s ease-in;
