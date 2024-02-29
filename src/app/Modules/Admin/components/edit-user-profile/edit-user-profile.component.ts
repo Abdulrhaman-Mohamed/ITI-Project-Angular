@@ -27,7 +27,7 @@ export class EditUserProfileComponent {
 
   // * Variables
   private _user!: User;
-  private _userId!: number;
+  private _userId!: string;
   imagePrefix: String = '';
   userForm!: FormGroup;
 
@@ -75,29 +75,26 @@ export class EditUserProfileComponent {
         Validators.required,
         // Validators.minLength(3),
       ],
-      [this.FormControlsNames.occupation]: [
-        this._user?.occupation,
-        Validators.required,
-      ],
+      [this.FormControlsNames.occupation]: ['', Validators.required],
       [this.FormControlsNames.location]: [
-        this._user?.location,
+        // this._user?.location,
         Validators.required,
       ],
-      [this.FormControlsNames.bio]: [this._user?.bio, Validators.required],
+      // [this.FormControlsNames.bio]: [this._user?.bio, Validators.required],
       [this.FormControlsNames.password]: [
         this._user?.password,
         Validators.required,
       ],
       [this.FormControlsNames.username]: [
-        this._user?.username,
+        // this._user?.username,
         Validators.required,
       ],
       [this.FormControlsNames.email]: [
         this._user?.email,
         [Validators.required, Validators.email],
       ],
-      [this.FormControlsNames.phone]: [this._user?.phone, Validators.required],
-      [this.FormControlsNames.age]: [this._user?.age, Validators.required],
+      // [this.FormControlsNames.phone]: [this._user?.phone, Validators.required],
+      // [this.FormControlsNames.age]: [this._user?.age, Validators.required],
     });
   }
 

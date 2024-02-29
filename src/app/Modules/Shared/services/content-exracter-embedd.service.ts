@@ -24,6 +24,7 @@ export class ContentExtractConverter {
 
 
   // Convert Base64 to file type to can upload it 
+
   base64ToFile(base64Data: string, filename: string, contentType: string): File {
 
     // Convert base64 data to Blob
@@ -41,3 +42,4 @@ export class ContentExtractConverter {
   }
 
 }
+

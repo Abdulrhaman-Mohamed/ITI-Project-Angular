@@ -26,23 +26,22 @@ a {
   color: black;
 }
 
-.ql-align-center
-{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
+.main-color {
+  background-color: #eef5ff;
 }
 
-.ql-align-right
-{
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+.seconder-color {
+  background-color: rgb(255, 183, 0);
 }
 
-img
-{
+.third-color {
+  background-color: white;
+}
+
+.second-text-color {
+  color: #9a3333;
+}
+
+#tota img {
   width: 100%;
 }
-

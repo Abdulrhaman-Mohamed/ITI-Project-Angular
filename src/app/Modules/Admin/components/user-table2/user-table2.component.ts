@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TagModule } from 'primeng/tag';
 import {
@@ -19,10 +20,13 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { GoToService } from '../../../Shared/services/go-to.service';
+import { User } from '../../../Shared/interfaces/user';
+import { AuthService } from '../../../Auth/services/auth.service';
+import { tokenInterceptor } from '../../../Core/interceptors/token.interceptor';
 
 @Component({
   selector: 'app-user-table2',
@@ -40,12 +44,13 @@ import { GoToService } from '../../../Shared/services/go-to.service';
     RouterModule,
   ],
   providers: [MessageService, ConfirmationService, UserService],
+
   templateUrl: './user-table2.component.html',
   styleUrl: './user-table2.component.css',
 })
 export class UserTable2Component implements OnInit {
   searchAny: any;
-  filteredUsers: any[] = [];
+  filteredUsers: User[] = [];
 
   p: number = 1;
   itemsPerPage: number = 10;
@@ -55,32 +60,36 @@ export class UserTable2Component implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
   faFilter = faFilter;
 
-  users: any = [];
-
+  users: User[] = [];
+  loggedUser!: any;
   categories: any = [];
 
   selectedCategoryId: any;
 
   constructor(
+    //#region dependency injection
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private service: UserService,
-    private cdr: ChangeDetectorRef,
-    public _GoToService: GoToService
+    public _GoToService: GoToService,
+    public _AuthService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.getUsers();
-    // this.getCategories();
+
+    this.loggedUser = this._AuthService.loggedUser;
+    console.log(this.loggedUser.firstname);
   }
 
   getUsers() {
     this.service.getAllUsers().subscribe({
       next: (data) => {
         console.log(data);
-        
+
         this.users = data.findAll;
         this.filteredUsers = this.users;
+        console.log('users', data);
       },
       error: (error) => {
         console.log(error);
@@ -88,29 +97,21 @@ export class UserTable2Component implements OnInit {
     });
   }
 
-  // getCategories() {
-  //   this.service.getCategories().subscribe({
-  //     next: (data) => {
-  //       this.categories = data;
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     },
-  //   });
-  // }
-
   getSeverity(role: string) {
     switch (role) {
       case 'user':
         return 'info';
       case 'admin':
         return 'success';
+
       default:
         return '';
     }
   }
 
-  deleteUser(userID: number) {
+  deleteUser(userID: string) {
+    console.log({ userID });
+
     this.confirmationService.confirm({
       message: 'Do you want to delete this user?',
       header: 'Delete Confirmation',

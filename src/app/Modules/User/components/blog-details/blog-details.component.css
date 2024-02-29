@@ -6,9 +6,14 @@
   width: 100px;
   height: 100px;
 }
+img:not(.user-img) {
+  width: 50%;
+  height: auto;
+}
+.content img {
+  width: 50%;
+}
 
-
-img
-{
-  width: 80%;
+.ql-align-center img {
+  width: 50%;
 }

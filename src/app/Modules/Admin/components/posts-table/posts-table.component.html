@@ -1,50 +1,43 @@
-<button [routerLink]="_GoToService.page.DashAdminAddBlog" class="btn btn-warning">Add Blog</button>
+<!-- <button [routerLink]="_GoToService.page.DashAdminAddBlog" class="btn btn-warning">Add Blog</button>
 <button routerLink="5" class="btn btn-danger">Edit Blog</button>
 <button routerLink="blogdetails/3" class="btn btn-dark ">Blog Details</button>
 
-<br>
+<br> -->
 
-<div class="ms-5">
+
+<div class="ms-5 me-4 fixed-hight">
+    <!-- fiter and search section -->
     <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <input type="text" [(ngModel)]="searchAny" class="form-control my-3 rounded-pill me-3"
-                placeholder="Search user" />
-            <!-- <div style="background-color: brown; width: 40px; height: 31px"
-                        class="d-flex justify-content-around align-items-center rounded-circle text-white">
-                        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-                    </div> -->
-        </div>
-        <div>
 
-            <!-- <select class="rounded-2 p-2 border-info-subtle bg-black" (change)="onSelectCategory($event)">
-                <option value=""><fa-icon [icon]="faFilter" class="fs-5 me-3 text-primary"></fa-icon></option>
-                <option *ngFor="let category of categories" [value]="category.name">{{ category.name}}</option>
-            </select> -->
+        <!-- search part  -->
+        <input type="text" [(ngModel)]="searchAny" class="form-control my-3 rounded-pill me-3 w-25"
+            placeholder="Search Users" />
 
-
-            <div class="dropdown">
-                <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <fa-icon [icon]="faFilter" class="fs-5 me-3  text-secondary"></fa-icon>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item " (click)="onSelectCategory($event)"><fa-icon [icon]="faFilter"
-                                class="fs-5 me-3 text-primary"></fa-icon></a></li>
-                    <li *ngFor="let category of categories"><a class="dropdown-item "
-                            (click)="onSelectCategory($event)">{{ category.name}}</a></li>
-                </ul>
-            </div>
-
+        <!-- filtering part -->
+        <div class="dropdown">
+            <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <fa-icon [icon]="faFilter" class="fs-5 me-3  text-secondary"></fa-icon>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item " (click)="onSelectCategory($event)"><fa-icon [icon]="faFilter"
+                            class="fs-5 me-3 text-primary"></fa-icon></a></li>
+                <li *ngFor="let category of categories"><a class="dropdown-item " (click)="onSelectCategory($event)">{{
+                        category.name}}</a></li>
+            </ul>
         </div>
     </div>
 
-    <div class="table-responsive">
+    <!-- posts table section -->
+    <div class="table-responsive table-container">
         <table class="table">
             <thead class="fixed-header">
                 <tr class="font-medium text-[var(--text-color)] leading-4">
                     <th>Publisher</th>
                     <th>Title</th>
-                    <th>Category</th>
+                    <th class="text-center">Category</th>
+
+
                     <th></th>
                 </tr>
             </thead>
@@ -54,29 +47,39 @@
                 currentPage: p });
                 track
                 post._id){
-                <tr class="rounded-start-pill">
-                    <td class="d-flex rounded-start-pill ps-4 py-3 post__router"
-                        [routerLink]="_GoToService.page.DashAdminBlogs + post._id">
-                        <img class="rounded-circle self-center" src="assets/images/1.webp" alt="" />
-                        <div class="post__details">
-                            <h5>{{ getUserName(post.userId) }}</h5>
-                            <p class="m-0">{{ getUserDetail(post.userId) }}</p>
+                <tr class="">
+
+                    <td class=" rounded-start-pill ps-4 py-3 post__router"
+                        [routerLink]="_GoToService.page.DashAdminBlogsDetails + post._id">
+
+                        <div class="d-flex">
+                            <img class="rounded-circle self-center" src="../../../../../assets/images/1.webp" alt="" />
+                            <div class="post__details">
+                                <h5>{{ getUserName(post.createdBy) }}</h5>
+                                <p class="m-0">{{ getUserDetail(post.createdBy) }}</p>
+                            </div>
                         </div>
                     </td>
-                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminBlogsDetails + post._id">{{ post.title }}
+                    <td class="post__router" [routerLink]="_GoToService.page.DashAdminBlogsDetails + post._id">{{
+                        post.title
+                        }}
                     </td>
-                    <td>
+
+                    <td class="text-center">
                         <p-tag class="p-2" [severity]="getSeverity(post.category)" [rounded]="true">{{
                             post.category
                             }}</p-tag>
                     </td>
                     <td class="rounded-end-pill pe-4 text-center">
-                        <a [routerLink]="_GoToService.page.DashAdminEditBlog + post._id"
-                            class="btn btn-outline-primary mb-2 mb-md-0  mx-2"><fa-icon
-                                [icon]="  faPenToSquare"></fa-icon></a>
-                        <button type="button" (click)="deletePost(post._id)" class="btn btn-danger"><fa-icon
-                                [icon]="  faTrashCan"></fa-icon></button>
+                        <div class="d-flex justify-content-center">
+                            <a [routerLink]="_GoToService.page.DashAdminEditBlog + post._id"
+                                class="btn btn-outline-primary mb-0 mx-2"><fa-icon
+                                    [icon]="  faPenToSquare"></fa-icon></a>
+                            <button type="button" (click)="deletePost(post._id)" class="btn btn-danger"><fa-icon
+                                    [icon]="  faTrashCan"></fa-icon></button>
 
+
+                        </div>
                     </td>
                 </tr>
                 <br />
@@ -85,15 +88,15 @@
         </table>
     </div>
 
-
-    <div class="d-flex justify-content-center align-items-center mt-3">
+    <!-- pagination -->
+    <div class="d-flex justify-content-center align-items-center mt-4">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>
 
 
 
-<div class="card flex justify-content-center gap-2">
+<div class="flex justify-content-center gap-2">
     <p-toast></p-toast>
     <p-confirmDialog></p-confirmDialog>
 </div>

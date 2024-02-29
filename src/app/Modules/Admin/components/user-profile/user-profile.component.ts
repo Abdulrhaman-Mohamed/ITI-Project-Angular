@@ -7,40 +7,32 @@ import { GoToService } from '../../../Shared/services/go-to.service';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [
-    RouterModule
-  ],
+  imports: [RouterModule],
   templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css'
+  styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent implements OnInit {
-
   // * Variables
   user!: User;
 
-  private _userId!: number;
+  private _userId!: string;
   imagePrefix: String = '';
 
   constructor(
     private _UserService: UserService,
     private _myActivatedRoute: ActivatedRoute,
     public _GoToService: GoToService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this._userId = this._myActivatedRoute.snapshot.params['id'];
     console.log(this._userId);
 
-    this._UserService.getUserById(this._userId)
-      .subscribe(
-        user => {
-          this.user = user;
+    this._UserService.getUserById(this._userId).subscribe((user) => {
+      this.user = user.findById;
+      console.log({ user });
 
-          console.log("constructor profile", this.user);
-        }
-      )
-
-
+      console.log('constructor profile', this.user);
+    });
   }
 }
