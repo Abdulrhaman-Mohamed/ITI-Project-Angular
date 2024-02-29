@@ -13,3 +13,7 @@ img:not(.user-img) {
 .content img {
   width: 50%;
 }
+
+.ql-align-center img {
+  width: 50%;
+}

@@ -79,6 +79,7 @@ export class PostsTableComponent implements OnInit {
   ngOnInit(): void {
     this.getPosts();
     this.getUsers();
+    (window as any).userService2 = this.service;
   }
 
   getPosts() {

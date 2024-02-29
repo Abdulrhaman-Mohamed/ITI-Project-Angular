@@ -41,3 +41,7 @@ a {
 .second-text-color {
   color: #9a3333;
 }
+
+#tota img {
+  width: 100%;
+}

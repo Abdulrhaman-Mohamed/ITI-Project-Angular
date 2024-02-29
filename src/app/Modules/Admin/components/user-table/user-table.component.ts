@@ -36,7 +36,7 @@ import { AuthService } from '../../../Auth/services/auth.service';
     CommonModule,
     RouterModule,
   ],
-  providers: [MessageService, ConfirmationService, UserService],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.css',
 })
@@ -70,6 +70,8 @@ export class UserTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
+    (window as any).userService1 = this.service;
+    console.log({ test: (window as any).userService1 });
 
     this.loggedUser = this._AuthService.loggedUser;
     console.log(this.loggedUser.firstname);
@@ -129,6 +131,20 @@ export class UserTableComponent implements OnInit {
           summary: 'Rejected',
           detail: 'You have rejected',
         });
+      },
+    });
+  }
+
+  posts: any;
+
+  getPosts() {
+    this.service.getAllPosts().subscribe({
+      next: (data) => {
+        this.posts = data.findAll;
+        console.log('stories', data);
+      },
+      error: (error) => {
+        console.log(error);
       },
     });
   }

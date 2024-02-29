@@ -13,8 +13,7 @@
 
                     <div class="sidebar-nav mt-2 " [ngClass]="{'active': activeLink === 'link1'}"
                         (click)="setActiveLink('link1')">
-                        <a [routerLink]="[_GoToService.page.DashAdminHome]"
-                            routerLinkActive="router-link-active text-danger">
+                        <a [routerLink]="[_GoToService.page.DashAdminHome]" routerLinkActive="active">
                             <div class=" d-flex p-3 align-items-center justify-content-center">
                                 <i class=" mx-sm-3 fs-3 fa-solid fa-house"></i>
                                 <p class="sidebar_p m-0 d-none d-lg-block">DashBoard</p>
