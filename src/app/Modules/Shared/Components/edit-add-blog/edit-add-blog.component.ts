@@ -8,7 +8,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ContentExtractConverter } from '../../services/content-exracter-embedd.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { PrimeIcons, MenuItem } from 'primeng/api';
@@ -62,6 +62,8 @@ export class EditAddBlogComponent implements OnInit {
     private ContentExtractConverter: ContentExtractConverter,
     private _myActivatedRoute: ActivatedRoute,
     private BlogServices: BlogService,
+    private router:Router
+
   ) { }
 
   ngOnInit(): void {
@@ -252,6 +254,7 @@ export class EditAddBlogComponent implements OnInit {
     // console.log(this.UpdateORAdd());
 
     if (this.validateContent()) {
+      let id ="";
       try {
         let file = this.ContentExtractConverter.exractImage(this.bodyBlog);
 
@@ -280,26 +283,32 @@ export class EditAddBlogComponent implements OnInit {
           // console.log(this.coverimage.type.split("/")[0]);
           this.BlogServices.addBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage? this.coverimage.type : "" }).subscribe({
             next: (res: any) => {
-              console.log(res);
+              console.log({"added":res});
+              id=res.createstory._id;
             },
             error: (er: any) => {
               console.log(er);
             },
             complete: () => {
               console.log("Finished Requested Successfully")
+              this.router.navigate([`/dashboard/blogs/blogdetails/${id}`])
             }
           })
         }
         else {
+          console.log();
+          
           this.BlogServices.UpdateBlog({ title: this.titleBlog, body: this.bodyBlog, category: this.selectedCategory, coverfile: this.coverimageURL, covertype: this.coverimage ? this.coverimage.type : "" }, this.id).subscribe({
             next: (res: any) => {
-              console.log(res);
+              console.log({"updated":res});
+              id=res.updated._id;
             },
             error: (er: any) => {
               console.log(er);
             },
             complete: () => {
               console.log("Finished Requested Successfully and updated")
+              this.router.navigate([`/dashboard/blogs/blogdetails/${id}`])
             }
           })
         }
@@ -308,6 +317,9 @@ export class EditAddBlogComponent implements OnInit {
         console.error(err);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while submitting the blog. Please try again later.' });
       }
+
+      
+
 
     }
 
@@ -328,11 +340,20 @@ export class EditAddBlogComponent implements OnInit {
 
   // For upload cover image to firebase
   async uploadFiletoFirebase(data: any) {
-    const path = `yt/${data.name}`;
-    const storageRef = ref(this.fireStorage, path);
-    const uploaded = await uploadBytes(storageRef, data);
-    const downloadUrl = await getDownloadURL(uploaded.ref);
-    this.coverimageURL = downloadUrl;
+    if(data.name)
+    {
+      const path = `yt/${data.name}`;
+      const storageRef = ref(this.fireStorage, path);
+      const uploaded = await uploadBytes(storageRef, data);
+      const downloadUrl = await getDownloadURL(uploaded.ref);
+      this.coverimageURL = downloadUrl;
+    }
+    else
+    {
+      this.coverimageURL = "";
+      this.coverimage = "";
+    }
+
   }
 
 

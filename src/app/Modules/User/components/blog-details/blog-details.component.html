@@ -5,6 +5,14 @@
 
             <!-- header section  -->
             <h1 class="my-3 fw-bold  display-6">{{this.titleBlog}}</h1>
+            <div class=" m-auto mt-5 mb-3 w-100 ">
+                @if (coverType && coverType.split("/")[0] === "image") {
+                <img class=" w-100 " src={{this.coverimageURL}}>
+                }
+                @else if (coverType && coverType.split("/")[0] === "video") {
+                <div [innerHTML]="sanitizeVideoUrl()" class=" w-100 "></div>
+                }
+            </div>
             <div class="d-flex align-items-center gap-2 my-3">
                 <img src={{this.userImage}} class="user-img rounded-circle" alt="">
                 <div>
@@ -15,16 +23,9 @@
             <hr>
 
 
-            <div class=" m-auto mt-5 mb-3">
-                @if (coverType && coverType.split("/")[0] === "image") {
-                <img class="img-fluid" src={{this.coverimageURL}}>
-                }
-                @else if (coverType && coverType.split("/")[0] === "video") {
-                <div [innerHTML]="sanitizeVideoUrl()" class=" w-100 "></div>
-                }
-            </div>
+
             <div class="d-flex justify-content-center">
-                <div id="tota" style="width: 100%;" [innerHTML]="getSanitizedHtml()"></div>
+                <div id="tota" [innerHTML]="getSanitizedHtml()"></div>
             </div>
 
             <div class="my-5 d-flex gap-3 flex-wrap">

@@ -55,6 +55,7 @@ export class BlogDetailsComponent implements OnInit {
           this.userFname = res.findById.createdBy.firstname;
           this.userLname = res.findById.createdBy.lastname;
           this.video = `<iframe src=${this.coverimageURL} frameborder="0" width="100%" height="400"></iframe>`;
+          this.userImage = res.findById.createdBy.userimage;
           this.createdAt = res.findById.createdAt;
 
           // Call getUserById inside the next callback of getPostById
