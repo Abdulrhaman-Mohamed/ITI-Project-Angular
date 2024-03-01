@@ -20,6 +20,7 @@ export class GoToService {
       DashAdminEditBlog: '/dashboard/blogs/',
       DashAdminAddBlog: '/dashboard/blogs/add',
       errorPage: '/notfound',
+      landingPage: '/',
     } as const;
   }
 }

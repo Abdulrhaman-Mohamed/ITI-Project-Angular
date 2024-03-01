@@ -30,6 +30,7 @@ export interface PagesNames {
 
   DashAdminEditBlog: '/dashboard/blogs/';
   DashAdminAddBlog: '/dashboard/blogs/add';
+  landingPage: '/';
 
   errorPage: '/notfound';
 }

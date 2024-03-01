@@ -5,11 +5,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { GoToService } from '../../../Shared/services/go-to.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [RouterModule, TagModule],
+  imports: [RouterModule, TagModule, ConfirmDialogModule],
   providers: [MessageService, ConfirmationService],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',

@@ -6,9 +6,9 @@
             <!-- header section  -->
             <h1 class="my-3 fw-bold  display-6">{{this.titleBlog}}</h1>
             <div class="d-flex align-items-center gap-2 my-3">
-                <img src="../../../../../assets/images/1.webp" class="user-img rounded-circle" alt="">
+                <img src={{this.userImage}} class="user-img rounded-circle" alt="">
                 <div>
-                    <h6 class="text-danger">Zach Quinn</h6>
+                    <h6 class="text-danger">{{this.userFname +" "+ this.userLname}}</h6>
                     <p class="m-0">{{formatDate(this.createdAt)}}</p>
                 </div>
             </div>
