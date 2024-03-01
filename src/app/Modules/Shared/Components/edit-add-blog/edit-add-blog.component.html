@@ -1,14 +1,17 @@
-<div class=" container py-4">
-  <div class="maxHeight overflow-auto">
+<div class=" container py-4 maxHeight">
+  <div class="">
 
     <!-- title and coose file -->
     <div class=" position-relative ">
+      <h4>Title</h4>
       <input type="text" name="title" placeholder="Please Type Your Title here" class="form-control py-3 mb-4 border-2"
         [(ngModel)]="titleBlog">
 
       <label class="">
+
+        <p>Choose Cover Image</p>
         <input type="file" class=" form-control " (change)="changeFile($event)" />
-        *covper could be image or video
+        *optional (image - video)
       </label>
     </div>
 
