@@ -31,8 +31,10 @@ export class BlogDetailsComponent implements OnInit {
   coverimageURL!: string;
   coverimage!: string;
   createdAt!: any;
-  createdByImage!:any;
-  username!:string;
+  userImage!: any;
+  userFname!: any;
+  userLname!: any;
+  user!: any;
 
   ngOnInit(): void {
     let param = this._myActivatedRoute.snapshot.params['id'];
@@ -41,24 +43,21 @@ export class BlogDetailsComponent implements OnInit {
     this.service.getPostById(param).subscribe({
       next: (res: any) => {
         if (res) {
-          console.log(res);
+          console.log('this sis 🎉', res.findById);
 
           // Type guard to ensure object
           console.log('this is the response ', res.findById);
-
           this.bodyBlog = res.findById.body;
           this.titleBlog = res.findById.title;
           this.selectedCategory = res.findById.category;
           this.coverimageURL = res.findById.coverfile;
           this.coverType = res.findById.covertype;
-          this.video = `<iframe src=${this.coverimageURL} frameborder="0" width="100%" >
-          </iframe>`;
+          this.userFname = res.findById.createdBy.firstname;
+          this.userLname = res.findById.createdBy.lastname;
+          this.video = `<iframe src=${this.coverimageURL} frameborder="0" width="100%" height="400"></iframe>`;
           this.createdAt = res.findById.createdAt;
-          this.createdByImage = res.findById.createdBy.userimage;
-          this.username = res.findById.createdBy.firstname+" "+res.findById.createdBy.lastname;
-          console.log(this.createdByImage);
-          
 
+          // Call getUserById inside the next callback of getPostById
         }
       },
       error: (er) => {
@@ -79,8 +78,6 @@ export class BlogDetailsComponent implements OnInit {
   }
 
   formatDate(dateString: any) {
-    console.log(dateString);
-
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
       return 'Invalid date';
