@@ -73,7 +73,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
           next: (res) => {
             console.log(res);
             localStorage.setItem('email', this.registerForm.value.email)
-            this._Router.navigate([this._GoToService.page.login]);
+            // this._Router.navigate([this._GoToService.page.login]);
 
           },
           error: (err: HttpErrorResponse) => {

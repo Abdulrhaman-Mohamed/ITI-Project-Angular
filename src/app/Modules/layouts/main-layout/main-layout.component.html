@@ -4,6 +4,24 @@
         <h1 class="mb-5">DevJourney Home Page</h1>
         <button [routerLink]="_GoToService.page.register" class="btn btn-danger me-2">Sign Up</button>
         <button [routerLink]="_GoToService.page.login" class="btn btn-warning">Login</button>
+        <br>
+        <!-- ! image upload -->
+        <div>
+            <!-- <form [formGroup]="uploadForm" (ngSubmit)="onFileUpload()" class="form">
+                <div class="form-group">
+
+                    <label for="file">File</label>
+                    <input formControlName="file" (change)="onFileSelected($event)" type="file" name="file" id="file"
+                        class="form-control">
+                
+                </div>
+                <button class="btn btn-primary" [disabled]="uploadForm.invalid">Send</button>
+            </form> -->
+            <!-- upload.component.html -->
+            <input type="file" (change)="onFileSelected($event)">
+            <button (click)="onUpload()">Upload</button>
+
+        </div>
     </div>
 
     <app-footer></app-footer>

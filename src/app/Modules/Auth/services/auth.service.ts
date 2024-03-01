@@ -44,7 +44,10 @@ export class AuthService {
     login: `${this._apiBaseUrl}/DevJourney/login`,
   } as const;
 
-  setRegister(userData: object): Observable<any> { return this._HttpClient.post(this._AuthEndpoints.signup, userData) }
+  setRegister(userData: object): Observable<any> {
+
+    return this._HttpClient.post(this._AuthEndpoints.signup, userData)
+  }
   setLogin(userData: object): Observable<any> { return this._HttpClient.post(this._AuthEndpoints.login, userData) }
   logout(): void {
     this.clearToken();
