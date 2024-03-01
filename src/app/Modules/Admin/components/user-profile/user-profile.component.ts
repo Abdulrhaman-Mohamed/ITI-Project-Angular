@@ -62,8 +62,6 @@ export class UserProfileComponent implements OnInit {
 
     this._UserService.getUserPosts(id).subscribe({
       next: (data) => {
-        console.log('thsi is data from back 🎶', data);
-
         this.posts = data.findAll;
         this.filteredPosts = this.posts;
         // console.log('stories', this.posts);
