@@ -45,6 +45,7 @@ export class UserService {
     getOneById: `${this._apiBaseUrl}/story/`,
     upadteOneById: `${this._apiBaseUrl}/story/`, // ! using PATCH method
     deleteOneById: `${this._apiBaseUrl}/story/`,
+    getUserPosts: `${this._apiBaseUrl}/stoybyuser/`, // waiting for eslam
   } as const;
 
   getAllPosts(): Observable<any> {
@@ -55,6 +56,9 @@ export class UserService {
   }
   getPostById(id: string): Observable<any> {
     return this._HttpClient.get(this._BlogEndpoints.getOneById + id);
+  }
+  getUserPosts(id: string): Observable<any> {
+    return this._HttpClient.get(this._BlogEndpoints.getUserPosts + id);
   }
 
   //#endregion

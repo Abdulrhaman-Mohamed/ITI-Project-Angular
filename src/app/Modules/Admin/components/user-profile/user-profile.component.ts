@@ -6,11 +6,12 @@ import { GoToService } from '../../../Shared/services/go-to.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [RouterModule, TagModule, ConfirmDialogModule],
+  imports: [RouterModule, TagModule, ConfirmDialogModule, ToastModule],
   providers: [MessageService, ConfirmationService],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
@@ -43,19 +44,26 @@ export class UserProfileComponent implements OnInit {
     this._userId = this._myActivatedRoute.snapshot.params['id'];
     console.log(this._userId);
 
-    this._UserService.getUserById(this._userId).subscribe((user) => {
-      this.user = user.findById;
-      console.log({ user });
-
-      console.log('constructor profile', this.user);
+    this._UserService.getUserById(this._userId).subscribe({
+      next: (data) => {
+        this.user = data.findById;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.getPosts(this.user._id);
+      },
     });
-
-    this.getPosts();
   }
 
-  getPosts() {
-    this._UserService.getAllPosts().subscribe({
+  getPosts(id: string) {
+    console.log('tell lme jjjjjjjjjjjjjjjjjjjjj', id);
+
+    this._UserService.getUserPosts(id).subscribe({
       next: (data) => {
+        console.log('thsi is data from back 🎶', data);
+
         this.posts = data.findAll;
         this.filteredPosts = this.posts;
         // console.log('stories', this.posts);
@@ -105,7 +113,7 @@ export class UserProfileComponent implements OnInit {
             console.log(res);
           },
           complete: () => {
-            this.getPosts();
+            this.getPosts(this.user._id);
           },
         });
 

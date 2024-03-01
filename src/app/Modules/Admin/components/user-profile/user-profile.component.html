@@ -90,35 +90,35 @@
                         </thead>
                         <tbody class="space-y-4">
                             <br />
-                            <!-- @for(post of (filteredPosts);
-                                    track
-                                    post._id){ -->
+                            @for(post of (filteredPosts);
+                            track
+                            post._id){
                             <tr>
                                 <td class=" rounded-start-pill ps-4 py-3 post__router"
                                     [routerLink]="_GoToService.page.DashAdminBlogsDetails">
-                                    post.title
+                                    {{ post.title}}
 
                                 </td>
 
                                 <td class="text-center">
                                     <p-tag class="p-2" [severity]="getSeverity('Historical')" [rounded]="true">
-                                        post category
+                                        {{post.category}}
                                     </p-tag>
                                 </td>
 
                                 <td class="rounded-end-pill pe-4 text-center">
                                     <div class="d-flex justify-content-center">
-                                        <a [routerLink]="_GoToService.page.DashAdminEditBlog"
+                                        <a [routerLink]="_GoToService.page.DashAdminEditBlog + post._id"
                                             class="btn btn-outline-primary mb-0 mx-2">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <button type="button" (click)="deletePost('dfs')" class="btn btn-danger"><i
+                                        <button type="button" (click)="deletePost(post._id)" class="btn btn-danger"><i
                                                 class="fa-solid fa-trash-can"></i></button>
                                     </div>
                                 </td>
                             </tr>
                             <br />
-                            <!-- } -->
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -131,7 +131,10 @@
 
 
 
-
+<div class="flex justify-content-center gap-2">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+</div>
 
 
 
