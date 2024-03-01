@@ -11,6 +11,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +19,8 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [ReactiveFormsModule
     ,ButtonModule
-    ,ToastModule],
+    ,ToastModule,
+    InputSwitchModule],
     providers: [MessageService],
   templateUrl: './edit-user-profile.component.html',
   styleUrl: './edit-user-profile.component.css',
@@ -74,12 +76,17 @@ export class EditUserProfileComponent implements OnDestroy {
     username: 'username',
     phone: 'phone',
     age: 'age',
+    isActive:'isActive'
     //#endregion
   } as const;
 
   initializeForm() {
     // Initialize form with user data
     this.userForm = this._formBuilder.group({
+      [this.FormControlsNames.isActive]: [
+        this._user?.isActive,
+        // Validators.minLength(3),
+      ],
       [this.FormControlsNames.firstname]: [
         this._user?.firstname,
         Validators.required,

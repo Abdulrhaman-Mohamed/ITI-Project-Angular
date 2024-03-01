@@ -31,6 +31,8 @@ export class BlogDetailsComponent implements OnInit {
   coverimageURL!: string;
   coverimage!: string;
   createdAt!: any;
+  createdByImage!:any;
+  username!:string;
 
   ngOnInit(): void {
     let param = this._myActivatedRoute.snapshot.params['id'];
@@ -49,9 +51,14 @@ export class BlogDetailsComponent implements OnInit {
           this.selectedCategory = res.findById.category;
           this.coverimageURL = res.findById.coverfile;
           this.coverType = res.findById.covertype;
-          this.video = `<iframe src=${this.coverimageURL} frameborder="0" width="100%" height="400" >
+          this.video = `<iframe src=${this.coverimageURL} frameborder="0" width="100%" >
           </iframe>`;
           this.createdAt = res.findById.createdAt;
+          this.createdByImage = res.findById.createdBy.userimage;
+          this.username = res.findById.createdBy.firstname+" "+res.findById.createdBy.lastname;
+          console.log(this.createdByImage);
+          
+
         }
       },
       error: (er) => {
