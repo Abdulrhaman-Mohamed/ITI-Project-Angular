@@ -1,3 +1,39 @@
+<<<<<<< HEAD
 .maxHeight {
   max-height: calc(100vh - 100px);
 }
+=======
+#left
+{
+    width: 40%;
+}
+#right
+{
+    width: 50%;
+}
+
+.rounded-image
+{
+    border-radius: 20%;
+    
+}
+
+@media (max-width:950px) {
+    .section-flex
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+#left
+{
+    width: 100%;
+}
+#right
+{
+    width: 100%;
+}
+    
+}
+>>>>>>> ce5ecdbe29935ac63244435e76f7af4aebbedced
