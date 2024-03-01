@@ -14,7 +14,6 @@
   width: 100% !important;
 }
 
-
 .p-toast-message-content.ng-tns-c3020094734-3.ng-star-inserted {
   width: 100%;
 }
@@ -25,11 +24,11 @@ a {
 }
 
 .main-color {
-  background-color: #eef5ff;
+  background-color: #f3f8ff;
 }
 
 .seconder-color {
-  background-color: rgb(255, 183, 0);
+  background-color: #86b6f6;
 }
 
 .third-color {
@@ -42,4 +41,8 @@ a {
 
 #tota img {
   width: 100%;
+}
+p {
+  /* color: #86b6f6; */
+  color: #176b87;
 }

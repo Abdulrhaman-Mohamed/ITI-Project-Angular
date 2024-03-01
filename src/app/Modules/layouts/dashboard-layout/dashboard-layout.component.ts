@@ -26,7 +26,7 @@ export class DashboardLayoutComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loggedUser = this._AuthService.loggedUser;
-    console.log(this.loggedUser.firstname);
+    console.log(this.loggedUser);
   }
 
   onLogout(): void {

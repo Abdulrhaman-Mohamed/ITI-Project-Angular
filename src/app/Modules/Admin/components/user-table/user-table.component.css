@@ -35,7 +35,8 @@ img {
 }
 td {
   vertical-align: middle;
-  background-color: rgba(237, 219, 194, 0.61);
+  /* background-color: rgba(237, 219, 194, 0.61); */
+  background-color: #eef5ff;
 }
 ::ng-deep .ngx-pagination {
   display: flex;
@@ -68,7 +69,7 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(255, 183, 0) !important;
+  background-color: #86b6f6 !important;
 }
 
 ::ng-deep .ngx-pagination a {
