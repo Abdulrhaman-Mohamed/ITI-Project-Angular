@@ -17,3 +17,6 @@ img:not(.user-img) {
 .ql-align-center img {
   width: 50%;
 }
+.maxHeight {
+  max-height: calc(100vh - 150px);
+}

@@ -15,4 +15,5 @@ export interface User {
     age:number
     phone:number
     userimage:string
+    address:{city:string , country:string}
 }
