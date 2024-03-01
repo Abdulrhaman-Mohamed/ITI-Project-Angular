@@ -28,11 +28,11 @@ export class UserProfileComponent implements OnInit {
     this._userId = this._myActivatedRoute.snapshot.params['id'];
     console.log(this._userId);
 
-    this._UserService.getUserById(this._userId).subscribe((user) => {
-      this.user = user.findById;
-      console.log({ user });
+    // this._UserService.getUserById(this._userId).subscribe((user) => {
+    //   this.user = user.findById;
+    //   console.log({ user });
 
-      console.log('constructor profile', this.user);
-    });
+    //   console.log('constructor profile', this.user);
+    // });
   }
 }
